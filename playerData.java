@@ -1,6 +1,8 @@
+
+
 public class playerData{
     private final String playerName;
-    private location playerLocation;
+    private Location playerLocation;
     private int rank;
     private int dollars;
     private int credits;
@@ -8,7 +10,7 @@ public class playerData{
     private int role;
 
 
-    public playerData(String playerName, location playerLocation, int rank, int dollars, int credits, int rehearseChips, int role) {
+    public playerData(String playerName, Location playerLocation, int rank, int dollars, int credits, int rehearseChips, int role) {
         this.playerName = playerName;
         this.playerLocation = playerLocation;
         this.rank = rank;
@@ -21,11 +23,11 @@ public class playerData{
         return playerName;
     }
 
-    public location getplayerLocation() {
+    public Location getplayerLocation() {
         return playerLocation;
     }
 
-    public void setplayerLocation(location playerLocation) {
+    public void setplayerLocation(Location playerLocation) {
         this.playerLocation = playerLocation;
     }
 
