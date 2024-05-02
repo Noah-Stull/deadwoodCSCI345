@@ -1,3 +1,4 @@
+
 public class Player {
     private PlayerData playerData;
     private boolean hasMoved;
@@ -24,6 +25,6 @@ public class Player {
     }
 
     public void endTurn() {
-        
+
     }
 }

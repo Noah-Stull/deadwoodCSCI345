@@ -1,6 +1,5 @@
 
-
-public class playerData{
+public class PlayerData{
     private final String playerName;
     private Location playerLocation;
     private int rank;
@@ -10,7 +9,7 @@ public class playerData{
     private int role;
 
 
-    public playerData(String playerName, Location playerLocation, int rank, int dollars, int credits, int rehearseChips, int role) {
+    public PlayerData(String playerName, Location playerLocation, int rank, int dollars, int credits, int rehearseChips, int role) {
         this.playerName = playerName;
         this.playerLocation = playerLocation;
         this.rank = rank;
