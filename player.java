@@ -3,8 +3,8 @@ public class Player {
     private PlayerData playerData;
     private boolean hasMoved;
 
-    public Player(PlayerData playerData) {
-        this.playerData = playerData;
+    public Player(String playerName, Location playerLocation, int rank, int dollars, int credits, int rehearseChips, int role) {
+        this.playerData = new PlayerData(playerName, playerLocation, rank, dollars, credits, rehearseChips, role);
         this.hasMoved = false;
     }
 
