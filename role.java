@@ -15,3 +15,4 @@ public class role {
         this.player = p;
     }
 }
+
