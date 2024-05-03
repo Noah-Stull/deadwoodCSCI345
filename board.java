@@ -1,12 +1,12 @@
 import java.io.File;
 
-public class board {
+public class Board {
     Location[] location;
     card[] deck;
     int wrapCounter;
 
     //The XML file may be passed to this constructor
-    public board(File f) {
+    public Board(File f) {
         deck = new card[36/*make this number of cards */];
         //parse XML
     }
