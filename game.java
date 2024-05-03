@@ -5,14 +5,14 @@ public class Game {
 
     public Game(int numPlayers) {
         players = new Player[numPlayers];
-        for (int i = 0; i < numPlayers; i++){
-            players[i] = new Player();
+        for(int i = 0; i < numPlayers; i++) {
+            PlayerData playerData = createPlayerData();
+            players[i] = new Player(playerData);
         }
-
         day = 1;
     }
 
-    private void player() {
+    private PlayerData createPlayerData() {
 
     }
 
