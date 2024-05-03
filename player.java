@@ -8,20 +8,20 @@ public class Player {
         this.hasMoved = false;
     }
 
-    public int act(Role role) {
-        
+    public int act(role role) {
+        return 1;
     }
 
     public boolean rehearse(int rehearseChips) {
-
+        return false;
     }
 
     public boolean move(Location destination) {
-
+        return false;
     }
 
     public boolean upgrade(int rank) {
-
+        return false;
     }
 
     public void endTurn() {
