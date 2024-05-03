@@ -9,7 +9,7 @@ public class Player {
     }
 
     public int act(Role role) {
-
+        
     }
 
     public boolean rehearse(int rehearseChips) {
