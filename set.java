@@ -1,6 +1,6 @@
 public class Set {
     private role[] roles;
-    private card sceneCard;
+    private Card sceneCard;
     public final Board board;
     boolean visited;
 
