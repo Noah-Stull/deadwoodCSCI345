@@ -8,7 +8,7 @@ public class PlayerData{
     private int rehearseChips;
     private int role;
 
-
+    //Constructor
     public PlayerData(String playerName, Location playerLocation, int rank, int dollars, int credits, int rehearseChips, int role) {
         this.playerName = playerName;
         this.playerLocation = playerLocation;
@@ -17,7 +17,7 @@ public class PlayerData{
         this.credits = credits;
         this.rehearseChips = rehearseChips;
     }
-
+    // Getters/Setters
     public String getplayerName() {
         return playerName;
     }
