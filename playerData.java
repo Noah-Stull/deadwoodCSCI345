@@ -6,7 +6,7 @@ public class PlayerData{
     private int dollars;
     private int credits;
     private int rehearseChips;
-    private int role;
+    private int role; //this is just the level
 
     //Constructor
     public PlayerData(String playerName, Location playerLocation, int rank, int dollars, int credits, int rehearseChips, int role) {
@@ -16,6 +16,7 @@ public class PlayerData{
         this.dollars = dollars;
         this.credits = credits;
         this.rehearseChips = rehearseChips;
+        role = 0;
     }
     // Getters/Setters
     public String getplayerName() {

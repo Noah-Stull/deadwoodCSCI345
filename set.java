@@ -10,4 +10,7 @@ public class Set {
         sceneCard = b.getCard();
         visited = false;
     }
+    public void takeRole() {
+        
+    }
 }

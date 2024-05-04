@@ -19,6 +19,6 @@ public class Board {
     
     //call to check whether wrapCoutner>1
     public boolean moreScenes() {
-        return true;
+        return (wrapCounter>1);
     }
 }

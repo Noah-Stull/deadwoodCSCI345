@@ -1,8 +1,8 @@
-public class role {
+public class Role {
     public final String name;
     public final int rank;
     private Player player; 
-    public role(String name, int rank) {
+    public Role(String name, int rank) {
         this.name = name;
         this.rank = rank;
     }
