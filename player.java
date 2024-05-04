@@ -8,6 +8,7 @@ public class Player {
         this.hasMoved = false;
     }
 
+    //tells the set that is attached to playerData that we are acting
     public boolean act() {
         return false;
     }
