@@ -1,14 +1,14 @@
 import java.io.File;
 
 public class Board {
-    Location[] location;
-    Card[] deck;
-    int wrapCounter;
+    private Set[] sets;
+    private Card[] deck;
+    private int wrapCounter;
 
     //The XML file may be passed to this constructor
     public Board(File f) {
-        deck = new Card[36/*make this number of cards */];
-        //parse XML
+        wrapCounter = 0;
+        //parse XML for other fields
     }
     private void shuffleDeck() {
         //use either collections shuffle or Random class with swaps

@@ -6,6 +6,7 @@ public class Role {
     public Role(String name, int rank) {
         this.name = name;
         this.rank = rank;
+        player = null;
     }
 
     public boolean isOccupied() {
