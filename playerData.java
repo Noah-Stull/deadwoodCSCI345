@@ -1,7 +1,7 @@
 
 public class PlayerData{
     private final String playerName;
-    private Location playerLocation;
+    private Set playerSet;
     private int rank;
     private int dollars;
     private int credits;
@@ -9,9 +9,9 @@ public class PlayerData{
     private int role; //this is just the level
 
     //Constructor
-    public PlayerData(String playerName, Location playerLocation, int rank, int dollars, int credits, int rehearseChips, int role) {
+    public PlayerData(String playerName, Set playerSet, int rank, int dollars, int credits, int rehearseChips, int role) {
         this.playerName = playerName;
-        this.playerLocation = playerLocation;
+        this.playerSet = playerSet;
         this.rank = rank;
         this.dollars = dollars;
         this.credits = credits;
@@ -23,12 +23,12 @@ public class PlayerData{
         return playerName;
     }
 
-    public Location getplayerLocation() {
-        return playerLocation;
+    public Set getplayerSet() {
+        return playerSet;
     }
 
-    public void setplayerLocation(Location playerLocation) {
-        this.playerLocation = playerLocation;
+    public void setplayerSet(Set playerSet) {
+        this.playerSet = playerSet;
     }
 
     public int getRank() {

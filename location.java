@@ -1,3 +1,5 @@
+//This class is being phased out==================
+
 public class Location {
     public final Location neighbors;
     public final String name;
@@ -15,3 +17,4 @@ public class Location {
         return name;
     }
 }
+//This class may be phased out========

@@ -2,6 +2,7 @@ public class Role {
     public final String name;
     public final int rank;
     private Player player; 
+
     public Role(String name, int rank) {
         this.name = name;
         this.rank = rank;
@@ -13,6 +14,9 @@ public class Role {
     }
     public void giveRole(Player p) {
         this.player = p;
+    }
+    public Player getPlayer() {
+        return null;
     }
 }
 

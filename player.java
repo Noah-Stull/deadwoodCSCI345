@@ -3,8 +3,8 @@ public class Player {
     private PlayerData playerData;
     private boolean hasMoved;
 
-    public Player(String playerName, Location playerLocation, int rank, int dollars, int credits, int rehearseChips, int role) {
-        this.playerData = new PlayerData(playerName, playerLocation, rank, dollars, credits, rehearseChips, role);
+    public Player(String playerName, Set playerSet, int rank, int dollars, int credits, int rehearseChips, int role) {
+        this.playerData = new PlayerData(playerName, playerSet, rank, dollars, credits, rehearseChips, role);
         this.hasMoved = false;
     }
 
@@ -22,7 +22,7 @@ public class Player {
     }
 
     public boolean takeRole(Role r) {
-        return false;
+        return playerData.getplayerSet().takeRole(r);//attempts and returns boolean
     }
 
     public boolean upgrade(int rank) {

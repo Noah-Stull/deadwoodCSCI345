@@ -12,13 +12,14 @@ public class Game {
         day = 1;
     }
 
-    private PlayerData createPlayerData(String playerName, Location playerLocation, int rank, int dollars, int credits, int rehearseChips, int role) {
-        return new PlayerData(playerName, playerLocation, rank, dollars, credits, rehearseChips, role);
+    //initial playerData must be defined in player class,
+    // as it varries with different total players
+    private PlayerData createPlayerData(String playerName, Set playerSet, int rank, int dollars, int credits, int rehearseChips, int role) {
+        return new PlayerData(playerName, playerSet, rank, dollars, credits, rehearseChips, role);
     }
 
     //Goes through each player until some exit condition is reached
     private void play() {
-       
     }
 
     private void endDay() {
