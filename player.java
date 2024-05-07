@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Player {
     private PlayerData playerData;
     private boolean hasMoved;
+    private Card currentCard;
 
     public Player(String playerName, Set playerSet, int rank, int dollars, int credits, int rehearseChips, int role) {
         this.playerData = new PlayerData(playerName, playerSet, rank, dollars, credits, rehearseChips, role);
@@ -27,7 +28,12 @@ public class Player {
             }
         case 3:  
             System.out.println("Choose a location...");
-            
+        
+        case 4:
+
+        case 5:
+
+        case 6: 
         }
         
 
@@ -35,7 +41,16 @@ public class Player {
 
     //tells the set that is attached to playerData that we are acting
     public boolean act() {
-        return false;
+        Dice diceRoll = new Dice();
+        int rollNum = diceRoll.rollDice();
+        System.out.println("You rolled a: " + rollNum);
+
+        if(rollNum >= currentCard.budget) {
+            System.out.println("Success!")
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public boolean rehearse() {

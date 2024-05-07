@@ -1,11 +1,13 @@
 public class Role {
     public final String name;
     public final int rank;
+    public final String catchPhrase;
     private Player player; 
 
-    public Role(String name, int rank) {
+    public Role(String name, int rank, String catchPhrase) {
         this.name = name;
         this.rank = rank;
+        this.catchPhrase = catchPhrase;
         player = null;
     }
 
