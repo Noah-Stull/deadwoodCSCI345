@@ -4,11 +4,23 @@ public class Game {
     private int day;
 
     public Game(int numPlayers) {
+
+        board = new Board();
+
+
         players = new Player[numPlayers];
-        for(int i = 0; i < numPlayers; i++) {
-            PlayerData playerData = createPlayerData("Player" + (i + 1), null, i, 0, 0, 0, 0);
-            // players[i] = new Player(playerData);
-        }
+
+        if (numPlayers < 5) {
+            for(int i = 0; i < numPlayers; i++) {
+            players[i] = new Player((i + ""), null, 1, 0, 0, 0, 0 );
+            }
+        } 
+
+
+
+
+
+        
         day = 1;
     }
 
