@@ -1,3 +1,5 @@
+import java.io.File;
+
 public class Game {
     private Player[] players;
     private Board board;
@@ -5,33 +7,45 @@ public class Game {
 
     public Game(int numPlayers) {
 
-        board = new Board();
+        board = new Board(new File("board.xml"), new File("Card.xml"));
 
 
         players = new Player[numPlayers];
-
         if (numPlayers < 5) {
             for(int i = 0; i < numPlayers; i++) {
             players[i] = new Player((i + ""), null, 1, 0, 0, 0, 0 );
             }
         } 
-
-
-
-
-
+        if (numPlayers == 5) {
+            for(int i = 0; i < numPlayers; i++) {
+                players[i] = new Player((i + ""), null, 1, 0, 2, 0, 0 );
+                }
+        } 
+        if (numPlayers == 6) {
+            for(int i = 0; i < numPlayers; i++) {
+                players[i] = new Player((i + ""), null, 1, 0, 4, 0, 0 );
+                }
+        } 
+        if (numPlayers > 6) {
+            for(int i = 0; i < numPlayers; i++) {
+                players[i] = new Player((i + ""), null, 2, 0, 0, 0, 0 );
+                }
+        } 
         
         day = 1;
     }
 
-    //initial playerData must be defined in player class,
-    // as it varries with different total players
-    private PlayerData createPlayerData(String playerName, Set playerSet, int rank, int dollars, int credits, int rehearseChips, int role) {
-        return new PlayerData(playerName, playerSet, rank, dollars, credits, rehearseChips, role);
-    }
-
     //Goes through each player until some exit condition is reached
     private void play() {
+        int turn = 0;
+        while(true) {
+            if (turn > players.length - 1) {
+                turn = 0;
+                continue;
+            }
+            players[turn].play();
+            turn++;
+        }
     }
 
     private void endDay() {

@@ -6,7 +6,7 @@ public class Board {
     private int wrapCounter;
 
     //The XML file may be passed to this constructor
-    public Board(File f) {
+    public Board(File f, File f2) {
         wrapCounter = 0;
         //parse XML for other fields
     }
