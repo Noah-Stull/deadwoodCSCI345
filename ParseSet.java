@@ -13,7 +13,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import java.io.File;
 
-public class ParseXML{
+public class ParseCard{
 
    
         // building a document from the XML file

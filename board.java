@@ -6,9 +6,12 @@ public class Board {
     private int wrapCounter;
 
     //The XML file may be passed to this constructor
-    public Board(File f, File f2) {
+    public Board(String f, File f2)  {
         wrapCounter = 0;
-        //parse XML for other fields
+        
+        ParseCard parser = new ParseCard();
+        deck = parser.parse(f);
+
     }
     private void shuffleDeck() {
         //use either collections shuffle or Random class with swaps

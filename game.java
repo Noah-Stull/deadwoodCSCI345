@@ -8,8 +8,6 @@ public class Game {
     public Game(int numPlayers) {
 
         board = new Board(new File("board.xml"), new File("Card.xml"));
-
-
         players = new Player[numPlayers];
         if (numPlayers < 5) {
             for(int i = 0; i < numPlayers; i++) {
@@ -31,7 +29,6 @@ public class Game {
                 players[i] = new Player((i + ""), null, 2, 0, 0, 0, 0 );
                 }
         } 
-        
         day = 1;
     }
 
