@@ -6,7 +6,7 @@ public class Board {
     private Set[] sets;
     private Card[] deck;
     private int wrapCounter;
-    private int deckIndex = 0;
+    private int deckIndex = -1;
 
     //The XML file may be passed to this constructor
     public Board(String f, File f2)  {
