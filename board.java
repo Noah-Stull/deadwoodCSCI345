@@ -1,9 +1,12 @@
 import java.io.File;
+import java.util.Random;
+import java.util.random.*;
 
 public class Board {
     private Set[] sets;
     private Card[] deck;
     private int wrapCounter;
+    private int deckIndex = 0;
 
     //The XML file may be passed to this constructor
     public Board(String f, File f2)  {
@@ -14,10 +17,18 @@ public class Board {
 
     }
     private void shuffleDeck() {
-        //use either collections shuffle or Random class with swaps
+        Random rand = new Random();
+        for (int i = 0; i < deck.length; i++) {
+            Card temp = deck[i];
+            int swapIndex = rand.nextInt(deck.length);
+            deck[i] = deck[swapIndex];
+            deck[swapIndex] = temp;
+        }
     }
     public Card getCard() {
-        return deck[0/*some moving index */];
+        deckIndex++;
+        return deck[deckIndex];
+        
     }
     
     //call to check whether wrapCoutner>1
