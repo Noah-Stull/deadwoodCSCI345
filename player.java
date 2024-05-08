@@ -43,10 +43,10 @@ public class Player {
     public boolean act() {
         Dice diceRoll = new Dice();
         int rollNum = diceRoll.rollDice();
-        System.out.println("You rolled a: " + rollNum);
-
-        if(rollNum >= currentCard.budget) {
-            System.out.println("Success!")
+        int rehearseChips = playerData.getrehearseChips();
+        System.out.println("You rolled a: " + rollNum + "and recieve a " + rehearseChips + " bonus!");
+        if(rollNum + rehearseChips >= currentCard.budget) {
+            System.out.println("Success!");
             return true;
         } else {
             return false;
