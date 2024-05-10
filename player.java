@@ -16,7 +16,7 @@ public class Player {
         int choice = scan.nextInt();
 
         switch(choice){
-        case 1:
+        case 1: 
             if(!act()) System.out.println("This move did not work");  
             else {
                 endTurn();
@@ -44,11 +44,18 @@ public class Player {
         Dice diceRoll = new Dice();
         int rollNum = diceRoll.rollDice();
         int rehearseChips = playerData.getrehearseChips();
+        int roleType = Role.getroleType();
         System.out.println("You rolled a: " + rollNum + "and recieve a " + rehearseChips + " bonus!");
         if(rollNum + rehearseChips >= currentCard.budget) {
             System.out.println("Success!");
+            if(roleType = 1) {
+
+            } else if(roleType = 2) {
+
+            }
             return true;
         } else {
+            System.err.println("Failure!");
             return false;
         }
     }
