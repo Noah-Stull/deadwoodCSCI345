@@ -47,12 +47,20 @@ public class PlayerData{
         this.dollars = dollars;
     }
 
+    public void addDollars(int a) {
+        dollars += a;
+    }
+
     public int getCredits() {
         return credits;
     }
 
     public void setCredits(int credits) {
         this.credits = credits;
+    }
+
+    public void addCredits(int a) {
+        credits += a;
     }
 
     public int getrehearseChips() {

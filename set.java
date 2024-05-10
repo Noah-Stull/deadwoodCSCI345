@@ -18,8 +18,14 @@ public class Set{
         //checks if role r is available and on this set, if not this returns false
     }
 
+    //successful act
     public void act(Role r) {
-
+        shotCounter--;
+        if (shotCounter = 0) {
+            if (sceneCard.hasPlayers()) {
+                int[] 
+            }
+        }
     }
     //rolls dice and rewards players based on position
     private void rewardAllPlayers() {
@@ -32,6 +38,9 @@ public class Set{
     //resets and gets new card from Board pointer
     public void reset() {
 
+    }
+    public Card getCard() {
+        return sceneCard;
     }
 
 }

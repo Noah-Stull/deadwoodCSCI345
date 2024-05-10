@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Card {
     public final Role[] roles;
     public final String name;
@@ -13,6 +15,19 @@ public class Card {
         this.description = description;
         this.budget = budget;
         this.img = img;
+    }
+    public boolean hasPlayers() {
+        for each (Role r : roles) {
+            if(!(r.getPlayer() == null)) return true;
+        }
+        return false;
+    }
+    public Player[] getPlayers() {
+        ArrayList<Integer> arr = new ArrayList<Integer>();
+        for each (Role r : roles) {
+            if(!(r.getPlayer() == null)) arr.add(r.getPlayer());
+        }
+        return arr.toArray();
     }
 
 }
