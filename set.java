@@ -5,14 +5,16 @@ public class Set{
     private boolean visited;
     private int shotCounter;
     private Set[] neighborSets;
+    public final String name;
 
-    public Set(Board b, Role[] r, int shots, Set[] sets) {
+    public Set(Board b, Role[] r, int shots, Set[] sets, String name) {
         board = b;
         roles = r;
         sceneCard = b.getCard();
         visited = false;
         shotCounter = shots;
         this.neighborSets = sets;
+        this.name = name;
     }
 
     public boolean takeRole(Role r) {
@@ -60,5 +62,11 @@ public class Set{
     public Card getCard() {
         return sceneCard;
     }
+    public Set[] getNeighborSets() {
+        return neighborSets;
+    }
 
+    public String getName() {
+        return name;
+    }
 }

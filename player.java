@@ -79,8 +79,33 @@ public class Player {
         }
     }
 
-    public boolean move(Location destination) {
-        return false;
+    public boolean move() {
+        if(hasMoved) {
+            System.out.println("You have already moved in this turn.");
+            return false;
+        }
+
+        Set currentSet = playerData.getplayerSet();
+        System.out.println("Choose a destination area:(1, 2, 3, 4)");
+
+        Set[] adjacentSets = currentSet.getNeighborSets();
+        //Display available adjacent sets
+        for (int i = 0; i < adjacentSets.length; i++) {
+            System.out.println((i + 1) + ": " + adjacentSets[i].getName());
+        }
+
+        Scanner scanner = new Scanner(System.in);
+        int choice = scanner.nextInt();
+
+        if(choice >= 1 && choice <= adjacentSets.length) {
+            Set destination = adjacentSets[choice - 1];
+            System.out.println("Moving to " + destination.getName());
+            playerData.setplayerSet(destination);
+
+            hasMoved = true;
+        } else {
+            System.out.println("Invalid choice.");
+        }
     }
 
     public boolean takeRole(Role r) {
