@@ -11,22 +11,22 @@ public class Game {
         players = new Player[numPlayers];
         if (numPlayers < 5) {
             for(int i = 0; i < numPlayers; i++) {
-            players[i] = new Player((i + ""), null, 1, 0, 0, 0, 0 );
+            players[i] = new Player((i + ""), null, 1, 0, 0);
             }
         } 
         if (numPlayers == 5) {
             for(int i = 0; i < numPlayers; i++) {
-                players[i] = new Player((i + ""), null, 1, 0, 2, 0, 0 );
+                players[i] = new Player((i + ""), null, 1, 0, 2);
                 }
         } 
         if (numPlayers == 6) {
             for(int i = 0; i < numPlayers; i++) {
-                players[i] = new Player((i + ""), null, 1, 0, 4, 0, 0 );
+                players[i] = new Player((i + ""), null, 1, 0, 4 );
                 }
         } 
         if (numPlayers > 6) {
             for(int i = 0; i < numPlayers; i++) {
-                players[i] = new Player((i + ""), null, 2, 0, 0, 0, 0 );
+                players[i] = new Player((i + ""), null, 2, 0, 0 );
                 }
         } 
         day = 1;

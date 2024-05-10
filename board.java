@@ -1,6 +1,5 @@
 import java.io.File;
 import java.util.Random;
-import java.util.random.*;
 
 public class Board {
     private Set[] sets;

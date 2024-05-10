@@ -19,9 +19,9 @@ public class Set{
     }
 
     //successful act
-    public void act(Role r) {
+    public void act() {
         shotCounter--;
-        if (shotCounter = 0) {
+        if (shotCounter == 0) {
             if (sceneCard.hasPlayers()) {
                 int[] 
             }
