@@ -61,7 +61,14 @@ public class Player {
     }
 
     public boolean rehearse() {
-        return false;
+
+        if(playerData.getrehearseChips() == 6) {
+            System.out.println("You have guaranteed success! Try acting!");
+            return false;
+        } else {
+            playerData.addRehearseChips(1);
+            return true;
+        }
     }
 
     public boolean move(Location destination) {
