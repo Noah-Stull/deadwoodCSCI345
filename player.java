@@ -70,7 +70,7 @@ public class Player {
 
     public boolean rehearse() {
 
-        if(playerData.getrehearseChips() == 6) {
+        if(playerData.getrehearseChips() == playerData.getplayerSet().getCard().budget - 1) {
             System.out.println("You have guaranteed success! Try acting!");
             return false;
         } else {

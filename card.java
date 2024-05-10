@@ -17,14 +17,14 @@ public class Card {
         this.img = img;
     }
     public boolean hasPlayers() {
-        for each (Role r : roles) {
+        for (Role r : roles) {
             if(!(r.getPlayer() == null)) return true;
         }
         return false;
     }
     public Player[] getPlayers() {
-        ArrayList<Integer> arr = new ArrayList<Integer>();
-        for each (Role r : roles) {
+        ArrayList<Player> arr = new ArrayList<Player>();
+        for (Role r : roles) {
             if(!(r.getPlayer() == null)) arr.add(r.getPlayer());
         }
         return arr.toArray();
