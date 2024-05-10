@@ -71,6 +71,10 @@ public class PlayerData{
         this.rehearseChips = rehearseChips;
     }
 
+    public void addRehearseChips(int amount) {
+        rehearseChips += amount;
+    }
+
     public Role getRole() {
         return role;
     }
