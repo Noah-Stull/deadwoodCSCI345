@@ -3,7 +3,6 @@ import java.util.Scanner;
 public class Player {
     private PlayerData playerData;
     private boolean hasMoved;
-    private Card currentCard;
 
     public Player(String playerName, Set playerSet, int rank, int dollars, int credits, int rehearseChips, int role) {
         this.playerData = new PlayerData(playerName, playerSet, rank, dollars, credits, rehearseChips, role);
@@ -41,22 +40,31 @@ public class Player {
 
     //tells the set that is attached to playerData that we are acting
     public boolean act() {
+        if (playerData.role == null) return false;
         Dice diceRoll = new Dice();
         int rollNum = diceRoll.rollDice();
         int rehearseChips = playerData.getrehearseChips();
         int roleType = Role.getroleType();
-        System.out.println("You rolled a: " + rollNum + "and recieve a " + rehearseChips + " bonus!");
-        if(rollNum + rehearseChips >= currentCard.budget) {
+        System.out.println("You rolled a: " + rollNum + "and have a " + rehearseChips + " bonus!");
+        if(rollNum + rehearseChips >= playerData.getplayerSet.getCard.budget) {
             System.out.println("Success!");
-            if(roleType = 1) {
-
-            } else if(roleType = 2) {
-
+            if(roleType == 1) {
+                playerData.addCredits(2);
+            } else if(roleType == 2) {
+                playerData.addCredits(1);
+                playerData.addDollars(1);
             }
+            playerData.getplayerSet.act();
             return true;
-        } else {
-            System.err.println("Failure!");
-            return false;
+        } 
+        else  if (roleType == 2) {
+            playerData.addDollars(1);
+            System.out.println("Failure! off-card reward given...");
+            return true;
+        }
+        else {
+            System.out.println("Failure!");
+            return true;
         }
     }
 
