@@ -94,4 +94,10 @@ public class Player {
     public void endTurn() {
 
     }
+    public void addDollars(int a) {
+        playerData.addDollars(a);
+    }
+    public void addCredits(int a) {
+        playerData.addCredits(a);
+    }
 }

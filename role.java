@@ -28,7 +28,7 @@ public class Role implements Comparable<Role>{
         return roleType;
     }
     public Player getPlayer() {
-        return null;
+        return this.player;
     }
 
 @Override public int compareTo(Role r) {
