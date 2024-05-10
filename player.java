@@ -95,17 +95,21 @@ public class Player {
         }
 
         Scanner scanner = new Scanner(System.in);
-        int choice = scanner.nextInt();
+        while (true) {
+            int choice = scanner.nextInt();
 
-        if(choice >= 1 && choice <= adjacentSets.length) {
-            Set destination = adjacentSets[choice - 1];
-            System.out.println("Moving to " + destination.getName());
-            playerData.setplayerSet(destination);
-
-            hasMoved = true;
-        } else {
-            System.out.println("Invalid choice.");
+            if(choice >= 1 && choice <= adjacentSets.length) {
+                Set destination = adjacentSets[choice - 1];
+                System.out.println("Moving to " + destination.getName());
+                playerData.setplayerSet(destination);
+                hasMoved = true;
+                //flip card if needed
+                break;
+            } else {
+                System.out.println("Invalid choice. Choose again.");   
+            }
         }
+        return true;
     }
 
     public boolean takeRole(Role r) {
@@ -117,7 +121,7 @@ public class Player {
     }
 
     public void endTurn() {
-
+        
     }
     public void addDollars(int a) {
         playerData.addDollars(a);
