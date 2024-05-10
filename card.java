@@ -27,7 +27,7 @@ public class Card {
         for (Role r : roles) {
             if(!(r.getPlayer() == null)) arr.add(r.getPlayer());
         }
-        return arr.toArray();
+        return (Player[]) arr.toArray();
     }
 
     public String getName() {

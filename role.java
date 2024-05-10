@@ -1,4 +1,7 @@
-public class Role {
+import java.util.*;
+import java.io.*;
+
+public class Role implements Comparable<Role>{
     public final String name;
     public final int rank;
     public final String catchPhrase;
@@ -26,6 +29,11 @@ public class Role {
     }
     public Player getPlayer() {
         return null;
+    }
+
+@Override public int compareTo(Role r) {
+        if (this.rank > r.rank) return this.rank;
+        return r.rank;
     }
 }
 

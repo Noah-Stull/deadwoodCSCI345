@@ -28,13 +28,14 @@ public class Set{
         if (shotCounter == 0) {
             if (sceneCard.hasPlayers()) {
                 rewardOnCard();
-                
+                rewardOffCard();
             }
         }
     }
     private void rewardOnCard() {
         Player[] p = sceneCard.getPlayers();
         int[] rewards = new int[sceneCard.roles.length];
+        for (int i = 0; i < )
     }
     private void rewardOffCard() {
         
