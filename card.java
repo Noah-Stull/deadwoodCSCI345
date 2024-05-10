@@ -30,4 +30,8 @@ public class Card {
         return arr.toArray();
     }
 
+    public String getName() {
+        return name;
+    }
+
 }
