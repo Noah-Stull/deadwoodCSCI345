@@ -117,7 +117,108 @@ public class Player {
     }
 
     public boolean upgrade(int rank) {
-        return false;
+
+        //Check if player is in casting office
+        Set currentSet = playerData.getplayerSet();
+        if(!currentSet.equals("Casting Office")) {
+            System.out.println("You can only upgrade at the Casting Office.");
+            return false;
+        }
+
+        System.out.println("Upgrade options:");
+        System.out.println("Rank 2: Cost - 4 dollars or 5 credits");
+        System.out.println("Rank 3: Cost - 10 dollars or 10 credits");
+        System.out.println("Rank 4: Cost - 18 dollars or 15 credits");
+        System.out.println("Rank 5: Cost - 28 dollars or 20 credits");
+        System.out.println("Rank 6: Cost - 40 dollars or 25 credits");
+
+        Scanner scanner = new Scanner(System.in);
+        int rankChoice;
+
+        // Player chooses new rank
+        while (true) {
+            System.out.println("Choose the rank you want to upgrade to: (2-6)");
+            rankChoice = scanner.nextInt();
+            if (rankChoice >= 2 && rankChoice <= 6) {
+                break;
+            }
+            System.out.println("Invalid choice. Please choose again.");
+        }
+
+        //Check if players rank is below chosen upgrade rank
+        if (rankChoice <= playerData.getRank()) {
+            System.out.println("You cannot upgrade to a rank equal to or lower than your current rank.");
+            return false;
+        }
+
+        //Player chooses currency type
+        int currencyChoice;
+        while(true) {
+            System.out.println("Choose currency for upgrade: (1. Dollars, 2. Credits)");
+            currencyChoice = scanner.nextInt();
+            if(currencyChoice == 1 || currencyChoice == 2) {
+                break;
+            }
+            System.out.println("Invalid choice. Please choose again.");
+        }
+
+        int cost;
+        switch(rank) {
+            case 2:
+                if(currencyChoice == 1) {
+                    cost = 4;
+                } else {
+                    cost = 5;
+                }
+                break;
+            case 3:
+                if(currencyChoice == 1) {
+                    cost = 10;
+                } else {
+                    cost = 10;
+                }
+                break;
+            case 4:
+                if(currencyChoice == 1) {
+                    cost = 18;
+                } else {
+                    cost = 15;
+                }
+                break;
+            case 5:
+                if(currencyChoice == 1) {
+                    cost = 28;
+                } else {
+                    cost = 20;
+                }
+                break;
+            case 6:
+                if(currencyChoice == 1) {
+                    cost = 40;
+                } else {
+                    cost = 25;
+                }
+                break;
+            default:
+                System.out.println("Invalid currency");
+                return false;
+        }
+
+        //Pocket Watcher
+        if((currencyChoice == 1 && playerData.getDollars() < cost) || (currencyChoice == 2 && playerData.getCredits() < cost)) {
+            System.out.println("Insufficient currency to upgrade.");
+            return false;
+        }
+
+        //Deduct cost and set new rank
+        if(currencyChoice == 1) {
+            playerData.setDollars(playerData.getDollars() - cost);
+        } else {
+            playerData.setCredits(playerData.getCredits() - cost);
+        }
+        playerData.setRank(rank);
+        System.out.println("Player upgraded to rank " + rank);
+        return true;
     }
 
     public void endTurn() {
