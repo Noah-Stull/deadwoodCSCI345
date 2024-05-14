@@ -44,7 +44,7 @@ public class ParseCard{
                   String partName = partElement.getAttribute("name");
                   int level = Integer.parseInt(partElement.getAttribute("level"));
                   String line = partElement.getElementsByTagName("line").item(0).getTextContent();
-                  Role role = new Role(partName, level);
+                  Role role = new Role(partName, level, line, 1);
                   rTemp[index] = role;
                   index++;
               }

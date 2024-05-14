@@ -47,6 +47,14 @@ public class Game {
 
     private void endDay() {
         day++;
+        if (players.length < 4 && day == 3) endGame();
+        else if (players.length > 3 && day ==4) endGame();
+        else {
+            board.resetBoard();
+            for (Player p : players) {
+                
+            }
+        }
     }
 
     private void endGame() {
