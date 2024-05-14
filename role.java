@@ -32,8 +32,7 @@ public class Role implements Comparable<Role>{
     }
 
 @Override public int compareTo(Role r) {
-        if (this.rank > r.rank) return this.rank;
-        return r.rank;
+        return r.rank-this.rank;
     }
 }
 

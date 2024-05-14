@@ -1,8 +1,11 @@
+import java.util.Arrays;
+
 public class Set{
     private Role[] roles;
     private Card sceneCard;
     public final Board board;
     private boolean visited;
+    private int shotCounterTotal;
     private int shotCounter;
     private Set[] neighborSets;
     public final String name;
@@ -12,6 +15,7 @@ public class Set{
         roles = r;
         sceneCard = b.getCard();
         visited = false;
+        shotCounterTotal = shots;
         shotCounter = shots;
         this.neighborSets = sets;
         this.name = name;
@@ -35,10 +39,20 @@ public class Set{
     }
     private void rewardOnCard() {
         Player[] p = sceneCard.getPlayers();
-        int[] rewards = new int[sceneCard.roles.length];
-        for (int i = 0; i < rewards.length;i++) {
-
+        int[] rolls = new int[sceneCard.budget];
+        Role[] cardRoles = sceneCard.roles;
+        Arrays.sort(cardRoles); // insure this
+        Dice d = new Dice();
+        for (int i = 0; i < rolls.length;i++) {
+            rolls[i] = d.rollDice();        
         }
+        Arrays.sort(rolls); //check this to make sure zero is highest
+        for (int i = 0; i < rolls.length;i++) {
+            Role curRole = cardRoles[(i % cardRoles.length)];
+            if(curRole.getPlayer() == null) continue;
+            curRole.getPlayer().addDollars(rolls[rolls.length - 1 - i]);
+        }
+
     }
     private void rewardOffCard() {
         for (Role r : roles) {
@@ -49,15 +63,26 @@ public class Set{
 
     //rolls dice and rewards players based on position
     private void rewardAllPlayers() {
+        //check if there are players working on any card role
+        boolean b = false;
+        for (Role r : sceneCard.roles) {
+            if (r.getPlayer() != null) b = true;
+        }
+        if (!b) return; //no players detected on card
 
+        rewardOnCard();
+        rewardOffCard();
     }
     //this finishes set
     private void wrapUp() {
-
+        board.wrapScene();
+        rewardAllPlayers();
     }
     //resets and gets new card from Board pointer
     public void reset() {
-
+        sceneCard = board.getCard();
+        shotCounter = shotCounterTotal;
+        visited = false; // card should be down
     }
     public Card getCard() {
         return sceneCard;
@@ -68,5 +93,9 @@ public class Set{
 
     public String getName() {
         return name;
+    }
+    public void visit() {
+        //if it is false at this point then flip the card
+        visited = true;
     }
 }

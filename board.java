@@ -34,4 +34,7 @@ public class Board {
     public boolean moreScenes() {
         return (wrapCounter>1);
     }
+    public void wrapScene() {
+        wrapCounter--;
+    }
 }
