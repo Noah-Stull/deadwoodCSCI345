@@ -5,7 +5,7 @@ public class Role implements Comparable<Role>{
     public final String name;
     public final int rank;
     public final String catchPhrase;
-    public int roleType;
+    public int roleType; //1 is on 2 is off
     private Player player; 
 
     public Role(String name, int rank, String catchPhrase, int roleType) {

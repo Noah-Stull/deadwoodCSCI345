@@ -13,8 +13,13 @@ public class Board {
         
         ParseCard parser = new ParseCard();
         deck = parser.parse(f);
-
     }
+    public void resetBoard() {
+        for (Set s : sets) {
+            s.reset();
+        }
+    }
+
     private void shuffleDeck() {
         Random rand = new Random();
         for (int i = 0; i < deck.length; i++) {
@@ -27,9 +32,7 @@ public class Board {
     public Card getCard() {
         deckIndex++;
         return deck[deckIndex];
-        
     }
-    
     //call to check whether wrapCoutner>1
     public boolean moreScenes() {
         return (wrapCounter>1);
