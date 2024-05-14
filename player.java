@@ -163,62 +163,31 @@ public class Player {
         }
 
         int cost;
-        switch(rank) {
-            case 2:
-                if(currencyChoice == 1) {
-                    cost = 4;
-                } else {
-                    cost = 5;
-                }
-                break;
-            case 3:
-                if(currencyChoice == 1) {
-                    cost = 10;
-                } else {
-                    cost = 10;
-                }
-                break;
-            case 4:
-                if(currencyChoice == 1) {
-                    cost = 18;
-                } else {
-                    cost = 15;
-                }
-                break;
-            case 5:
-                if(currencyChoice == 1) {
-                    cost = 28;
-                } else {
-                    cost = 20;
-                }
-                break;
-            case 6:
-                if(currencyChoice == 1) {
-                    cost = 40;
-                } else {
-                    cost = 25;
-                }
-                break;
-            default:
-                System.out.println("Invalid currency");
-                return false;
-        }
-
-        //Pocket Watcher
-        if((currencyChoice == 1 && playerData.getDollars() < cost) || (currencyChoice == 2 && playerData.getCredits() < cost)) {
-            System.out.println("Insufficient currency to upgrade.");
-            return false;
-        }
-
-        //Deduct cost and set new rank
+        int[] costDollars = {0,0,4,10,18,28,40};
+        int[] costCredits = {0,0,10,15,20,25};
         if(currencyChoice == 1) {
-            playerData.setDollars(playerData.getDollars() - cost);
-        } else {
-            playerData.setCredits(playerData.getCredits() - cost);
+            cost = costDollars[rankChoice];
+            if (playerData.getDollars() < cost) {
+                System.out.println("Insufficient currency to upgrade.");
+                return false;                
+            }
+            else {
+                playerData.setDollars(playerData.getDollars() - cost);
+            }
+        }
+        if(currencyChoice == 2) {
+            cost = costCredits[rankChoice];
+            if (playerData.getCredits() < cost) {
+                System.out.println("Insufficient currency to upgrade.");
+                return false;                
+            }
+            else {
+                playerData.setCredits(playerData.getCredits() - cost);
+            }
         }
         playerData.setRank(rank);
         System.out.println("Player upgraded to rank " + rank);
-        return true;
+        return true;        
     }
 
     public void endTurn() {
