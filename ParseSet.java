@@ -26,10 +26,13 @@ public class ParseSet{
 
           Set[] tempCards = new Set[setList.getLength()];
           int indexC = 0;
+
+          
           for (int i = 0; i < setList.getLength(); i++) {
               Element setElement = (Element) setList.item(i);
               String name = setElement.getAttribute("name");
-              String img = setElement.getAttribute("img");
+              
+              
               int budget = Integer.parseInt(setElement.getAttribute("budget"));
               String scene = setElement.getElementsByTagName("scene").item(0).getTextContent();
 
@@ -52,6 +55,7 @@ public class ParseSet{
               tempCards[indexC] = card;
               
           }
+
           return tempCards;
       } catch (Exception e) {
           e.printStackTrace();

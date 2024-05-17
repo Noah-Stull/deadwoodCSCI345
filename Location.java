@@ -1,4 +1,3 @@
-//This class is being phased out==================
 
 public class Location {
     public final Location neighbors;
@@ -17,4 +16,4 @@ public class Location {
         return name;
     }
 }
-//This class may be phased out========
+
