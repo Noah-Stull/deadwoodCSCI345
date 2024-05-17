@@ -10,30 +10,70 @@ public class Player {
     }
 
     public void play() {
-        System.out.println("Choose your move...");
         Scanner scan = new Scanner(System.in);
+    while (true) {
+        System.out.println("Choose your move...");
+        System.out.println("1. Act");
+        System.out.println("2. Rehearse");
+        System.out.println("3. Move");
+        System.out.println("4. Take Role");
+        System.out.println("5. Upgrade");
+        System.out.println("6. End Turn");
         int choice = scan.nextInt();
 
-        switch(choice){
-        case 1: 
-            if(!act()) System.out.println("This move did not work");  
-            else {
+        switch (choice) {
+            case 1:
+                if (!act()) {
+                    System.out.println("This move did not work");
+                } else {
+                    endTurn();
+                    return;
+                }
+                break;
+            case 2:
+                if (!rehearse()) {
+                    System.out.println("This move did not work");
+                } else {
+                    endTurn();
+                    return;
+                }
+                break;
+            case 3:
+                if (!move()) {
+                    System.out.println("This move did not work");
+                } else {
+                    endTurn();
+                    return;
+                }
+                break;
+            case 4:
+                System.out.println("Choose a role...");
+                // Assuming roles are displayed and selected here.
+                Role chosenRole = 
+                if (chosenRole != null && !takeRole(chosenRole)) {
+                    System.out.println("This move did not work");
+                } else {
+                    endTurn();
+                    return;
+                }
+                break;
+            case 5:
+                System.out.println("Choose a rank to upgrade to...");
+                int rank = scan.nextInt();
+                if (!upgrade(rank)) {
+                    System.out.println("This move did not work");
+                } else {
+                    endTurn();
+                    return;
+                }
+                break;
+            case 6:
                 endTurn();
-            }       
-        case 2:
-            if(!rehearse()) System.out.println("This move did not work"); 
-            else {
-                endTurn();
-            }
-        case 3:  
-            System.out.println("Choose a location...");
-        
-        case 4:
-
-        case 5:
-
-        case 6: 
+                return;
+            default:
+                System.out.println("Invalid choice. Please choose again.");
         }
+    }
         
 
     }
