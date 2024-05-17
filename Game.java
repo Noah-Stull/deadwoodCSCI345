@@ -7,7 +7,7 @@ public class Game {
 
     public Game(int numPlayers) {
 
-        board = new Board("board.xml", new File("Card.xml"));
+        board = new Board("board.xml", "Card.xml");
         players = new Player[numPlayers];
         if (numPlayers < 5) {
             for(int i = 0; i < numPlayers; i++) {
