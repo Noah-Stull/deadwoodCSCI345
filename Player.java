@@ -53,6 +53,7 @@ public class Player {
                 for (int i = 0; i < roles.length; i++) {
                     System.out.println(i + ":  " + roles[i].name + "  " + roles[i].rank + "  " + roles[i].catchPhrase);
                 }
+                int chosenRole = scan.nextInt();
                 if (chosenRole != null && !takeRole(chosenRole)) {
                     System.out.println("This move did not work");
                 } else {
