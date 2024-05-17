@@ -4,7 +4,7 @@ public class Set{
     private Role[] roles;
     private Card sceneCard;
     public final Board board;
-    private boolean visited;
+    private boolean visited = false;
     private int shotCounterTotal;
     private int shotCounter;
     private Set[] neighborSets;
@@ -119,3 +119,4 @@ public class Set{
         return allRoles;
     }
 }
+//gerru5
