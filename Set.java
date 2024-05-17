@@ -104,7 +104,18 @@ public class Set{
         while (true) {
             if (i >= neighborSets.length) return;
             if (neighborSets[i] == null){ neighborSets[i] = s; return;}
-
+            i++;
         }
+    }
+
+    public Role[] getRoles() {
+        Role[] allRoles = new Role[roles.length + sceneCard.roles.length];
+        for (int i = 0; i < roles.length; i++) {
+            allRoles[i] = roles[i];
+        }
+        for(int i = roles.length; i < allRoles.length; i++) {
+            allRoles[i] = sceneCard.roles[i - roles.length];
+        }
+        return allRoles;
     }
 }

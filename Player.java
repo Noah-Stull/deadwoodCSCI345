@@ -49,7 +49,10 @@ public class Player {
             case 4:
                 System.out.println("Choose a role...");
                 // Assuming roles are displayed and selected here.
-                Role chosenRole = 
+                Role[] roles = playerData.getplayerSet().getRoles();
+                for (int i = 0; i < roles.length; i++) {
+                    System.out.println(i + ":  " + roles[i].name + "  " + roles[i].rank + "  " + roles[i].catchPhrase);
+                }
                 if (chosenRole != null && !takeRole(chosenRole)) {
                     System.out.println("This move did not work");
                 } else {
