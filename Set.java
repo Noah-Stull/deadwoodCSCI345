@@ -98,4 +98,13 @@ public class Set{
         //if it is false at this point then flip the card
         visited = true;
     }
+
+    public void addNeighbor(Set s) {
+        int i = 0;
+        while (true) {
+            if (i >= neighborSets.length) return;
+            if (neighborSets[i] == null){ neighborSets[i] = s; return;}
+
+        }
+    }
 }

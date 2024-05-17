@@ -15,91 +15,49 @@ import java.io.File;
 
 public class ParseSet{
 
-   
-        // building a document from the XML file
-        // returns a Document object after loading the book.xml file.
-        public Document getDocFromFile(String filename)
-        throws ParserConfigurationException{
-        {
-            
-                  
-           DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-           DocumentBuilder db = dbf.newDocumentBuilder();
-           Document doc = null;
-           
-           try{
-               doc = db.parse(filename);
-           } catch (Exception ex){
-               System.out.println("XML parse failure");
-               ex.printStackTrace();
-           }
-           return doc;
-        } // exception handling
-        
-        }  
-        
-        // reads data from XML file and prints data
-        public void readBookData(Document d){
-        
-            Element root = d.getDocumentElement();
-            
-            NodeList books = root.getElementsByTagName("book");
-            
-            for (int i=0; i<books.getLength();i++){
-                
-                System.out.println("Printing information for book "+(i+1));
-                
-                //reads data from the nodes
-                Node book = books.item(i);
-                String bookCategory = book.getAttributes().getNamedItem("category").getNodeValue();
-                System.out.println("Category = "+bookCategory);
-                
-                //reads data
-                                             
-                NodeList children = book.getChildNodes();
-                
-                for (int j=0; j< children.getLength(); j++){
-                    
-                  Node sub = children.item(j);
-                
-                  if("title".equals(sub.getNodeName())){
-                     String bookLanguage = sub.getAttributes().getNamedItem("lang").getNodeValue();
-                     System.out.println("Language = "+bookLanguage);
-                     String title = sub.getTextContent();
-                     System.out.println("Title = "+title);
-                     
-                  }
-                  
-                  else if("author".equals(sub.getNodeName())){
-                     String authorName = sub.getTextContent();
-                     System.out.println(" Author = "+authorName);
-                     
-                  }
-                  else if("year".equals(sub.getNodeName())){
-                     String yearVal = sub.getTextContent();
-                     System.out.println(" Publication Year = "+yearVal);
-                     
-                  }
-                  else if("price".equals(sub.getNodeName())){
-                     String priceVal = sub.getTextContent();
-                     System.out.println(" Price = "+priceVal);
-                     
-                  }
-                                 
-                
-                } //for childnodes
-                
-                System.out.println("\n");
-                
-            }//for book nodes
-        
-        }// method
+   public Set[] parse(String fileName) {
+      try {
+          File file = new File(fileName);
+          DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+          DocumentBuilder db = dbf.newDocumentBuilder();
+          Document doc = db.parse(file);
 
+          NodeList setList = doc.getElementsByTagName("set");
 
+          Set[] tempCards = new Set[setList.getLength()];
+          int indexC = 0;
+          for (int i = 0; i < setList.getLength(); i++) {
+              Element setElement = (Element) setList.item(i);
+              String name = setElement.getAttribute("name");
+              String img = setElement.getAttribute("img");
+              int budget = Integer.parseInt(setElement.getAttribute("budget"));
+              String scene = setElement.getElementsByTagName("scene").item(0).getTextContent();
 
+              
 
-    
-    
+              
+              NodeList partList = setElement.getElementsByTagName("part");
+              Role[] rTemp = new Role[partList.getLength()];
+              int index = 0;
+              for (int j = 0; j < partList.getLength(); j++) {
+                  Element partElement = (Element) partList.item(j);
+                  String partName = partElement.getAttribute("name");
+                  int level = Integer.parseInt(partElement.getAttribute("level"));
+                  String line = partElement.getElementsByTagName("line").item(0).getTextContent();
+                  Role role = new Role(partName, level, line, 1);
+                  rTemp[index] = role;
+                  index++;
+              }
+              Card card = new Card(rTemp, name, img, budget, scene);
+              tempCards[indexC] = card;
+              
+          }
+          return tempCards;
+      } catch (Exception e) {
+          e.printStackTrace();
+          return null;
+      }
+  }
 
 
 

@@ -8,11 +8,14 @@ public class Board {
     private int deckIndex = -1;
 
     //The XML file may be passed to this constructor
-    public Board(String f, File f2)  {
+    public Board(String f, String f2)  {
         wrapCounter = 0;
         
         ParseCard parser = new ParseCard();
         deck = parser.parse(f);
+
+        ParseSet parser1 = new ParseSet();
+        sets = parser1.parse(f2);
     }
     public void resetBoard() {
         for (Set s : sets) {
@@ -20,6 +23,7 @@ public class Board {
         }
     }
 
+    //shuffles array of cads
     private void shuffleDeck() {
         Random rand = new Random();
         for (int i = 0; i < deck.length; i++) {
