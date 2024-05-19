@@ -15,7 +15,7 @@ public class Board {
         deck = parser.parse(f);
 
         ParseSet parser1 = new ParseSet();
-        sets = parser1.parse(f2);
+        sets = parser1.parse(f2,this);
     }
     public void resetBoard() {
         for (Set s : sets) {

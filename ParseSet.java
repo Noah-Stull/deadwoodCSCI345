@@ -16,7 +16,7 @@ import java.util.HashMap;
 
 public class ParseSet{
 
-   public Set[] parse(String fileName) {
+   public Set[] parse(String fileName, Board b) {
       try {
           File file = new File(fileName);
           DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -27,6 +27,8 @@ public class ParseSet{
 
           HashMap<String,Set> nameMap = new HashMap<String,Set>();
           Set[] allSets = new Set[setList.getLength()+2];
+
+          //This for loop will get al data besides neighbors and create the sets(2 special sets not included)===========================//
           for (int i = 0; i < setList.getLength(); i++) {
               Element setElement = (Element) setList.item(i);
               String name = setElement.getAttribute("name");
@@ -41,27 +43,38 @@ public class ParseSet{
                 tempRoles[j] = new Role(roleName,rank,catchPhrase,2);
               }
               int shots = ((Element) setElement.getElementsByTagName("takes").item(0)).getElementsByTagName("take").getLength();
-
-              
-
-              NodeList partList = setElement.getElementsByTagName("part");
-              Role[] rTemp = new Role[partList.getLength()];
-              int index = 0;
-              for (int j = 0; j < partList.getLength(); j++) {
-                  Element partElement = (Element) partList.item(j);
-                  String partName = partElement.getAttribute("name");
-                  int level = Integer.parseInt(partElement.getAttribute("level"));
-                  String line = partElement.getElementsByTagName("line").item(0).getTextContent();
-                  Role role = new Role(partName, level, line, 1);
-                  rTemp[index] = role;
-                  index++;
-              }
-              Card card = new Card(rTemp, name, img, budget, scene);
-              tempCards[indexC] = card;
-              
+              Set[] tempSets = new Set[((Element) setElement.getElementsByTagName("neighbors").item(0)).getElementsByTagName("neighbor").getLength()];
+              allSets[i] = new Set(b, tempRoles, shots, tempSets, name);
+              nameMap.put(name, allSets[i]);
           }
+          //===============================================================================================================================//
+          Element trailer = (Element) doc.getElementsByTagName("trailer").item(0);
+          Set[] tempSets = new Set[((Element) trailer.getElementsByTagName("neighbors").item(0)).getElementsByTagName("neighbor").getLength()];
+          allSets[setList.getLength()] = new Set(b, null, 0, tempSets, "trailer");
+          nameMap.put("trailer", allSets[setList.getLength()]);
+          //================================================================================================================================//
+          Element office = (Element) doc.getElementsByTagName("office").item(0);
+          tempSets = new Set[((Element) office.getElementsByTagName("neighbors").item(0)).getElementsByTagName("neighbor").getLength()];
+          allSets[allSets.length-1] = new Set(b, null, 0, tempSets, "office");
+          nameMap.put("office", allSets[setList.getLength()+1]);
+          //===================================================================================================================================//
+          for (int i = 0; i < setList.getLength(); i++) {
+            Element setElement = (Element) setList.item(i);
+            int totalNeighbors = ((Element)setElement.getElementsByTagName("neighbors").item(0)).getElementsByTagName("neighbor").getLength();
+            for (int j = 0; j < totalNeighbors; j++) {
+                allSets[i].addNeighbor(nameMap.get(((Element)((Element)setElement.getElementsByTagName("neighbors").item(0)).getElementsByTagName("neighbor").item(j)).getAttribute("name")));
+            }
+          }
+          //================================================================================================================================//
+          for (int j = 0; j < ((Element)trailer.getElementsByTagName("neighbors").item(0)).getElementsByTagName("neighbor").getLength(); j++) {
+            allSets[setList.getLength()].addNeighbor(nameMap.get(((Element)((Element)trailer.getElementsByTagName("neighbors").item(0)).getElementsByTagName("neighbor").item(j)).getAttribute("name")));
+          }
+          for (int j = 0; j < ((Element)office.getElementsByTagName("neighbors").item(0)).getElementsByTagName("neighbor").getLength(); j++) {
+            allSets[setList.getLength()].addNeighbor(nameMap.get(((Element)((Element)office.getElementsByTagName("neighbors").item(0)).getElementsByTagName("neighbor").item(j)).getAttribute("name")));
+          }
+          //==================================================================================================================================//
+          return allSets;
 
-          return tempCards;
       } catch (Exception e) {
           e.printStackTrace();
           return null;
