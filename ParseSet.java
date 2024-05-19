@@ -12,6 +12,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import java.io.File;
+import java.util.HashMap;
 
 public class ParseSet{
 
@@ -24,21 +25,25 @@ public class ParseSet{
 
           NodeList setList = doc.getElementsByTagName("set");
 
-          Set[] tempCards = new Set[setList.getLength()];
-          int indexC = 0;
-
-          
+          HashMap<String,Set> nameMap = new HashMap<String,Set>();
+          Set[] allSets = new Set[setList.getLength()+2];
           for (int i = 0; i < setList.getLength(); i++) {
               Element setElement = (Element) setList.item(i);
               String name = setElement.getAttribute("name");
-              
-              
-              int budget = Integer.parseInt(setElement.getAttribute("budget"));
-              String scene = setElement.getElementsByTagName("scene").item(0).getTextContent();
+
+              int totalRoles = ((Element) setElement.getElementsByTagName("parts").item(0)).getElementsByTagName("part").getLength();
+              Role[] tempRoles = new Role[totalRoles];
+              for (int j = 0; j < totalRoles; j++) {
+                Element Role = ((Element) ((Element) setElement.getElementsByTagName("parts").item(j)).getElementsByTagName("part").item(j));
+                String roleName = Role.getAttribute("name");
+                int rank = Integer.parseInt(Role.getAttribute("level"));
+                String catchPhrase = Role.getAttribute("line");
+                tempRoles[j] = new Role(roleName,rank,catchPhrase,2);
+              }
+              int shots = ((Element) setElement.getElementsByTagName("takes").item(0)).getElementsByTagName("take").getLength();
 
               
 
-              
               NodeList partList = setElement.getElementsByTagName("part");
               Role[] rTemp = new Role[partList.getLength()];
               int index = 0;
