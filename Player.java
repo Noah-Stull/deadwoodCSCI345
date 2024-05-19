@@ -238,6 +238,10 @@ public class Player {
         return true;        
     }
 
+    public void endRole() {
+        playerData.setRole(null);
+    }
+
     public void endTurn() {
         
     }

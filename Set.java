@@ -4,7 +4,7 @@ public class Set{
     private Role[] roles;
     private Card sceneCard;
     public final Board board;
-    private boolean visited = false;
+    private boolean visited = false; //used only for display
     private int shotCounterTotal;
     private int shotCounter;
     private Set[] neighborSets;
@@ -77,6 +77,18 @@ public class Set{
     private void wrapUp() {
         board.wrapScene();
         rewardAllPlayers();
+
+        for (Role r : roles) {
+            if (r.getPlayer() == null) continue;
+            r.getPlayer().endRole();
+            r.giveRole(null);
+        }
+        for (Role r : sceneCard.roles) {
+            if (r.getPlayer() == null) continue;
+            r.getPlayer().endRole();
+            r.giveRole(null);            
+        }
+
     }
     //resets and gets new card from Board pointer
     public void reset() {
