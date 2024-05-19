@@ -13,7 +13,7 @@ public class Set{
     public Set(Board b, Role[] r, int shots, Set[] sets, String name) {
         board = b;
         roles = r;
-        sceneCard = b.getCard();
+        //sceneCard = b.getCard();
         visited = false;
         shotCounterTotal = shots;
         shotCounter = shots;
@@ -122,7 +122,7 @@ public class Set{
     }
 
     public Role[] getRoles() {
-        Role[] allRoles = new Role[roles.length + sceneCard.roles.length];
+        Role[] allRoles = new Role[roles.length /*+ sceneCard.roles.length*/];
         for (int i = 0; i < roles.length; i++) {
             allRoles[i] = roles[i];
         }
