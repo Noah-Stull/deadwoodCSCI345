@@ -12,17 +12,28 @@ public class Player {
     public void play() {
         Scanner scan = new Scanner(System.in);
     while (true) {
+        String currentSet = playerData.getplayerSet().getName();
+        System.out.println("You are currently at: " + currentSet);
         System.out.println("Choose your move...");
-        System.out.println("1. Act");
-        System.out.println("2. Rehearse");
         System.out.println("3. Move");
-        System.out.println("4. Take Role");
-        System.out.println("5. Upgrade");
+
+        if (currentSet.equalsIgnoreCase("Office")) {
+            System.out.println("5. Upgrade");
+        } else if (!currentSet.equalsIgnoreCase("Trailer")) {
+            System.out.println("1. Act");
+            System.out.println("2. Rehearse");
+            System.out.println("4. Take Role");
+        }
+
         System.out.println("6. End Turn");
         int choice = scan.nextInt();
 
         switch (choice) {
             case 1:
+                if (currentSet.equalsIgnoreCase("Office") || currentSet.equalsIgnoreCase("Trailer")) {
+                    System.out.println("Invalid Choice. Choose again.");
+                    break;
+                }
                 if (!act()) {
                     System.out.println("This move did not work");
                 } else {
@@ -31,6 +42,10 @@ public class Player {
                 }
                 break;
             case 2:
+                if (currentSet.equalsIgnoreCase("Office") || currentSet.equalsIgnoreCase("Trailer")) {
+                    System.out.println("Invalid Choice. Choose again.");
+                    break;
+                }
                 if (!rehearse()) {
                     System.out.println("This move did not work");
                 } else {
@@ -47,6 +62,11 @@ public class Player {
                 }
                 break;
             case 4:
+                if (currentSet.equalsIgnoreCase("Office") || currentSet.equalsIgnoreCase("Trailer")) {
+                    System.out.println("Invalid Choice. Choose again.");
+                    break;
+                }
+
                 System.out.println("Choose a role...");
                 Role[] roles = playerData.getplayerSet().getRoles();
                 for (int i = 0; i < roles.length; i++) {
@@ -66,6 +86,11 @@ public class Player {
                 }
                 break;
             case 5:
+                if (currentSet.equalsIgnoreCase("Office") || currentSet.equalsIgnoreCase("Trailer")) {
+                    System.out.println("Invalid Choice. Choose again.");
+                    break;
+                }
+                
                 System.out.println("Choose a rank to upgrade to...");
                 int rank = scan.nextInt();
                 if (!upgrade(rank)) {
