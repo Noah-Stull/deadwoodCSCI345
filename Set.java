@@ -78,6 +78,7 @@ public class Set{
         board.wrapScene();
         rewardAllPlayers();
 
+        //removes current roles associated with this set
         for (Role r : roles) {
             if (r.getPlayer() == null) continue;
             r.getPlayer().endRole();

@@ -1,7 +1,3 @@
-// Example Code for parsing XML file
-// Dr. Moushumi Sharmin
-// CSCI 345
-
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
@@ -32,8 +28,9 @@ public class ParseSet{
           for (int i = 0; i < setList.getLength(); i++) {
               Element setElement = (Element) setList.item(i);
               String name = setElement.getAttribute("name");
-            
-              int totalRoles = ((Element) setElement.getChildNodes().item(3)).getChildNodes().getLength();
+              System.out.println(name);
+              int totalRoles = (setElement.getChildNodes().item(7)).getChildNodes().getLength();
+              System.out.println(totalRoles);
               Role[] tempRoles = new Role[totalRoles];
               for (int j = 0; j < totalRoles; j++) {
                 Element Role = (Element) ((Element) setElement.getChildNodes().item(3)).getChildNodes().item(j);
@@ -42,6 +39,7 @@ public class ParseSet{
                 String catchPhrase = Role.getAttribute("line");
                 tempRoles[j] = new Role(roleName,rank,catchPhrase,2);
               }
+              System.out.println("Line 41 'break point'");
               int shots = ((Element) setElement.getChildNodes().item(2)).getChildNodes().getLength();
               Set[] tempSets = new Set[((Element) setElement.getChildNodes().item(0)).getChildNodes().getLength()];
               allSets[i] = new Set(b, tempRoles, shots, tempSets, name);

@@ -1,6 +1,4 @@
-// Example Code for parsing XML file
-// Dr. Moushumi Sharmin
-// CSCI 345
+
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
