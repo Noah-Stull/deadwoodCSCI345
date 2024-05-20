@@ -13,6 +13,14 @@ public class Player {
         Scanner scan = new Scanner(System.in);
     boolean keepGoing = true;
     while (keepGoing) {
+        //Print player info each turn
+        System.out.println("\nPlayer Info:");
+        System.out.println("Rank: " + playerData.getRank());
+        System.out.println("Credits: " + playerData.getCredits());
+        System.out.println("Dollars: " + playerData.getDollars());
+        System.out.println();
+
+
         String currentSet = playerData.getplayerSet().getName();
         System.out.println("You are currently at: " + currentSet);
         System.out.println("Choose your move...");
