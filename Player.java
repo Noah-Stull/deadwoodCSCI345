@@ -113,7 +113,7 @@ public class Player {
     }
 
     //tells the set that is attached to playerData that we are acting
-    public boolean act() {
+    private boolean act() {
         if (playerData.getRole() == null) return false;
         Dice diceRoll = new Dice();
         int rollNum = diceRoll.rollDice();
@@ -153,7 +153,7 @@ public class Player {
         }
     }
 
-    public boolean move() {
+    private boolean move() {
         if(hasMoved) {
             System.out.println("You have already moved in this turn.");
             return false;
@@ -189,7 +189,7 @@ public class Player {
         return true;
     }
 
-    public boolean takeRole(Role r) {
+    private boolean takeRole(Role r) {
         if (playerData.getRank() < r.rank) {
             System.out.println("Level too low");
             return false;
@@ -201,7 +201,7 @@ public class Player {
         return true;
     }
 
-    public boolean upgrade(int rank) {
+    private boolean upgrade(int rank) {
 
         //Check if player is in casting office
         Set currentSet = playerData.getplayerSet();
@@ -297,4 +297,12 @@ public class Player {
         playerData.setRole(null);
         playerData.setrehearseChips(0);
     }
+    public int getScore() {
+        int score = 0;
+        score += playerData.getCredits();
+        score += playerData.getDollars();
+        score += (6 * playerData.getRank());
+        return score;
+    }
+    public String getName;
 }

@@ -73,6 +73,13 @@ public class Game {
     }
 
     private void endGame() {
+        Player pmax = players[0];
+        for (Player p : players) {
+            if (p.getScore() > pmax.getScore()) {
+                pmax = p;
+            }
+        }
         System.out.println("The game has ended");
+        System.out.println("The winner is... player " + pmax.getName);
     }
 }
