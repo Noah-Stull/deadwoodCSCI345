@@ -34,7 +34,7 @@ public class ParseCard {
         Role[] roles = roleList.toArray(new Role[0]);
         return new Card(roles, name, sceneDescription, budget, img);
     }
-
+    //uses parsed role data to create Role object
     private Role parseRole(Element e) {
         String name = e.getAttribute("name");
         int level = Integer.parseInt(e.getAttribute("level"));
@@ -42,8 +42,9 @@ public class ParseCard {
         return new Role(name, level, line, 1);
     }
 
+    // returns array of card objects
     public Card[] parse(String fileName) {
-        try {
+        try{
             File file = new File(fileName);
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -53,15 +54,15 @@ public class ParseCard {
             NodeList cardList = doc.getElementsByTagName("card");
             List<Card> cardArrayList = new ArrayList<>();
 
-            for (int i = 0; i < cardList.getLength(); i++) {
+            for(int i = 0; i < cardList.getLength(); i++) {
                 Node cardNode = cardList.item(i);
-                if (cardNode.getNodeType() == Node.ELEMENT_NODE) {
+                if(cardNode.getNodeType() == Node.ELEMENT_NODE) {
                     cardArrayList.add(parseCard((Element) cardNode));
                 }
             }
 
             return cardArrayList.toArray(new Card[0]);
-        } catch (Exception e) {
+        }catch (Exception e) {
             e.printStackTrace();
             return null;
         }
