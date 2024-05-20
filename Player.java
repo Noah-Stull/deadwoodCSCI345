@@ -208,7 +208,7 @@ public class Player {
 
         //Check if player is in casting office
         Set currentSet = playerData.getplayerSet();
-        if(!currentSet.getName().equals("office")) {
+        if(!currentSet.getName().equalsIgnoreCase("Office")) {
             System.out.println("You can only upgrade at the Casting Office.");
             return false;
         }
