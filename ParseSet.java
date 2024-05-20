@@ -19,7 +19,6 @@ public class ParseSet{
 
    private Set parseSet(Element e, Board b) {
      String name = e.getAttribute("name");
-     System.out.println(name + " - dsetName");
      int shots = e.getElementsByTagName("take").getLength();
      List<Role> roleList = new ArrayList<>();
      for (int i = 0; i < e.getElementsByTagName("part").getLength();i++) {
@@ -40,14 +39,8 @@ public class ParseSet{
    }
    private Role parseRole(Element e) {
      String name = e.getAttribute("name");
-     System.out.println("name" + name);
      int rank = Integer.parseInt(e.getAttribute("level"));
-     String line = "";
-     for (int i = 0 ; i < e.getElementsByTagName("line").getLength();i++){
-      if(e.getElementsByTagName("line").item(i).getNodeType() == Node.ELEMENT_NODE) {
-        line = ((Element)e.getElementsByTagName("line").item(i)).getAttribute("line");
-      }
-     }
+     String line = e.getElementsByTagName("line").item(0).getTextContent();
      return new Role(name, rank, line, 2);
    }
 
@@ -84,24 +77,26 @@ public class ParseSet{
           }
           //do special cases =====================================
           NodeList tList = doc.getElementsByTagName("trailer");
-          Element trailer = null;
-          for (int i = 0; i < tList.getLength();i++) {
-            Node e = tList.item(i);
-            if(e.getNodeType() == Node.ELEMENT_NODE) {
-              trailer = (Element) e;
+          Element trailer = (Element) tList.item(0);
+          int neighbors = 0;
+          for (int i = 0 ; i < trailer.getElementsByTagName("neighbor").getLength();i++) {
+            if (trailer.getElementsByTagName("neighbor").item(i).getNodeType() == Node.ELEMENT_NODE) {
+             neighbors++;
             }
           }
-          Set trailerSet = parseSet(trailer, b);
+          Set trailerSet = new Set(b, null, 0, new Set[neighbors], "trailer");
+          stringMap.put("trailer", trailerSet);
           //=======        +                     =====  //
           NodeList oList = doc.getElementsByTagName("office");
-          Element office = null;
-          for (int i = 0; i < oList.getLength();i++) {
-            Node e = oList.item(i);
-            if(e.getNodeType() == Node.ELEMENT_NODE) {
-              office = (Element) e;
+          Element office = (Element) oList.item(0);
+          neighbors = 0;
+          for (int i = 0 ; i < office.getElementsByTagName("neighbor").getLength();i++) {
+            if (office.getElementsByTagName("neighbor").item(i).getNodeType() == Node.ELEMENT_NODE) {
+             neighbors++;
             }
-          }
-          Set officeSet = parseSet(office, b);
+          }          
+          Set officeSet = new Set(b, null, 0, new Set[neighbors], "office");
+          stringMap.put("office", officeSet);
           //=====================
           for (int i = 0 ; i < allsets.size();i++) {
              getNeighbors(allsets.get(i), elist.get(i));
