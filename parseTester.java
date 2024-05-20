@@ -23,7 +23,11 @@ public class parseTester {
                                 }
                             }
                         }
+                        for (Set s : set.getNeighborSets()) {
+                            System.out.println("Neighbor Set: " + s.name);
+                        }
                     }
+                    else System.out.println("Null set");
                 }
             } else {
                 System.out.println("Parsing failed.");

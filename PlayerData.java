@@ -6,7 +6,7 @@ public class PlayerData{
     private int dollars;
     private int credits;
     private int rehearseChips;
-    private Role role; //this is just the level
+    private Role role; 
 
     //Constructor
     public PlayerData(String playerName, Set playerSet, int rank, int dollars, int credits, int rehearseChips, Role role) {
