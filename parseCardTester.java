@@ -2,7 +2,7 @@ public class parseCardTester {
     public static void main(String[] args) {
         try {
             ParseCard parser = new ParseCard();
-            Card[] cards = parser.parse("Card.xml");
+            Card[] cards = parser.parse("cards.xml");
 
             if (cards != null) {
                 for (Card card : cards) {

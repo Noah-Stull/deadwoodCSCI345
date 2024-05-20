@@ -1,3 +1,5 @@
+
+
 public class parseTester {
     public static void main(String[] args) {
         try {
@@ -10,7 +12,7 @@ public class parseTester {
             if (sets != null) {
                 for (Set set : sets) {
                     if (set != null) {
-                        System.out.println("Set Name: " + set.getName());
+                        System.out.println("Set Name: " + set.name);
                         Role[] roles = set.getRoles();
                         if (roles != null) {
                             for (Role role : roles) {
