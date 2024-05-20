@@ -13,7 +13,7 @@ public class Set{
     public Set(Board b, Role[] r, int shots, Set[] sets, String name) {
         board = b;
         roles = r;
-        //sceneCard = b.getCard();
+        sceneCard = b.getCard();
         visited = false;
         shotCounterTotal = shots;
         shotCounter = shots;
@@ -21,7 +21,17 @@ public class Set{
         this.name = name;
     }
 
-    public boolean takeRole(Role r) {
+    public boolean takeRole(Role r, Player p) {
+        if(r.getPlayer() != null){
+            System.out.println("Already occupied");
+            return false;
+        }
+        for (Role rs : this.getRoles()) {
+            if (rs == r)  {
+                r.giveRole(p);
+                return true;
+            }
+        }
         return false;
         //checks if role r is available and on this set, if not this returns false
     }
@@ -96,6 +106,9 @@ public class Set{
         sceneCard = board.getCard();
         shotCounter = shotCounterTotal;
         visited = false; // card should be down
+        for (Role r : roles) {
+            r.reset();
+        }
     }
     public Card getCard() {
         return sceneCard;
@@ -123,7 +136,7 @@ public class Set{
 
     public Role[] getRoles() {
         if (roles == null) return null;
-        Role[] allRoles = new Role[roles.length /*+ sceneCard.roles.length*/];
+        Role[] allRoles = new Role[roles.length + sceneCard.roles.length];
         for (int i = 0; i < roles.length; i++) {
             allRoles[i] = roles[i];
         }

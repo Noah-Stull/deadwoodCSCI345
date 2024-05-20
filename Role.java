@@ -30,6 +30,9 @@ public class Role implements Comparable<Role>{
     public Player getPlayer() {
         return this.player;
     }
+    public void reset() {
+        this.player = null;
+    }
 
 @Override public int compareTo(Role r) {
         return r.rank-this.rank;

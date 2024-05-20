@@ -76,8 +76,9 @@ public class ParseSet{
               }
           }
           //do special cases =====================================
-          NodeList tList = doc.getElementsByTagName("trailer");
-          Element trailer = (Element) tList.item(0);
+
+          Element trailer = null;
+          trailer = (Element) doc.getElementsByTagName("trailer").item(0);
           int neighbors = 0;
           for (int i = 0 ; i < trailer.getElementsByTagName("neighbor").getLength();i++) {
             if (trailer.getElementsByTagName("neighbor").item(i).getNodeType() == Node.ELEMENT_NODE) {

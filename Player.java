@@ -11,7 +11,8 @@ public class Player {
 
     public void play() {
         Scanner scan = new Scanner(System.in);
-    while (true) {
+    boolean keepGoing = true;
+    while (keepGoing) {
         String currentSet = playerData.getplayerSet().getName();
         System.out.println("You are currently at: " + currentSet);
         System.out.println("Choose your move...");
@@ -32,41 +33,42 @@ public class Player {
             case 1:
                 if (currentSet.equalsIgnoreCase("Office") || currentSet.equalsIgnoreCase("Trailer")) {
                     System.out.println("Invalid Choice. Choose again.");
-                    break;
+                    continue;
                 }
                 if (!act()) {
                     System.out.println("This move did not work");
+                    continue;
                 } else {
                     endTurn();
-                    return;
+                    keepGoing = false;
                 }
                 break;
             case 2:
                 if (currentSet.equalsIgnoreCase("Office") || currentSet.equalsIgnoreCase("Trailer")) {
                     System.out.println("Invalid Choice. Choose again.");
-                    break;
                 }
-                if (!rehearse()) {
+                else if(playerData.getRole() == null) {
+                    System.out.println("\nYou must be on a role\n");
+                }
+                else if (!rehearse()) {
                     System.out.println("This move did not work");
                 } else {
                     endTurn();
-                    return;
+                    keepGoing = false;
                 }
                 break;
             case 3:
                 if (!move()) {
                     System.out.println("This move did not work");
                 } else {
-                    endTurn();
-                    return;
+                    System.out.println("You have moved");
                 }
                 break;
             case 4:
                 if (currentSet.equalsIgnoreCase("Office") || currentSet.equalsIgnoreCase("Trailer")) {
                     System.out.println("Invalid Choice. Choose again.");
-                    break;
+                    continue;
                 }
-
                 System.out.println("Choose a role...");
                 Role[] roles = playerData.getplayerSet().getRoles();
                 for (int i = 0; i < roles.length; i++) {
@@ -88,7 +90,7 @@ public class Player {
             case 5:
                 if (currentSet.equalsIgnoreCase("Office") || currentSet.equalsIgnoreCase("Trailer")) {
                     System.out.println("Invalid Choice. Choose again.");
-                    break;
+                    continue;
                 }
                 
                 System.out.println("Choose a rank to upgrade to...");
@@ -96,8 +98,7 @@ public class Player {
                 if (!upgrade(rank)) {
                     System.out.println("This move did not work");
                 } else {
-                    endTurn();
-                    return;
+                    System.out.println("You have upgraded...");
                 }
                 break;
             case 6:
@@ -157,7 +158,10 @@ public class Player {
             System.out.println("You have already moved in this turn.");
             return false;
         }
-
+        if (playerData.getRole() != null) {
+            System.out.println("You are acting on a role!!");
+            return false;
+        }
         Set currentSet = playerData.getplayerSet();
         System.out.println("Choose a destination area:(1, 2, 3, 4)");
 
@@ -186,7 +190,15 @@ public class Player {
     }
 
     public boolean takeRole(Role r) {
-        return playerData.getplayerSet().takeRole(r);//attempts and returns boolean
+        if (playerData.getRank() < r.rank) {
+            System.out.println("Level too low");
+            return false;
+        }
+        if (!playerData.getplayerSet().takeRole(r,this)) {
+            return false;
+        }//attempts and returns boolean
+        playerData.setRole(r);
+        return true;
     }
 
     public boolean upgrade(int rank) {
@@ -265,15 +277,24 @@ public class Player {
 
     public void endRole() {
         playerData.setRole(null);
+        playerData.setrehearseChips(0);
     }
 
     public void endTurn() {
-        
+        System.out.println("Turn has ended");
     }
     public void addDollars(int a) {
         playerData.addDollars(a);
     }
     public void addCredits(int a) {
         playerData.addCredits(a);
+    }
+    public void newPlayerTurn() {
+        hasMoved = false;
+    }
+    public void reset(Set start) {
+        playerData.setplayerSet(start);
+        playerData.setRole(null);
+        playerData.setrehearseChips(0);
     }
 }
