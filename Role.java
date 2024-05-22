@@ -1,6 +1,3 @@
-import java.util.*;
-import java.io.*;
-
 public class Role implements Comparable<Role>{
     public final String name;
     public final int rank;

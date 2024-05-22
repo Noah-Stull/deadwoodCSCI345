@@ -109,10 +109,8 @@ public class Player {
                 return;
             default:
                 System.out.println("Invalid choice. Please choose again.");
+            }
         }
-    }
-        
-
     }
 
     //tells the set that is attached to playerData that we are acting
