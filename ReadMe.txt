@@ -7,7 +7,7 @@ Players can move between different sets, take roles, rehearse, and act to earn m
 
 
 Running and Compiling:
-- Compile Game class: javac Game.java or press run on that file through preffered IDE.
+- Compile StartGame class: javac StartGame.java then type "java StartGame (number of players)" = java StartGame 3
 
 - You are able to select different options through inputting the shown number next to said option.
 
