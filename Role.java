@@ -7,13 +7,16 @@ public class Role implements Comparable<Role>{
     public final String catchPhrase;
     public final int roleType; //1 is on 2 is off
     private Player player; 
+    public final int[] area; // x, y, h, w
 
-    public Role(String name, int rank, String catchPhrase, int roleType) {
+    public Role(String name, int rank, String catchPhrase, int roleType, int[] bounds) {
         this.name = name;
         this.rank = rank;
         this.roleType = roleType;
         this.catchPhrase = catchPhrase;
         player = null;
+        area = new int[4];
+
     }
 
     public boolean isOccupied() {
