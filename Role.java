@@ -15,7 +15,7 @@ public class Role implements Comparable<Role>{
         this.roleType = roleType;
         this.catchPhrase = catchPhrase;
         player = null;
-        area = new int[4];
+        area = bounds;
 
     }
 
