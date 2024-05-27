@@ -41,7 +41,13 @@ public class ParseSet{
      String name = e.getAttribute("name");
      int rank = Integer.parseInt(e.getAttribute("level"));
      String line = e.getElementsByTagName("line").item(0).getTextContent();
-     return new Role(name, rank, line, 2);
+     Element a = (Element) e.getElementsByTagName("area").item(0);
+     int x = Integer.parseInt(a.getAttribute("x"));
+     int y = Integer.parseInt(a.getAttribute("y"));
+     int w = Integer.parseInt(a.getAttribute("w"));
+     int h = Integer.parseInt(a.getAttribute("h"));
+     int [] area = {x,y,w,h};
+     return new Role(name, rank, line, 2, area);
    }
 
    public void getNeighbors(Set s, Element e) {

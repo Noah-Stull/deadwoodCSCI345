@@ -39,10 +39,11 @@ public class ParseCard {
         String name = e.getAttribute("name");
         int level = Integer.parseInt(e.getAttribute("level"));
         String line = e.getElementsByTagName("line").item(0).getTextContent();
-        int x = Integer.parseInt(e.getAttribute("x"));
-        int y = Integer.parseInt(e.getAttribute("y"));
-        int w = Integer.parseInt(e.getAttribute("w"));
-        int h = Integer.parseInt(e.getAttribute("h"));
+        Element a = (Element) e.getElementsByTagName("area").item(0);
+        int x = Integer.parseInt(a.getAttribute("x"));
+        int y = Integer.parseInt(a.getAttribute("y"));
+        int w = Integer.parseInt(a.getAttribute("w"));
+        int h = Integer.parseInt(a.getAttribute("h"));
         int [] area = {x,y,w,h};
         return new Role(name, level, line, 1, area);
     }
