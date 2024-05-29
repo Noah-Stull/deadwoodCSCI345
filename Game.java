@@ -5,10 +5,11 @@ public class Game {
     private Board board;
     private int day;
     private int totalDays;
+    Controller controller;
 
-    public Game(int numPlayers) {
-
-        board = new Board("cards.xml","board.xml");
+    public Game(int numPlayers,Controller c) {
+        controller = c;
+        board = new Board("cards.xml","board.xml",controller);
         Set start = board.getSets()[board.getSets().length - 1];
         players = new Player[numPlayers];
         if (numPlayers < 4) totalDays = 3;
@@ -59,12 +60,13 @@ public class Game {
         }
         endDay();
     }
-    private void endDay() {
+    public void endDay() {
         day++;
         if (players.length < 4 && day == 3) endGame();
         else if (players.length > 3 && day == 4) endGame();
         else {
             board.resetBoard();
+            //go through each set and check values, then update the view values
             for (Player p : players) {
                 p.reset(board.getSets()[board.getSets().length - 1]); //put everyone back to start
             }

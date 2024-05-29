@@ -9,10 +9,8 @@
 
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.ImageIcon;
 import javax.imageio.ImageIO;
 import java.awt.event.*;
-import javax.swing.JOptionPane;
 
 public class BoardLayersListener extends JFrame {
 
@@ -20,7 +18,7 @@ public class BoardLayersListener extends JFrame {
 
   // JLabels
   JLabel boardlabel;
-  JLabel cardlabel;
+  JLabel cardlabel[];
   JLabel playerlabel;
   JLabel mLabel;
   
@@ -38,7 +36,7 @@ public class BoardLayersListener extends JFrame {
       
        // Set the title of the JFrame
        super("Deadwood");
-      controller = c; 
+       controller = c; 
        // Set the exit option for the JFrame
        setDefaultCloseOperation(EXIT_ON_CLOSE);
       
@@ -58,14 +56,19 @@ public class BoardLayersListener extends JFrame {
        setSize(icon.getIconWidth()+200,icon.getIconHeight());
        
        // Add a scene card to this room
-       cardlabel = new JLabel();
        ImageIcon cIcon =  new ImageIcon("01.png");
-       cardlabel.setIcon(cIcon); 
-       cardlabel.setBounds(20,65,cIcon.getIconWidth()+2,cIcon.getIconHeight());
-       cardlabel.setOpaque(true);
+       for (JLabel j : cardlabel) {
+         j = new JLabel();
+         j.setIcon(cIcon);
+         j.setBounds(20,65,cIcon.getIconWidth()+2,cIcon.getIconHeight());
+         j.setOpaque(true);
+         bPane.add(j, new Integer(1));
+       }
+       
+       
       
        // Add the card to the lower layer
-       bPane.add(cardlabel, new Integer(1));
+       
        
       
 
@@ -116,6 +119,7 @@ public class BoardLayersListener extends JFrame {
          
          if (e.getSource()== bAct){
             playerlabel.setVisible(true);
+            //controller.act();
             System.out.println("Acting is Selected\n");
          }
          else if (e.getSource()== bRehearse){
@@ -138,11 +142,12 @@ public class BoardLayersListener extends JFrame {
 
   public static void main(String[] args) {
   
-   Controller c = new Controller();
-    BoardLayersListener board = new BoardLayersListener(c);
+    
+    BoardLayersListener board = new BoardLayersListener(null);
     board.setVisible(true);
     
     // Take input from the user about number of players
     int players = Integer.parseInt(JOptionPane.showInputDialog(board, "How many players?")); 
+    board.controller = new Controller(players);
   }
 }
