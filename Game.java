@@ -35,7 +35,6 @@ public class Game {
                 }
         } 
         day = 1;
-        play();
     }
 
     //Goes through each player until some exit condition is reached
@@ -82,4 +81,11 @@ public class Game {
         System.out.println("The game has ended");
         System.out.println("The winner is... player " + pmax.getName);
     }
-}
+
+    public Player[] getPlayers() {
+        return players;
+    }
+    public Board getBoard() {
+        return board;
+    }
+ }
