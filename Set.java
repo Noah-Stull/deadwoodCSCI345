@@ -54,7 +54,6 @@ public class Set{
         }
     }
     private void rewardOnCard() {
-        Player[] p = sceneCard.getPlayers();
         int[] rolls = new int[sceneCard.budget];
         Role[] cardRoles = sceneCard.roles;
         Arrays.sort(cardRoles); // insure this
