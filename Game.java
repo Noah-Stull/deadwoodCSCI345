@@ -17,22 +17,22 @@ public class Game {
         if (numPlayers < 5) {
             System.out.println("Making " + numPlayers + " players");
             for(int i = 0; i < numPlayers; i++) {
-            players[i] = new Player((i + ""), start, 1, 0, 0);
+            players[i] = new Player((i + ""), start, 1, 0, 0,c);
             }
         } 
         if (numPlayers == 5) {
             for(int i = 0; i < numPlayers; i++) {
-                players[i] = new Player((i + ""), start, 1, 0, 2);
+                players[i] = new Player((i + ""), start, 1, 0, 2,c);
                 }
         } 
         if (numPlayers == 6) {
             for(int i = 0; i < numPlayers; i++) {
-                players[i] = new Player((i + ""), start, 1, 0, 4 );
+                players[i] = new Player((i + ""), start, 1, 0, 4,c );
                 }
         } 
         if (numPlayers > 6) {
             for(int i = 0; i < numPlayers; i++) {
-                players[i] = new Player((i + ""), start, 2, 0, 0 );
+                players[i] = new Player((i + ""), start, 2, 0, 0,c );
                 }
         } 
         day = 1;
