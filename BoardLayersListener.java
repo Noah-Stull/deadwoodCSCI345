@@ -56,9 +56,11 @@ public class BoardLayersListener extends JFrame {
        setSize(icon.getIconWidth()+200,icon.getIconHeight());
        
        // Add a scene card to this room
-       ImageIcon cIcon =  new ImageIcon("01.png");
+       ImageIcon cIcon =  new ImageIcon("cards/01.png");
+       for (int i = 0 ; i < cardlabel.length;i++) {
+         cardlabel[i] = new JLabel();
+       }
        for (JLabel j : cardlabel) {
-         j = new JLabel();
          j.setIcon(cIcon);
          j.setBounds(20,65,cIcon.getIconWidth()+2,cIcon.getIconHeight());
          j.setOpaque(true);
@@ -76,7 +78,7 @@ public class BoardLayersListener extends JFrame {
        // Add a dice to represent a player. 
        // Role for Crusty the prospector. The x and y co-ordiantes are taken from Board.xml file
        playerlabel = new JLabel();
-       ImageIcon pIcon = new ImageIcon("r2.png");
+       ImageIcon pIcon = new ImageIcon("dice/r2.png");
        playerlabel.setIcon(pIcon);
        //playerlabel.setBounds(114,227,pIcon.getIconWidth(),pIcon.getIconHeight());  
        playerlabel.setBounds(114,227,46,46);

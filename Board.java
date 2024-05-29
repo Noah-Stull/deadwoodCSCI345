@@ -9,8 +9,8 @@ public class Board {
     Controller controller;
 
     //The XML file may be passed to this constructor
-    public Board(String f, String f2)  {
-        
+    public Board(String f, String f2, Controller c)  {
+        controller = c;
         ParseCard parser = new ParseCard();
         deck = parser.parse(f);
 

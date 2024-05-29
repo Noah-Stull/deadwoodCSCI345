@@ -3,8 +3,10 @@ import java.util.Scanner;
 public class Player {
     private PlayerData playerData;
     private boolean hasMoved;
+    Controller controller;
 
-    public Player(String playerName, Set playerSet, int rank, int dollars, int credits) {
+    public Player(String playerName, Set playerSet, int rank, int dollars, int credits,Controller c) {
+        controller = c;
         this.playerData = new PlayerData(playerName, playerSet, rank, dollars, credits, 0, null);
         this.hasMoved = false;
     }
@@ -156,7 +158,7 @@ public class Player {
         }
     }
 
-    private boolean move() {
+    public boolean move() {
         if(hasMoved) {
             System.out.println("You have already moved in this turn.");
             return false;

@@ -7,22 +7,12 @@ public class Controller {
     Player player; //current players turn
     private int turn = 0;
     HashMap<Object, JLabel> map = new HashMap<Object, JLabel>();
-    // public static void main(String[] args) {
-    //     int players = Integer.parseInt(args[0]);
-    //     Game game = new Game(players);
-    //     View view = new View(this);
-    //     while (true) {
-    //         //action listener for player 1
-    //         //call method 
-    //         //
-    //         //
-    //         //
-    //     }
 
-    // }
     public Controller(int numPlayers) {
         g = new Game(numPlayers,this);
         players = g.getPlayers();
+        player = players[0];
+        
     }
     public void play() {
         int turn = 0;
@@ -56,8 +46,12 @@ public class Controller {
         player = players[turn];
     }
 
-    public void updateIcon(Object o, String img) {
+    public void updateIcon(Object o, String img, int x, int y) {
         JLabel j = map.get(o);
+        ImageIcon cIcon =  new ImageIcon(img);
+        j.setIcon(cIcon);
+        j.setAlignmentX(x);
+        j.setAlignmentY(y);
     }
     public void rehearse() {
         if (!player.rehearse()) {

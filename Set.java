@@ -36,6 +36,7 @@ public class Set{
                 return true;
             }
         }
+        controller.updateIcon(this,sceneCard.img,)
         return false;
         //checks if role r is available and on this set, if not this returns false
     }
