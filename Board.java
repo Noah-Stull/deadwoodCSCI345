@@ -6,6 +6,7 @@ public class Board {
     private Card[] deck;
     private int wrapCounter;
     private int deckIndex = -1;
+    Controller controller;
 
     //The XML file may be passed to this constructor
     public Board(String f, String f2)  {
@@ -14,7 +15,7 @@ public class Board {
         deck = parser.parse(f);
 
         ParseSet parser1 = new ParseSet();
-        sets = parser1.parse(f2,this);
+        sets = parser1.parse(f2,this,controller);
         wrapCounter = 0;
         shuffleDeck();
     }

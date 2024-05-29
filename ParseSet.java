@@ -17,7 +17,7 @@ public class ParseSet{
    private HashMap<String,Set> stringMap; //used for neighbors
    private List<Element> elist; //keeps track of all set elements
 
-   private Set parseSet(Element e, Board b) {
+   private Set parseSet(Element e, Board b, Controller c) {
      String name = e.getAttribute("name");
      int shots = e.getElementsByTagName("take").getLength();
      List<Role> roleList = new ArrayList<>();
@@ -33,7 +33,7 @@ public class ParseSet{
         neighbors++;
        }
      }
-     Set s = new Set(b,roleList.toArray(new Role[0]),shots,new Set[neighbors],name);
+     Set s = new Set(b,roleList.toArray(new Role[0]),shots,new Set[neighbors],name,c);
      stringMap.put(name, s);
      return s;
    }
@@ -41,7 +41,13 @@ public class ParseSet{
      String name = e.getAttribute("name");
      int rank = Integer.parseInt(e.getAttribute("level"));
      String line = e.getElementsByTagName("line").item(0).getTextContent();
-     return new Role(name, rank, line, 2);
+     Element a = (Element) e.getElementsByTagName("area").item(0);
+     int x = Integer.parseInt(a.getAttribute("x"));
+     int y = Integer.parseInt(a.getAttribute("y"));
+     int w = Integer.parseInt(a.getAttribute("w"));
+     int h = Integer.parseInt(a.getAttribute("h"));
+     int [] area = {x,y,w,h};
+     return new Role(name, rank, line, 2, area);
    }
 
    public void getNeighbors(Set s, Element e) {
@@ -54,7 +60,7 @@ public class ParseSet{
      }
    }
 
-   public Set[] parse(String fileName, Board b) {
+   public Set[] parse(String fileName, Board b, Controller c) {
       try {
           stringMap = new HashMap<String,Set>();
           elist = new ArrayList<>();
@@ -72,7 +78,7 @@ public class ParseSet{
               Node setElement = setList.item(i);
               if (setElement.getNodeType()==Node.ELEMENT_NODE) {
                 elist.add((Element)setElement);
-                allsets.add(parseSet((Element)setElement,b));
+                allsets.add(parseSet((Element)setElement,b,c));
               }
           }
           //do special cases =====================================
@@ -85,7 +91,7 @@ public class ParseSet{
              neighbors++;
             }
           }
-          Set trailerSet = new Set(b, null, 0, new Set[neighbors], "trailer");
+          Set trailerSet = new Set(b, null, 0, new Set[neighbors], "trailer",c);
           stringMap.put("trailer", trailerSet);
           //=======        +                     =====  //
           NodeList oList = doc.getElementsByTagName("office");
@@ -96,7 +102,7 @@ public class ParseSet{
              neighbors++;
             }
           }          
-          Set officeSet = new Set(b, null, 0, new Set[neighbors], "office");
+          Set officeSet = new Set(b, null, 0, new Set[neighbors], "office",c);
           stringMap.put("office", officeSet);
           //=====================
           for (int i = 0 ; i < allsets.size();i++) {

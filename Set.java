@@ -9,8 +9,10 @@ public class Set{
     private int shotCounter;
     private Set[] neighborSets;
     public final String name;
+    private boolean wrapped = false;
+    private Controller controller;
 
-    public Set(Board b, Role[] r, int shots, Set[] sets, String name) {
+    public Set(Board b, Role[] r, int shots, Set[] sets, String name, Controller c) {
         board = b;
         roles = r;
         sceneCard = b.getCard();
@@ -19,9 +21,11 @@ public class Set{
         shotCounter = shots;
         this.neighborSets = sets;
         this.name = name;
+        controller = c;
     }
 
     public boolean takeRole(Role r, Player p) {
+        if (wrapped) return false;
         if(r.getPlayer() != null){
             System.out.println("Already occupied");
             return false;
@@ -37,7 +41,8 @@ public class Set{
     }
 
     //called if player sucessfully acts
-    public void act() {
+    public void act() throws Exception{
+        if (wrapped) throw new Exception("cannot be on wrapper set");
         shotCounter--;
         if (shotCounter == 0) {
             if (sceneCard.hasPlayers()) {
@@ -98,7 +103,7 @@ public class Set{
             r.getPlayer().endRole();
             r.giveRole(null);            
         }
-
+        wrapped = true;
     }
     //resets and gets new card from Board pointer
     public void reset() {
