@@ -49,7 +49,6 @@ public class Game {
             }
             System.out.println("Player " + (turn + 1) + "  take your turn");
             players[turn].newPlayerTurn();
-            players[turn].play();
             if (!board.moreScenes() && day >= totalDays - 1) {
                 break;
             }
