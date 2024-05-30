@@ -37,6 +37,11 @@ public class Game {
         } 
         day = 1;
     }
+    public void initializeIcons() {
+        for (Set s : board.getSceneSets()) {
+            controller.updateIcon(s,s.getCard().img, s.getX(), s.getY());
+        }
+    }
 
     //Goes through each player until some exit condition is reached
     private void play() {

@@ -24,9 +24,9 @@ public class Set{
         this.area = area;
         controller = c;
         sceneCard = b.getCard();
-        c.updateIcon(this, sceneCard.img,area[0],area[1]);
+        //c.updateIcon(this, sceneCard.img,area[0],area[1]);
     }
-
+    
     public boolean takeRole(Role r, Player p) {
         if (wrapped) return false;
         if(r.getPlayer() != null){

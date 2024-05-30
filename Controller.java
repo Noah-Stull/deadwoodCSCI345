@@ -29,6 +29,9 @@ public class Controller {
             map.put(s[i],sl[i]);
         }
 
+        //sets up game visuals
+        g.initializeIcons();
+
     }
 
     public void endTurn() {
@@ -46,18 +49,21 @@ public class Controller {
         j.setIcon(cIcon);
         j.setAlignmentX(x);
         j.setAlignmentY(y);
+        view.update();
     }
     //image update only
     public void updateIcon(Object o, String img) {
         JLabel j = map.get(o);
         ImageIcon cIcon = new ImageIcon(img);
         j.setIcon(cIcon);
+        view.update();
     }
     //position update only
     public void updateIcon(Object o, int x, int y) {
         JLabel j = map.get(o);
         j.setAlignmentX(x);
         j.setAlignmentY(y);
+        view.update();
     }
     public void rehearse() {
         if (!player.rehearse()) {

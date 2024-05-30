@@ -65,6 +65,7 @@ public class BoardLayersListener extends JFrame {
          j.setIcon(cIcon);
          j.setBounds(20,65,cIcon.getIconWidth()+2,cIcon.getIconHeight());
          j.setOpaque(true);
+         j.setVisible(true);
          bPane.add(j, new Integer(1));
        }
       
@@ -142,7 +143,9 @@ public class BoardLayersListener extends JFrame {
       }
    }
 
-
+   public void update() {
+      bPane.repaint();
+   }
   public static void main(String[] args) {
   
     

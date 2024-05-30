@@ -14,7 +14,6 @@ public class Board {
         controller = c;
         ParseCard parser = new ParseCard();
         deck = parser.parse(f);
-
         ParseSet parser1 = new ParseSet();
         sets = parser1.parse(f2,this,controller);
         wrapCounter = 0;

@@ -14,7 +14,7 @@ public class Card {
         this.name = name;
         this.description = description;
         this.budget = budget;
-        this.img = img;
+        this.img = "cards/" + img;
     }
     public boolean hasPlayers() {
         for (Role r : roles) {
