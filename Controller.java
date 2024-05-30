@@ -14,8 +14,21 @@ public class Controller {
         players = g.getPlayers();
         player = players[0];
         view = b;
-        Player[] p = g.getPlayers();
         
+        //maps all player objects to their JLabels
+        Player[] p = g.getPlayers();
+        JLabel[] pl = b.playerlabel;
+        for (int i = 0 ; i< p.length;i++) {
+            map.put(p[i], pl[i]);
+        }
+
+        //maps all sets[cards] to their JLabels
+        Set[] s = g.getBoard().getSceneSets();
+        JLabel[] sl = b.cardlabels; //there should always be 10
+        for (int i = 0; i < sl.length;i++) {
+            map.put(s[i],sl[i]);
+        }
+
     }
 
     public void endTurn() {

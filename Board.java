@@ -1,5 +1,6 @@
 import java.io.File;
 import java.util.Random;
+import java.util.Arrays;
 
 public class Board {
     private Set[] sets;
@@ -52,5 +53,9 @@ public class Board {
     }
     public Set[] getSets() {
         return sets;
+    }
+    //returns all but the last two sets which are special.
+    public Set[] getSceneSets() {
+        return Arrays.copyOfRange(sets,0,sets.length - 2);
     }
 }

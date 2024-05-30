@@ -11,7 +11,7 @@ public class Set{
     public final String name;
     private boolean wrapped = false;
     private Controller controller;
-    private int[] area;
+    private int[] area; //x,y,w,h
 
     public Set(Board b, Role[] r, int shots, Set[] sets, String name, Controller c, int[] area) {
         board = b;
@@ -24,7 +24,7 @@ public class Set{
         this.area = area;
         controller = c;
         sceneCard = b.getCard();
-        c.updateIcon(this, sceneCard.img);
+        c.updateIcon(this, sceneCard.img,area[0],area[1]);
     }
 
     public boolean takeRole(Role r, Player p) {
@@ -156,6 +156,12 @@ public class Set{
             allRoles[i] = sceneCard.roles[i - roles.length];
         }
         return allRoles;
+    }
+    public int getX() {
+        return area[0];
+    }
+    public int getY() {
+        return area[1];
     }
 }
 //gerru5

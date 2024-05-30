@@ -101,12 +101,14 @@ public class BoardLayersListener extends JFrame {
    for (int i = 0; i < playerlabel.length;i++) {
       playerlabel[i] = new JLabel();
    }
-   ImageIcon pIcon = new ImageIcon("dice/r2.png");
-   for (JLabel j : playerlabel) {
+   String[] playerDice = {"dice/r1.png","dice/r2.png","dice/r3.png","dice.r4.png","dice/r5.png","dice/r6.png","dice/b1.png","dice/b2.png","dice/b3.png"};
+   for (int i = 0; i < playerlabel.length;i++) {
+      JLabel j = playerlabel[i];
+      ImageIcon pIcon = new ImageIcon(playerDice[i]);
       j.setIcon(pIcon);
       j.setBounds(114,227,46,46);
       j.setVisible(true);
-      bPane.add(j,new Integer(3));
+      bPane.add(j,new Integer(3));      
    }
    //playerlabel.setBounds(114,227,pIcon.getIconWidth(),pIcon.getIconHeight());  
    
