@@ -19,7 +19,7 @@ public class BoardLayersListener extends JFrame {
   // JLabels
   JLabel boardlabel;
   JLabel cardlabels[];
-  JLabel playerlabel;
+  JLabel playerlabel[] = null;
   JLabel mLabel;
   
   //JButtons
@@ -55,7 +55,7 @@ public class BoardLayersListener extends JFrame {
        // Set the size of the GUI
        setSize(icon.getIconWidth()+200,icon.getIconHeight());
        
-       // Add a scene card to this room
+       // creates all scene cards. All have same position and image before game start.
        ImageIcon cIcon =  new ImageIcon("cards/01.png");
        cardlabels = new JLabel[10];
        for (int i = 0 ; i < cardlabels.length;i++) {
@@ -67,24 +67,6 @@ public class BoardLayersListener extends JFrame {
          j.setOpaque(true);
          bPane.add(j, new Integer(1));
        }
-       
-       
-      
-       // Add the card to the lower layer
-       
-       
-      
-
-    
-       // Add a dice to represent a player. 
-       // Role for Crusty the prospector. The x and y co-ordiantes are taken from Board.xml file
-       playerlabel = new JLabel();
-       ImageIcon pIcon = new ImageIcon("dice/r2.png");
-       playerlabel.setIcon(pIcon);
-       //playerlabel.setBounds(114,227,pIcon.getIconWidth(),pIcon.getIconHeight());  
-       playerlabel.setBounds(114,227,46,46);
-       playerlabel.setVisible(false);
-       bPane.add(playerlabel,new Integer(3));
       
        // Create the Menu for action buttons
        mLabel = new JLabel("MENU");
@@ -112,6 +94,23 @@ public class BoardLayersListener extends JFrame {
        bPane.add(bRehearse, new Integer(2));
        bPane.add(bMove, new Integer(2));
   }
+  public void makePlayers(int numPlayers) {
+   // Add a dice to represent a player. 
+   // Role for Crusty the prospector. The x and y co-ordiantes are taken from Board.xml file
+   playerlabel = new JLabel[numPlayers];
+   for (int i = 0; i < playerlabel.length;i++) {
+      playerlabel[i] = new JLabel();
+   }
+   ImageIcon pIcon = new ImageIcon("dice/r2.png");
+   for (JLabel j : playerlabel) {
+      j.setIcon(pIcon);
+      j.setBounds(114,227,46,46);
+      j.setVisible(true);
+      bPane.add(j,new Integer(3));
+   }
+   //playerlabel.setBounds(114,227,pIcon.getIconWidth(),pIcon.getIconHeight());  
+   
+  }
   
   // This class implements Mouse Events
   
@@ -121,7 +120,6 @@ public class BoardLayersListener extends JFrame {
       public void mouseClicked(MouseEvent e) {
          
          if (e.getSource()== bAct){
-            playerlabel.setVisible(true);
             //controller.act();
             System.out.println("Acting is Selected\n");
          }
@@ -151,6 +149,7 @@ public class BoardLayersListener extends JFrame {
     
     // Take input from the user about number of players
     int players = Integer.parseInt(JOptionPane.showInputDialog(board, "How many players?")); 
-    board.controller = new Controller(players);
+    board.makePlayers(players);
+    board.controller = new Controller(players,board);
   }
 }

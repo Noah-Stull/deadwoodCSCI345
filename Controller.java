@@ -9,13 +9,12 @@ public class Controller {
     HashMap<Object, JLabel> map = new HashMap<Object, JLabel>();
     BoardLayersListener view = new BoardLayersListener(this);
 
-    public Controller(int numPlayers) {
+    public Controller(int numPlayers, BoardLayersListener b) {
         g = new Game(numPlayers,this);
         players = g.getPlayers();
         player = players[0];
-        
-    }
-    public void startGame() {
+        view = b;
+        Player[] p = g.getPlayers();
         
     }
 
