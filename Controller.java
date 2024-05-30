@@ -7,6 +7,7 @@ public class Controller {
     Player player; //current players turn
     private int turn = 0;
     HashMap<Object, JLabel> map = new HashMap<Object, JLabel>();
+    BoardLayersListener view = new BoardLayersListener(this);
 
     public Controller(int numPlayers) {
         g = new Game(numPlayers,this);
@@ -14,27 +15,8 @@ public class Controller {
         player = players[0];
         
     }
-    public void play() {
-        int turn = 0;
-        while(true) {
-            if (turn > players.length - 1) {
-                turn = 0;
-                continue;
-            }
-            player = players[turn];
-            //======== wait for action listener
-            // System.out.println("Player " + (turn + 1) + "  take your turn");
-            // players[turn].newPlayerTurn();
-            // players[turn].play();
-            // if (!board.moreScenes() && day >= totalDays - 1) {
-            //     break;
-            // }
-            // else if (!board.moreScenes()) {
-            //     endDay();
-            // }
-            turn++;
-        }
-    
+    public void startGame() {
+        
     }
 
     public void endTurn() {
