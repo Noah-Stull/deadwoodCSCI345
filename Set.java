@@ -11,8 +11,9 @@ public class Set{
     public final String name;
     private boolean wrapped = false;
     private Controller controller;
+    private int[] area;
 
-    public Set(Board b, Role[] r, int shots, Set[] sets, String name, Controller c) {
+    public Set(Board b, Role[] r, int shots, Set[] sets, String name, Controller c, int[] area) {
         board = b;
         roles = r;
         visited = false;
@@ -20,6 +21,7 @@ public class Set{
         shotCounter = shots;
         this.neighborSets = sets;
         this.name = name;
+        this.area = area;
         controller = c;
         sceneCard = b.getCard();
         c.updateIcon(this, sceneCard.img);

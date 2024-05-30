@@ -20,6 +20,15 @@ public class ParseSet{
    private Set parseSet(Element e, Board b, Controller c) {
      String name = e.getAttribute("name");
      int shots = e.getElementsByTagName("take").getLength();
+
+    //Parse coords for set area
+     Element areaElement = (Element) e.getElementsByTagName("area").item(0);
+     int x = Integer.parseInt(areaElement.getAttribute("x"));
+     int y = Integer.parseInt(areaElement.getAttribute("y"));
+     int w = Integer.parseInt(areaElement.getAttribute("w"));
+     int h = Integer.parseInt(areaElement.getAttribute("h"));
+     int[] area = {x, y, w, h};
+
      List<Role> roleList = new ArrayList<>();
      for (int i = 0; i < e.getElementsByTagName("part").getLength();i++) {
         Node er = e.getElementsByTagName("part").item(i);
@@ -33,10 +42,11 @@ public class ParseSet{
         neighbors++;
        }
      }
-     Set s = new Set(b,roleList.toArray(new Role[0]),shots,new Set[neighbors],name,c);
+     Set s = new Set(b,roleList.toArray(new Role[0]),shots,new Set[neighbors],name,c, area);
      stringMap.put(name, s);
      return s;
    }
+
    private Role parseRole(Element e) {
      String name = e.getAttribute("name");
      int rank = Integer.parseInt(e.getAttribute("level"));
@@ -91,7 +101,15 @@ public class ParseSet{
              neighbors++;
             }
           }
-          Set trailerSet = new Set(b, null, 0, new Set[neighbors], "trailer",c);
+
+          // Parse coordinates for trailer
+          Element areaElement = (Element) trailer.getElementsByTagName("area").item(0);
+          int x = Integer.parseInt(areaElement.getAttribute("x"));
+          int y = Integer.parseInt(areaElement.getAttribute("y"));
+          int w = Integer.parseInt(areaElement.getAttribute("w"));
+          int h = Integer.parseInt(areaElement.getAttribute("h"));
+          int[] area = {x, y, w, h};
+          Set trailerSet = new Set(b, null, 0, new Set[neighbors], "trailer",c, area);
           stringMap.put("trailer", trailerSet);
           //=======        +                     =====  //
           NodeList oList = doc.getElementsByTagName("office");
@@ -101,8 +119,17 @@ public class ParseSet{
             if (office.getElementsByTagName("neighbor").item(i).getNodeType() == Node.ELEMENT_NODE) {
              neighbors++;
             }
-          }          
-          Set officeSet = new Set(b, null, 0, new Set[neighbors], "office",c);
+          }
+          
+          // Parse coordinates for office
+          areaElement = (Element) office.getElementsByTagName("area").item(0);
+          x = Integer.parseInt(areaElement.getAttribute("x"));
+          y = Integer.parseInt(areaElement.getAttribute("y"));
+          w = Integer.parseInt(areaElement.getAttribute("w"));
+          h = Integer.parseInt(areaElement.getAttribute("h"));
+          area = new int[]{x, y, w, h};
+
+          Set officeSet = new Set(b, null, 0, new Set[neighbors], "office",c, area);
           stringMap.put("office", officeSet);
           //=====================
           for (int i = 0 ; i < allsets.size();i++) {
