@@ -18,7 +18,7 @@ public class BoardLayersListener extends JFrame {
 
   // JLabels
   JLabel boardlabel;
-  JLabel cardlabel[];
+  JLabel cardlabels[];
   JLabel playerlabel;
   JLabel mLabel;
   
@@ -57,10 +57,11 @@ public class BoardLayersListener extends JFrame {
        
        // Add a scene card to this room
        ImageIcon cIcon =  new ImageIcon("cards/01.png");
-       for (int i = 0 ; i < cardlabel.length;i++) {
-         cardlabel[i] = new JLabel();
+       cardlabels = new JLabel[10];
+       for (int i = 0 ; i < cardlabels.length;i++) {
+         cardlabels[i] = new JLabel();
        }
-       for (JLabel j : cardlabel) {
+       for (JLabel j : cardlabels) {
          j.setIcon(cIcon);
          j.setBounds(20,65,cIcon.getIconWidth()+2,cIcon.getIconHeight());
          j.setOpaque(true);

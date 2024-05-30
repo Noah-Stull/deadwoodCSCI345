@@ -37,7 +37,6 @@ public class Set{
                 return true;
             }
         }
-        controller.updateIcon(this,sceneCard.img,)
         return false;
         //checks if role r is available and on this set, if not this returns false
     }
@@ -111,6 +110,7 @@ public class Set{
     //resets and gets new card from Board pointer
     public void reset() {
         sceneCard = board.getCard();
+        controller.updateIcon(this, "CardBack.jpg");
         shotCounter = shotCounterTotal;
         visited = false; // card should be down
         for (Role r : roles) {
@@ -129,7 +129,10 @@ public class Set{
     }
     public void visit() {
         //if it is false at this point then flip the card
-        visited = true;
+        if (!visited) {
+            controller.updateIcon(this, sceneCard.img);
+            visited = true;
+        }
     }
 
     public void addNeighbor(Set s) {
