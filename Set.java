@@ -15,13 +15,14 @@ public class Set{
     public Set(Board b, Role[] r, int shots, Set[] sets, String name, Controller c) {
         board = b;
         roles = r;
-        sceneCard = b.getCard();
         visited = false;
         shotCounterTotal = shots;
         shotCounter = shots;
         this.neighborSets = sets;
         this.name = name;
         controller = c;
+        sceneCard = b.getCard();
+        c.updateIcon(this, sceneCard.img);
     }
 
     public boolean takeRole(Role r, Player p) {
@@ -54,6 +55,7 @@ public class Set{
         }
     }
     private void rewardOnCard() {
+        Player[] p = sceneCard.getPlayers();
         int[] rolls = new int[sceneCard.budget];
         Role[] cardRoles = sceneCard.roles;
         Arrays.sort(cardRoles); // insure this

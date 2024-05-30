@@ -45,11 +45,23 @@ public class Controller {
         g.endDay();
         player = players[turn];
     }
-
+    //position and image update
     public void updateIcon(Object o, String img, int x, int y) {
         JLabel j = map.get(o);
         ImageIcon cIcon =  new ImageIcon(img);
         j.setIcon(cIcon);
+        j.setAlignmentX(x);
+        j.setAlignmentY(y);
+    }
+    //image update only
+    public void updateIcon(Object o, String img) {
+        JLabel j = map.get(o);
+        ImageIcon cIcon = new ImageIcon(img);
+        j.setIcon(cIcon);
+    }
+    //position update only
+    public void updateIcon(Object o, int x, int y) {
+        JLabel j = map.get(o);
         j.setAlignmentX(x);
         j.setAlignmentY(y);
     }
