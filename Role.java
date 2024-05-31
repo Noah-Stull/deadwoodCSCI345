@@ -5,12 +5,16 @@ public class Role implements Comparable<Role>{
     public final int roleType; //1 is on 2 is off
     private Player player; 
     public final int[] area; // x, y, h, w
+    public final int x;
+    public final int y;
 
-    public Role(String name, int rank, String catchPhrase, int roleType, int[] bounds) {
+    public Role(String name, int rank, String catchPhrase, int roleType, int[] bounds, int x, int y) {
         this.name = name;
         this.rank = rank;
         this.roleType = roleType;
         this.catchPhrase = catchPhrase;
+        this.x = x;
+        this.y = y;
         player = null;
         area = bounds;
 
