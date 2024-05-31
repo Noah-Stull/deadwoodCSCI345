@@ -41,6 +41,11 @@ public class Game {
         for (Set s : board.getSceneSets()) {
             controller.updateIcon(s,s.getCard().img, s.getX(), s.getY());
         }
+        int x = board.getSets()[board.getSets().length - 1].getX();
+        int y = board.getSets()[board.getSets().length - 1].getY();
+        for (Player s : players) {
+            controller.updateIcon(s, x, y);
+        }
     }
 
     //Goes through each player until some exit condition is reached

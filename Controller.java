@@ -26,6 +26,7 @@ public class Controller {
         Set[] s = g.getBoard().getSceneSets();
         JLabel[] sl = b.cardlabels; //there should always be 10
         for (int i = 0; i < sl.length;i++) {
+            System.out.println(s[i].hashCode());
             map.put(s[i],sl[i]);
         }
 
@@ -47,8 +48,7 @@ public class Controller {
         JLabel j = map.get(o);
         ImageIcon cIcon =  new ImageIcon(img);
         j.setIcon(cIcon);
-        j.setAlignmentX(x);
-        j.setAlignmentY(y);
+        j.setBounds(x, y, j.getWidth(), j.getHeight());
         view.update();
     }
     //image update only
@@ -61,8 +61,7 @@ public class Controller {
     //position update only
     public void updateIcon(Object o, int x, int y) {
         JLabel j = map.get(o);
-        j.setAlignmentX(x);
-        j.setAlignmentY(y);
+        j.setBounds(x, y, j.getWidth(), j.getHeight());
         view.update();
     }
     public void rehearse() {

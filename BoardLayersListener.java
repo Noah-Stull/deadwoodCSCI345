@@ -142,9 +142,10 @@ public class BoardLayersListener extends JFrame {
       public void mouseExited(MouseEvent e) {
       }
    }
-
+   //not sure if this is needed
    public void update() {
       bPane.repaint();
+      super.repaint();
    }
   public static void main(String[] args) {
   
