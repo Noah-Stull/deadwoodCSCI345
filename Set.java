@@ -12,6 +12,7 @@ public class Set{
     private boolean wrapped = false;
     private Controller controller;
     private int[] area; //x,y,w,h
+    public int[][] positions = new int[8][2];
 
     public Set(Board b, Role[] r, int shots, Set[] sets, String name, Controller c, int[] area) {
         board = b;
