@@ -56,8 +56,7 @@ public class ParseSet{
      int y = Integer.parseInt(a.getAttribute("y"));
      int w = Integer.parseInt(a.getAttribute("w"));
      int h = Integer.parseInt(a.getAttribute("h"));
-     int [] area = {x,y,w,h};
-     return new Role(name, rank, line, 2, area, x, y);
+     return new Role(name, rank, line, 2, x, y);
    }
 
    public void getNeighbors(Set s, Element e) {

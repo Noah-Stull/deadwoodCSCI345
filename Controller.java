@@ -48,7 +48,7 @@ public class Controller {
         JLabel j = map.get(o);
         ImageIcon cIcon =  new ImageIcon(img);
         j.setIcon(cIcon);
-        j.setBounds(x, y, j.getWidth(), j.getHeight());
+        j.setBounds(x,y,j.getWidth(),j.getHeight());
         view.update();
     }
     //image update only
@@ -61,7 +61,7 @@ public class Controller {
     //position update only
     public void updateIcon(Object o, int x, int y) {
         JLabel j = map.get(o);
-        j.setBounds(x, y, j.getWidth(), j.getHeight());
+        j.setBounds(x,y,j.getWidth(),j.getHeight());
         view.update();
     }
     public void rehearse() {

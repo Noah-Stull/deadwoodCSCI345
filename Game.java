@@ -39,13 +39,38 @@ public class Game {
     }
     public void initializeIcons() {
         for (Set s : board.getSceneSets()) {
-            controller.updateIcon(s,s.getCard().img, s.getX(), s.getY());
+            controller.updateIcon(s,"CardBack-small.jpg", s.getX(), s.getY());
         }
         int x = board.getSets()[board.getSets().length - 1].getX();
         int y = board.getSets()[board.getSets().length - 1].getY();
         for (Player s : players) {
             controller.updateIcon(s, x, y);
         }
+        controller.updateIcon(players[0], 730,205);
+        controller.updateIcon(players[1], 730,249);
+        controller.updateIcon(players[2], 774,249);
+        controller.updateIcon(players[3], 818,249);
+        controller.updateIcon(players[4], 818,340);
+        controller.updateIcon(players[5], 818,384);
+        controller.updateIcon(players[6], 774,384);
+        controller.updateIcon(players[7], 640,384);
+
+    }
+    public void initializePLayerLocations() {
+        Set[] sets = board.getSets();
+        int[][] trainStation = {{15,200},{15,247},{15,295},{15,341},{15,390},{160,280},{160,327},{160,380}};
+        int[][] secretHideOut = {{255,820},{299,830},{343,820},{387,830},{15,683},{59,683},{103,683},{147,683}};
+        int[][] church = {{738,660},{782,660},{828,675},{872,678},{738,704},{782,704},{620,850},{810,850}};
+        int[][] hotel = {{1005,465},{1049,465},{1140,620},{950,676},{950,720},{950,764},{950,808},{950,852}};
+        int[][] mainStreet = {{780,145},{824,145},{868,145},{912,160},{956,170},{1020,180},{1064,180},{1108,180}};
+        int[][] jail = {{270,130},{270,174},{314,174},{358,174},{402,190},{446,202},{490,200},{534,180}};
+        int[][] generalStore = {{370,255},{414,255},{458,255},{502,255},{546,255},{290,395},{334,395},{567,304}};
+        int[][] ranch = {{275,624},{319,624},{363,624},{540,520},{540,564},{540,608},{238,575},{238,531}};
+        int[][] bank = {{605,590},{649,590},{770,590},{814,590},{858,590},{824,460},{868,481},{824,504}};
+        int[][] saloon = {{730,205},{730,249},{774,249},{818,249},{818,340},{818,384},{774,384},{640,384}};
+        int[][] trailer = {{},{},{},{},{},{},{},{}};
+
+
     }
 
     //Goes through each player until some exit condition is reached
