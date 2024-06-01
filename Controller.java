@@ -64,10 +64,31 @@ public class Controller {
         j.setBounds(x,y,j.getWidth(),j.getHeight());
         view.update();
     }
+    public void move() {
+        if (!player.move()) {
+            
+        }
+    }
+    public void takeRole() {
+        if (!player.takeRole()) {
+            
+        }
+    }
+    public void upgrade() {
+        if (!player.upgrade()) {
+            
+        }
+    }
+    public void act() {
+        if (!player.act()) {
+            
+        }
+    }
     public void rehearse() {
         if (!player.rehearse()) {
             
         }
     }
+
 }
 

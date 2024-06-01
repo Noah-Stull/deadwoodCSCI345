@@ -26,6 +26,9 @@ public class BoardLayersListener extends JFrame {
   JButton bAct;
   JButton bRehearse;
   JButton bMove;
+  JButton bTakeRole;
+  JButton bUpgrade;
+  JButton bEndTurn;
   
   // JLayered Pane
   JLayeredPane bPane;
@@ -71,29 +74,47 @@ public class BoardLayersListener extends JFrame {
       
        // Create the Menu for action buttons
        mLabel = new JLabel("MENU");
-       mLabel.setBounds(icon.getIconWidth()+40,0,100,20);
+       mLabel.setBounds(icon.getIconWidth()+40,0,110,20);
        bPane.add(mLabel,new Integer(2));
 
        // Create Action buttons
        bAct = new JButton("ACT");
        bAct.setBackground(Color.white);
-       bAct.setBounds(icon.getIconWidth()+10, 30,100, 20);
+       bAct.setBounds(icon.getIconWidth()+10, 30,110, 20);
        bAct.addMouseListener(new boardMouseListener());
        
        bRehearse = new JButton("REHEARSE");
        bRehearse.setBackground(Color.white);
-       bRehearse.setBounds(icon.getIconWidth()+10,60,100, 20);
+       bRehearse.setBounds(icon.getIconWidth()+10,60,110, 20);
        bRehearse.addMouseListener(new boardMouseListener());
        
        bMove = new JButton("MOVE");
        bMove.setBackground(Color.white);
-       bMove.setBounds(icon.getIconWidth()+10,90,100, 20);
+       bMove.setBounds(icon.getIconWidth()+10,90,110, 20);
        bMove.addMouseListener(new boardMouseListener());
+
+       bTakeRole = new JButton("TAKE ROLE");
+       bTakeRole.setBackground(Color.white);
+       bTakeRole.setBounds(icon.getIconWidth()+10,120,110, 20);
+       bTakeRole.addMouseListener(new boardMouseListener());
+
+       bUpgrade = new JButton("UPGRADE");
+       bUpgrade.setBackground(Color.white);
+       bUpgrade.setBounds(icon.getIconWidth()+10,150,110, 20);
+       bUpgrade.addMouseListener(new boardMouseListener());
+
+       bEndTurn = new JButton("END TURN");
+       bEndTurn.setBackground(Color.white);
+       bEndTurn.setBounds(icon.getIconWidth()+10,180,110, 20);
+       bEndTurn.addMouseListener(new boardMouseListener());
 
        // Place the action buttons in the top layer
        bPane.add(bAct, new Integer(2));
        bPane.add(bRehearse, new Integer(2));
        bPane.add(bMove, new Integer(2));
+       bPane.add(bTakeRole, new Integer(2));
+       bPane.add(bUpgrade, new Integer(2));
+       bPane.add(bEndTurn, new Integer(2));
   }
   public void makePlayers(int numPlayers) {
    // Add a dice to represent a player. 
@@ -123,15 +144,29 @@ public class BoardLayersListener extends JFrame {
       public void mouseClicked(MouseEvent e) {
          
          if (e.getSource()== bAct){
-            //controller.act();
+            controller.act();
             System.out.println("Acting is Selected\n");
          }
          else if (e.getSource()== bRehearse){
+            controller.rehearse();
             System.out.println("Rehearse is Selected\n");
          }
          else if (e.getSource()== bMove){
+            controller.move();
             System.out.println("Move is Selected\n");
-         }         
+         }
+         else if (e.getSource() == bTakeRole){
+            controller.takeRole();
+            System.out.println("Take Role is Selected\n");
+         }
+         else if (e.getSource() == bUpgrade){
+            controller.upgrade();
+            System.out.println("Upgrade is Selected\n");
+         }
+         else if (e.getSource() == bEndTurn){
+            controller.endTurn();
+            System.out.println("End Turn is Selected\n");
+         }           
       }
       public void mousePressed(MouseEvent e) {
       }
