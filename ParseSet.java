@@ -42,7 +42,8 @@ public class ParseSet{
         neighbors++;
        }
      }
-     Set s = new Set(b,roleList.toArray(new Role[0]),shots,new Set[neighbors],name,c, area);
+     ShotCounter[] tshots = getShots((Element)e.getElementsByTagName("takes").item(0));
+     Set s = new Set(b,roleList.toArray(new Role[0]),shots,new Set[neighbors],name,c, area,tshots);
      stringMap.put(name, s);
      return s;
    }
@@ -57,6 +58,24 @@ public class ParseSet{
      int w = Integer.parseInt(a.getAttribute("w"));
      int h = Integer.parseInt(a.getAttribute("h"));
      return new Role(name, rank, line, 2, x, y);
+   }
+
+   //Expects a Element parameter that is the "takes" field
+   private ShotCounter[] getShots(Element e) {
+      List<Element> aList = new ArrayList<>();
+      NodeList n = e.getElementsByTagName("area");
+      for (int i = 0; i < n.getLength();i++) {
+        if (n.item(i).getNodeType() == Node.ELEMENT_NODE) {
+          aList.add((Element)n.item(i));
+        }
+      }
+      ShotCounter[] tempShots = new ShotCounter[aList.size()];
+      for (int i = 0; i < tempShots.length;i++) {
+        int x = Integer.parseInt(aList.get(i).getAttribute("x"));
+        int y = Integer.parseInt(aList.get(i).getAttribute("y"));
+        tempShots[i] = new ShotCounter(x, y);
+      }
+      return tempShots;
    }
 
    public void getNeighbors(Set s, Element e) {
@@ -108,7 +127,7 @@ public class ParseSet{
           int w = Integer.parseInt(areaElement.getAttribute("w"));
           int h = Integer.parseInt(areaElement.getAttribute("h"));
           int[] area = {x, y, w, h};
-          Set trailerSet = new Set(b, null, 0, new Set[neighbors], "trailer",c, area);
+          Set trailerSet = new Set(b, null, 0, new Set[neighbors], "trailer",c, area,null);
           stringMap.put("trailer", trailerSet);
           //=======        +                     =====  //
           NodeList oList = doc.getElementsByTagName("office");
@@ -128,7 +147,7 @@ public class ParseSet{
           h = Integer.parseInt(areaElement.getAttribute("h"));
           area = new int[]{x, y, w, h};
 
-          Set officeSet = new Set(b, null, 0, new Set[neighbors], "office",c, area);
+          Set officeSet = new Set(b, null, 0, new Set[neighbors], "office",c, area,null);
           stringMap.put("office", officeSet);
           //=====================
           for (int i = 0 ; i < allsets.size();i++) {
