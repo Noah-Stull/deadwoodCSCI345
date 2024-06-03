@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class Player {
     private PlayerData playerData;
     private boolean hasMoved;
+    private boolean turnOver = false;
     Controller controller;
 
     public Player(String playerName, Set playerSet, int rank, int dollars, int credits,Controller c) {
@@ -120,10 +121,17 @@ public class Player {
 
     //tells the set that is attached to playerData that we are acting
     public boolean act() {
-        if (playerData.getRole() == null) return false;
+        if (turnOver) {
+            controller.pushText("You have no more moves this turn");
+            return false;
+        }
+        if (playerData.getRole() == null) {
+            controller.pushText("You must be on a role to act");
+            return false;
+        }
         Dice diceRoll = new Dice();
         int rollNum = diceRoll.rollDice();
-        controller.roleDice(rollNum); // this will display visual result
+        controller.rollDice(rollNum); // this will display visual result
         int rehearseChips = playerData.getrehearseChips();
         int roleType = playerData.getRole().getroleType();
         controller.pushText("You rolled a: " + rollNum + "and have a " + rehearseChips + " bonus!"); // THis can be moved to controller to be in view text field
@@ -136,31 +144,46 @@ public class Player {
                 playerData.addDollars(1);
             }
             playerData.getplayerSet().act();
+            turnOver = true;
             return true;
         } 
         else  if (roleType == 2) {
             playerData.addDollars(1);
             controller.pushText("Failure! off-card reward given...");
+            turnOver = true;
             return true;
         }
         else {
             controller.pushText("Failure!");
+            turnOver = true;
             return true;
         }
     }
 
     public boolean rehearse() {
-
+        if (turnOver) {
+            controller.pushText("You have no more moves this turn");
+            return false;
+        }
+        if (playerData.getRole() == null) {
+            controller.pushText("Not on a role");
+            return false;
+        }
         if(playerData.getrehearseChips() == playerData.getplayerSet().getCard().budget - 1) {
             controller.pushText("You have guaranteed success! Try acting!");
             return false;
         } else {
             playerData.addRehearseChips(1);
+            turnOver = true;
             return true;
         }
     }
 
     public boolean move(Set target) {
+        if (turnOver) {
+            controller.pushText("You have no more moves this turn");
+            return false;
+        }
         if(hasMoved) {
             controller.pushText("You have already moved in this turn.");
             return false;
@@ -188,6 +211,14 @@ public class Player {
     }
     
     public boolean takeRole(Role r) {
+        if (turnOver) {
+            controller.pushText("You have no more moves this turn");
+            return false;
+        }
+        if (playerData.getplayerSet().getName().equalsIgnoreCase("office") || playerData.getplayerSet().getName().equalsIgnoreCase("trailer")) {
+            controller.pushText("Cannot take role on this set");
+            return false;
+        }
         if (playerData.getplayerSet().isWrapped()) {
             controller.pushText("The set is already wrapped");
             return false;
@@ -206,11 +237,15 @@ public class Player {
         playerData.setRole(r);
         controller.updateIcon(this, r.getX(), r.getY());
         //NEED TO MOVE PLAYER TO THE COORDS OF THE ROLE
+        turnOver = true;
         return true;
     }
 
     public boolean upgrade(int rank, String currency) {
-
+        if (turnOver) {
+            controller.pushText("You have no more moves this turn");
+            return false;
+        }
         //Check if player is in casting office
         Set currentSet = playerData.getplayerSet();
         if(!currentSet.getName().equalsIgnoreCase("Office")) {
@@ -272,6 +307,7 @@ public class Player {
 
     public void endTurn() {
         hasMoved = false;
+        turnOver = false;
     }
     public void addDollars(int a) {
         playerData.addDollars(a);

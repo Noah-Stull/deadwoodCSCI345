@@ -11,6 +11,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.imageio.ImageIO;
 import java.awt.event.*;
+import java.util.Random;
 
 public class BoardLayersListener extends JFrame {
 
@@ -20,12 +21,14 @@ public class BoardLayersListener extends JFrame {
    private int direction = 1;
    private int offset;
    private int Xtrack = 0;
+   private int rollCounter = 0;
 
   // JLabels
   JLabel boardlabel;
   JLabel cardlabels[];
   JLabel playerlabel[] = null;
   JLabel mLabel;
+  JLabel diceRoll = null;
   
   //JButtons
   JButton bAct;
@@ -204,6 +207,47 @@ public class BoardLayersListener extends JFrame {
    
 
   }
+
+  public void diceRoll(int faceNum) {
+    ImageIcon im = new ImageIcon("dice/w" + faceNum +".png");
+    Image img = im.getImage();
+    img = img.getScaledInstance(110, 110, Image.SCALE_SMOOTH);
+    im = new ImageIcon(img);
+    diceRoll = new JLabel();
+    diceRoll.setIcon(im);
+    diceRoll.setBounds(500, 500, 110, 110);
+    diceRoll.setOpaque(true);
+    bPane.add(diceRoll,new Integer(4));
+    diceRoll.setVisible(true);
+    int delay = 20;
+    Random rand = new Random();
+    final Timer roll = new Timer(delay,null);
+    roll.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+         int fnum = rand.nextInt(6) + 1;
+
+         if (rollCounter == 20) {
+            fnum = faceNum;
+            roll.setDelay(2600);
+         }
+         if (rollCounter > 21) {
+            diceRoll.setVisible(false);
+            roll.stop();
+         }
+         else {
+         ImageIcon i = new ImageIcon("dice/w" + fnum+ ".png");
+         Image ig = i.getImage();
+         ig = ig.getScaledInstance(110, 110, Image.SCALE_SMOOTH);
+         i = new ImageIcon(ig);
+         diceRoll.setIcon(i);
+         rollCounter++;
+         roll.setDelay((int)(roll.getDelay()*1.2));
+         }
+      }
+    });
+    roll.start();
+  }
   
   // This class implements Mouse Events
   
@@ -214,12 +258,10 @@ public class BoardLayersListener extends JFrame {
          
          if (e.getSource()== bAct){
             controller.act();
-            appendToOutput("Acting is Selected\n");
             currentAction = "";
          }
          else if (e.getSource()== bRehearse){
             controller.rehearse();
-            appendToOutput("Rehearse is Selected\n");
             currentAction = "";
          }
          else if (e.getSource()== bMove){
@@ -265,7 +307,7 @@ public class BoardLayersListener extends JFrame {
          appendToOutput("moving initiated");
             controller.move(input);
       } else if (currentAction.equalsIgnoreCase("takeRole")) {
-          controller.takeRole(Integer.parseInt(input));
+          controller.takeRole(input);
       } else if (currentAction.equalsIgnoreCase("upgrade")) {
          String[] parts = input.split(" ");
          if (parts.length == 2) {
