@@ -141,6 +141,11 @@ public class Controller {
     public void pushText(String s) {
         view.appendToOutput(s);
     }
+    public void updatePlayerData() {
+        PlayerData playerData = player.getPlayerData();
+        String data = "\nRank: " + playerData.getRank();
+        view.updatePlayerData(data);
+    }
 
     public void act() {
         player.act();

@@ -47,6 +47,7 @@ public class BoardLayersListener extends JFrame {
 
   JTextArea inputArea;
   JTextArea outputArea;
+  JTextArea playerDataArea;
 
   String currentAction = "";
 
@@ -174,9 +175,16 @@ public class BoardLayersListener extends JFrame {
        outputArea.setVisible(true);
        bPane.add(outputArea, new Integer(2));
 
-
-
+       // Player Data Area
+       playerDataArea = new JTextArea();
+       playerDataArea.setEditable(false);
+       playerDataArea.setLineWrap(true);
+       playerDataArea.setWrapStyleWord(true);
+       playerDataArea.setBounds(icon.getIconWidth() + 10, 410, 150, 100);
+       playerDataArea.setVisible(true);
+       bPane.add(playerDataArea, new Integer(2));
       }
+
    public void flash(JLabel curJ) {
       posTemp = curJ.getY();
       offset = 0;
@@ -346,6 +354,11 @@ public class BoardLayersListener extends JFrame {
    }
    public void closeText() {
       inputArea.setVisible(false);
+   }
+
+
+   public void updatePlayerData(String data) {
+      playerDataArea.setText(data);
    }
    //not sure if this is needed
    public void update() {
