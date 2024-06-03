@@ -12,6 +12,7 @@ import javax.swing.*;
 import javax.imageio.ImageIO;
 import java.awt.event.*;
 import java.util.Random;
+import javax.swing.border.*;
 
 public class BoardLayersListener extends JFrame {
 
@@ -49,6 +50,8 @@ public class BoardLayersListener extends JFrame {
   JTextArea inputArea;
   JTextArea outputArea;
   JTextArea playerDataArea;
+  //For the player data 
+  TitledBorder tborder;
 
   String currentAction = "";
 
@@ -62,10 +65,9 @@ public class BoardLayersListener extends JFrame {
        controller = c; 
        // Set the exit option for the JFrame
        setDefaultCloseOperation(EXIT_ON_CLOSE);
-      
        // Create the JLayeredPane to hold the display, cards, dice and buttons
-       bPane = getLayeredPane();
-    
+       bPane = getLayeredPane();    
+       getContentPane().setBackground(new Color(74, 52, 17)); // This changes the background color
        // Create the deadwood board
        boardlabel = new JLabel();
        ImageIcon icon =  new ImageIcon("board.jpg");
@@ -77,7 +79,6 @@ public class BoardLayersListener extends JFrame {
       
        // Set the size of the GUI
        setSize(icon.getIconWidth()+200,icon.getIconHeight());
-       
        // creates all scene cards. All have same position and image before game start.
        ImageIcon cIcon =  new ImageIcon("cards/01.png");
        cardlabels = new JLabel[10];
@@ -87,7 +88,7 @@ public class BoardLayersListener extends JFrame {
        for (JLabel j : cardlabels) {
          j.setIcon(cIcon);
          j.setBounds(20,65,cIcon.getIconWidth()+2,cIcon.getIconHeight());
-         j.setOpaque(true);
+         j.setOpaque(false);
          j.setVisible(true);
          bPane.add(j, new Integer(1));
        }
@@ -100,7 +101,7 @@ public class BoardLayersListener extends JFrame {
          shot[i] = new JLabel();
          shot[i].setIcon(sIcon);
          shot[i].setBounds(0,0,sIcon.getIconWidth(),sIcon.getIconHeight());
-         shot[i].setOpaque(true);
+         shot[i].setOpaque(false);
          shot[i].setVisible(true);
          bPane.add(shot[i],new Integer(2));
        }
@@ -154,6 +155,7 @@ public class BoardLayersListener extends JFrame {
        inputArea = new JTextArea();
        inputArea.setLineWrap(true);
        inputArea.setWrapStyleWord(true);
+       inputArea.setBorder(BorderFactory.createLineBorder(new Color(33,22,5),4));
        inputArea.setBounds(icon.getIconWidth() + 10, 330, 150, 50 );
        inputArea.setVisible(false);
        inputArea.addKeyListener(new KeyAdapter() {
@@ -173,6 +175,7 @@ public class BoardLayersListener extends JFrame {
        outputArea.setEditable(false);
        outputArea.setLineWrap(true);
        outputArea.setWrapStyleWord(true);
+       outputArea.setBorder(BorderFactory.createLineBorder(new Color(33,22,5),4));
        outputArea.setBounds(icon.getIconWidth() + 10, 220, 150, 100);
        outputArea.setVisible(true);
        bPane.add(outputArea, new Integer(2));
@@ -182,6 +185,10 @@ public class BoardLayersListener extends JFrame {
        playerDataArea.setEditable(false);
        playerDataArea.setLineWrap(true);
        playerDataArea.setWrapStyleWord(true);
+       tborder = BorderFactory.createTitledBorder("Player 1");
+       Border lineb = BorderFactory.createLineBorder(Color.BLACK,5);
+       tborder.setTitleFont(new Font("Serif",Font.BOLD,16));
+       playerDataArea.setBorder(BorderFactory.createCompoundBorder(lineb, tborder));
        playerDataArea.setBounds(icon.getIconWidth() + 10, 410, 150, 100);
        playerDataArea.setVisible(true);
        bPane.add(playerDataArea, new Integer(2));
@@ -255,7 +262,7 @@ public class BoardLayersListener extends JFrame {
     diceRoll = new JLabel();
     diceRoll.setIcon(im);
     diceRoll.setBounds(boardlabel.getWidth() + 10, 650, 110, 110);
-    diceRoll.setOpaque(true);
+    diceRoll.setOpaque(false);
     bPane.add(diceRoll,new Integer(4));
     diceRoll.setVisible(true);
     int delay = 20;
@@ -378,7 +385,6 @@ public class BoardLayersListener extends JFrame {
    }
   public static void main(String[] args) {
   
-    
     BoardLayersListener board = new BoardLayersListener(null);
     board.setVisible(true);
     

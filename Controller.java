@@ -47,6 +47,7 @@ public class Controller {
         //sets up game visuals
         g.initializeIcons();
         view.flash(map.get(player));
+        updatePlayerData();
     }
 
     public void endTurn() {
@@ -58,8 +59,11 @@ public class Controller {
         player.endTurn();
         player = players[turn];
         view.appendToOutput("Player: " + turn + "'s turn");
+        view.tborder.setTitle("Player " + (turn+1));
+        view.playerDataArea.repaint();
         view.flash(map.get(player));
     }
+
     //position and image update
     public void updateIcon(Object o, String img, int x, int y) {
         JLabel j = map.get(o);
@@ -146,13 +150,15 @@ public class Controller {
     }
     public void updatePlayerData() {
         PlayerData playerData = player.getPlayerData();
-        String data = "Player: " + playerData.getplayerName() +
-                      "\nRank: " + playerData.getRank() +
-                      "\nDollars: " + playerData.getDollars() +
-                      "\nCredits: " + playerData.getCredits() +
-                      "\nRehearse Chips: " + playerData.getrehearseChips() +
-                      "\nRole: " + (playerData.getRole() != null ? playerData.getRole().name : "None") +
-                      "\nLocation: " + playerData.getplayerSet().getName();
+        String data = 
+                      "nRank: " + playerData.getRank() +
+                      "\nDollars: " + playerData.getDollars() 
+                    //   +
+                    //   "\nCredits: " + playerData.getCredits() +
+                    //   "\nRehearse Chips: " + playerData.getrehearseChips() +
+                    //   "\nRole: " + (playerData.getRole() != null ? playerData.getRole().name : "None") +
+                    //   "\nLocation: " + playerData.getplayerSet().getName()
+                      ;
         view.updatePlayerData(data);
     }
 
