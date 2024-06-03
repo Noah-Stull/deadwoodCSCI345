@@ -156,7 +156,8 @@ public class BoardLayersListener extends JFrame {
        bPane.add(outputArea, new Integer(2));
 
 
-       }
+
+      }
    public void flash(JLabel curJ) {
       posTemp = curJ.getY();
       offset = 0;
