@@ -8,6 +8,7 @@ public class Controller {
     private int turn = 0;
     HashMap<Object, JLabel> map = new HashMap<Object, JLabel>();
     BoardLayersListener view = new BoardLayersListener(this);
+    private String[] colors = {"r","b","c","g","o","p","w","v","y"};
 
     public Controller(int numPlayers, BoardLayersListener b) {
         g = new Game(numPlayers,this);
@@ -64,6 +65,10 @@ public class Controller {
         j.setBounds(x,y,j.getWidth(),j.getHeight());
         view.update();
     }
+    //update visible or non visible
+    public void updateIcon(Object o,boolean vis) {
+        map.get(o).setVisible(vis);
+    }
 
     //visual must ask for a string input field representing target location which will be fed into this method
     //  this method will find the cooresponding set via linear search
@@ -93,12 +98,22 @@ public class Controller {
         //this did not work
         System.out.println("This move did not work");
     }
-    public void upgrade() {
-        
+    public void upgrade(int rank, String currency) {
+        if (player.upgrade(rank,currency)) {
+            //move worked
+            //player turn is not over
+        }
+        else {
+            System.out.println("this move did not work"); // send this to text window somehow
+        }
     }
     public void act() {
-        if (!player.act()) {
-            
+        if (player.act()) {
+            //success
+            endTurn();
+        }
+        else {
+            //Tell text field that this did not work
         }
     }
     public void rehearse() {
@@ -106,6 +121,12 @@ public class Controller {
             
         }
     }
+    public String getPlayerColor(int pnum) {
+        return colors[pnum];
+    }
 
+    public void roleDice(int val) {
+        //display role of dice from dice file
+    }
 }
 

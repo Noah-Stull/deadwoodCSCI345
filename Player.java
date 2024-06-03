@@ -118,35 +118,36 @@ public class Player {
 
     // }
 
-    // //tells the set that is attached to playerData that we are acting
-    // private boolean act() {
-    //     if (playerData.getRole() == null) return false;
-    //     Dice diceRoll = new Dice();
-    //     int rollNum = diceRoll.rollDice();
-    //     int rehearseChips = playerData.getrehearseChips();
-    //     int roleType = playerData.getRole().getroleType();
-    //     System.out.println("You rolled a: " + rollNum + "and have a " + rehearseChips + " bonus!");
-    //     if(rollNum + rehearseChips >= playerData.getplayerSet().getCard().budget) {
-    //         System.out.println("Success!");
-    //         if(roleType == 1) {
-    //             playerData.addCredits(2);
-    //         } else if(roleType == 2) {
-    //             playerData.addCredits(1);
-    //             playerData.addDollars(1);
-    //         }
-    //         playerData.getplayerSet().act();
-    //         return true;
-    //     } 
-    //     else  if (roleType == 2) {
-    //         playerData.addDollars(1);
-    //         System.out.println("Failure! off-card reward given...");
-    //         return true;
-    //     }
-    //     else {
-    //         System.out.println("Failure!");
-    //         return true;
-    //     }
-    // }
+    //tells the set that is attached to playerData that we are acting
+    public boolean act() {
+        if (playerData.getRole() == null) return false;
+        Dice diceRoll = new Dice();
+        int rollNum = diceRoll.rollDice();
+        controller.roleDice(rollNum); // this will display visual result
+        int rehearseChips = playerData.getrehearseChips();
+        int roleType = playerData.getRole().getroleType();
+        System.out.println("You rolled a: " + rollNum + "and have a " + rehearseChips + " bonus!"); // THis can be moved to controller to be in view text field
+        if(rollNum + rehearseChips >= playerData.getplayerSet().getCard().budget) {
+            System.out.println("Success!");
+            if(roleType == 1) {
+                playerData.addCredits(2);
+            } else if(roleType == 2) {
+                playerData.addCredits(1);
+                playerData.addDollars(1);
+            }
+            playerData.getplayerSet().act();
+            return true;
+        } 
+        else  if (roleType == 2) {
+            playerData.addDollars(1);
+            System.out.println("Failure! off-card reward given...");
+            return true;
+        }
+        else {
+            System.out.println("Failure!");
+            return true;
+        }
+    }
 
     public boolean rehearse() {
 
@@ -175,8 +176,8 @@ public class Player {
         //we know it is a neighbor and we can move at this point
         playerData.setplayerSet(target);
         hasMoved = true;
-        int x = playerData.getplayerSet().getCoords(Integer.parseInt(playerData.getplayerName()))[0];
-        int y = playerData.getplayerSet().getCoords(Integer.parseInt(playerData.getplayerName()))[1];
+        int x = playerData.getplayerSet().getCoords(Integer.parseInt(playerData.getplayerName()) - 1)[0];
+        int y = playerData.getplayerSet().getCoords(Integer.parseInt(playerData.getplayerName()) - 1)[1];
         controller.updateIcon(this,x,y);
         return true;
 
@@ -186,6 +187,10 @@ public class Player {
     }
     
     public boolean takeRole(Role r) {
+        if (playerData.getplayerSet().isWrapped()) {
+            System.out.println("The set is already wrapped");
+            return false;
+        }
         if (playerData.getRank() < r.rank) {
             System.out.println("Level too low");
             return false;
@@ -202,7 +207,7 @@ public class Player {
         return true;
     }
 
-    private boolean upgrade(int rank) {
+    public boolean upgrade(int rank, String currency) {
 
         //Check if player is in casting office
         Set currentSet = playerData.getplayerSet();
@@ -211,64 +216,42 @@ public class Player {
             return false;
         }
 
-        System.out.println("Upgrade options:");
-        System.out.println("Rank 2: Cost - 4 dollars or 5 credits");
-        System.out.println("Rank 3: Cost - 10 dollars or 10 credits");
-        System.out.println("Rank 4: Cost - 18 dollars or 15 credits");
-        System.out.println("Rank 5: Cost - 28 dollars or 20 credits");
-        System.out.println("Rank 6: Cost - 40 dollars or 25 credits");
-
-        Scanner scanner = new Scanner(System.in);
-        int rankChoice;
-
-        // Player chooses new rank
-        while (true) {
-            System.out.println("Choose the rank you want to upgrade to: (2-6)");
-            rankChoice = scanner.nextInt();
-            if (rankChoice >= 2 && rankChoice <= 6) {
-                break;
-            }
-            System.out.println("Invalid choice. Please choose again.");
-        }
-
-        //Check if players rank is below chosen upgrade rank
-        if (rankChoice <= playerData.getRank()) {
-            System.out.println("You cannot upgrade to a rank equal to or lower than your current rank.");
+        if (rank <= playerData.getRank() || rank > 6) {
+            System.out.println("Invalid rank selected.");
             return false;
         }
 
-        //Player chooses currency type
-        int currencyChoice;
-        while(true) {
-            System.out.println("Choose currency for upgrade: (1. Dollars, 2. Credits)");
-            currencyChoice = scanner.nextInt();
-            if(currencyChoice == 1 || currencyChoice == 2) {
-                break;
-            }
-            System.out.println("Invalid choice. Please choose again.");
+        if (!(currency.equalsIgnoreCase("Dollars") || currency.equalsIgnoreCase("Dollar") ||
+         currency.equalsIgnoreCase("credit") || currency.equalsIgnoreCase("credits"))) {
+            System.out.println("invalid currency");
+            return false;
         }
 
         int cost;
         int[] costDollars = {0,0,4,10,18,28,40};
         int[] costCredits = {0,0,10,15,20,25};
-        if(currencyChoice == 1) {
-            cost = costDollars[rankChoice];
+        if(currency.equalsIgnoreCase("dollars") || currency.equalsIgnoreCase("Dollar")) {
+            cost = costDollars[rank];
             if (playerData.getDollars() < cost) {
                 System.out.println("Insufficient currency to upgrade.");
                 return false;                
             }
             else {
                 playerData.setDollars(playerData.getDollars() - cost);
+                String color = controller.getPlayerColor(Integer.parseInt(playerData.getplayerName()) - 1);
+                controller.updateIcon(this, "dice/" + color + rank + ".png");
             }
         }
-        if(currencyChoice == 2) {
-            cost = costCredits[rankChoice];
+        if(currency.equalsIgnoreCase("credit") || currency.equalsIgnoreCase("credits")) {
+            cost = costCredits[rank];
             if (playerData.getCredits() < cost) {
                 System.out.println("Insufficient currency to upgrade.");
                 return false;                
             }
             else {
                 playerData.setCredits(playerData.getCredits() - cost);
+                String color = controller.getPlayerColor(Integer.parseInt(playerData.getplayerName()) - 1);
+                controller.updateIcon(this, "dice/" + color + rank + ".png");
             }
         }
         playerData.setRank(rank);
@@ -279,6 +262,10 @@ public class Player {
     public void endRole() {
         playerData.setRole(null);
         playerData.setrehearseChips(0);
+        int x = playerData.getplayerSet().getCoords(Integer.parseInt(playerData.getplayerName()) - 1)[0];
+        int y = playerData.getplayerSet().getCoords(Integer.parseInt(playerData.getplayerName()) - 1)[1];
+        //takes the player off the role
+        controller.updateIcon(this, x, y);
     }
 
     public void endTurn() {
