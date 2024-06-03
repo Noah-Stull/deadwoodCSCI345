@@ -179,6 +179,7 @@ public class Player {
             playerData.addRehearseChips(1);
             turnOver = true;
             controller.updatePlayerData();
+            controller.addCounter(this, playerData.getrehearseChips());
             return true;
         }
     }
@@ -311,6 +312,7 @@ public class Player {
         //takes the player off the role
         controller.updateIcon(this, x, y);
         controller.updatePlayerData();
+        controller.addCounter(this, 0);
     }
 
     public void endTurn() {

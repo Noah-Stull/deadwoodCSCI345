@@ -39,7 +39,10 @@ public class Controller {
             }
         }
 
-        
+        //maps player JLabel to their shotCounter JLabel
+        for (int i = 0; i < pl.length;i++) {
+            map.put(pl[i], view.practiceCounter[i]);
+        }
 
         //sets up game visuals
         g.initializeIcons();
@@ -168,6 +171,17 @@ public class Controller {
 
     public void rollDice(int val) {
         view.diceRoll(val);
+    }
+    public void addCounter(Player p, int c) {
+        JLabel pyer = map.get(p);
+        JLabel pcer = map.get(pyer);
+        if (c == 0) {
+            pcer.setVisible(false);
+            return;
+        }
+        pcer.setVisible(true);
+        pcer.setText("+" + c);
+        pcer.setBounds(pyer.getX() + 20, pyer.getY() - 5, pcer.getWidth(),pcer.getHeight());
     }
 }
 

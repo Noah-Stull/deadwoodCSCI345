@@ -232,8 +232,8 @@ public class BoardLayersListener extends JFrame {
    practiceCounter = new JLabel[numPlayers];
    for (int i = 0; i < practiceCounter.length;i++) {
       practiceCounter[i] = new JLabel("");
-      practiceCounter[i].setFont(new Font("Arial",Font.BOLD,12));
-      practiceCounter[i].setForeground(Color.RED);
+      practiceCounter[i].setFont(new Font("Arial",Font.BOLD,14));
+      practiceCounter[i].setForeground(Color.BLACK);
       practiceCounter[i].setHorizontalAlignment(SwingConstants.CENTER);
       practiceCounter[i].setVerticalAlignment(SwingConstants.CENTER);
       practiceCounter[i].setBounds(0,0,44,20); ////edit this
