@@ -166,10 +166,11 @@ public class BoardLayersListener extends JFrame {
          @Override
          public void actionPerformed(ActionEvent e) {
             if (Math.abs(curJ.getX() - Xtrack) > 1) {
+               Xtrack = curJ.getX();
                posTemp = curJ.getY();
             }
             offset += (direction * 5);
-             curJ.setBounds(curJ.getX(),posTemp+offset,curJ.getWidth(),curJ.getWidth());
+             curJ.setBounds(curJ.getX(),posTemp+offset,curJ.getWidth(),curJ.getHeight());
              if (offset >= -5 || offset <= 0) {
                direction *= -1;
              }
@@ -177,7 +178,8 @@ public class BoardLayersListener extends JFrame {
        });      
        timer.start();
    }
-   public void stopFlash() {
+   public void stopFlash(JLabel curJ) {
+      curJ.setBounds(curJ.getX(), posTemp, curJ.getWidth(), curJ.getHeight());
       timer.stop();
    }
   public void makePlayers(int numPlayers) {
@@ -212,11 +214,12 @@ public class BoardLayersListener extends JFrame {
          if (e.getSource()== bAct){
             controller.act();
             appendToOutput("Acting is Selected\n");
-
+            currentAction = "";
          }
          else if (e.getSource()== bRehearse){
             controller.rehearse();
             appendToOutput("Rehearse is Selected\n");
+            currentAction = "";
          }
          else if (e.getSource()== bMove){
             appendToOutput("Enter your destination in the input box below and press Enter.");
@@ -232,9 +235,11 @@ public class BoardLayersListener extends JFrame {
             controller.upgrade(3,"Dollars");
             appendToOutput("Enter the rank you want to upgrade to and the currency (Dollars/Credits) in the input box below and press Enter. Please seperate them with a space.\n");
             inputArea.setVisible(true);
+            currentAction = "";
          }
          else if (e.getSource() == bEndTurn){
             controller.endTurn();
+            currentAction = "";
          }           
       }
       public void mousePressed(MouseEvent e) {

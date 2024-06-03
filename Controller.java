@@ -37,7 +37,7 @@ public class Controller {
     }
 
     public void endTurn() {
-        view.stopFlash();
+        view.stopFlash(map.get(player));
         turn++;
         if (turn >= players.length) {
             turn = 0;
