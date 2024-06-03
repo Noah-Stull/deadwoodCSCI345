@@ -178,6 +178,7 @@ public class Player {
         hasMoved = true;
         int x = playerData.getplayerSet().getCoords(Integer.parseInt(playerData.getplayerName()))[0];
         int y = playerData.getplayerSet().getCoords(Integer.parseInt(playerData.getplayerName()))[1];
+        playerData.getplayerSet().visit();
         controller.updateIcon(this,x,y);
         return true;
 
@@ -267,7 +268,7 @@ public class Player {
     }
 
     public void endTurn() {
-        System.out.println("Turn has ended");
+        hasMoved = false;
     }
     public void addDollars(int a) {
         playerData.addDollars(a);

@@ -41,7 +41,9 @@ public class Controller {
         if (turn >= players.length) {
             turn = 0;
         }
+        player.endTurn();
         player = players[turn];
+        view.appendToOutput("Player: " + turn + "'s turn");
     }
     //position and image update
     public void updateIcon(Object o, String img, int x, int y) {
@@ -104,9 +106,11 @@ public class Controller {
             view.closeText();
             endTurn();
         }
-        //this did not work
-        view.appendToOutput("Role could not be taken.");
-        view.closeText();
+        else {
+             //this did not work
+            view.appendToOutput("Role could not be taken.");
+            view.closeText();
+        }
     }
 
     public void upgrade(int rank, String currency) {

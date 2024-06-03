@@ -15,6 +15,8 @@ import java.awt.event.*;
 public class BoardLayersListener extends JFrame {
 
    Controller controller; //For action listener
+   Timer timer = null;
+   private int posTemp = 0;
 
   // JLabels
   JLabel boardlabel;
@@ -150,7 +152,17 @@ public class BoardLayersListener extends JFrame {
        outputArea.setVisible(true);
        bPane.add(outputArea, new Integer(2));
 
-  }
+
+       }
+   public void flash(JLabel curJ) {
+      posTemp = curJ.getY();
+      timer = new Timer(50, new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+            
+         }
+       });      
+   }
   public void makePlayers(int numPlayers) {
    // Add a dice to represent a player. 
    // Role for Crusty the prospector. The x and y co-ordiantes are taken from Board.xml file
@@ -167,8 +179,10 @@ public class BoardLayersListener extends JFrame {
       j.setVisible(true);
       bPane.add(j,new Integer(3));      
    }
-   //playerlabel.setBounds(114,227,pIcon.getIconWidth(),pIcon.getIconHeight());  
    
+   
+   
+
   }
   
   // This class implements Mouse Events
@@ -204,7 +218,6 @@ public class BoardLayersListener extends JFrame {
          }
          else if (e.getSource() == bEndTurn){
             controller.endTurn();
-            appendToOutput("Turn ended");
          }           
       }
       public void mousePressed(MouseEvent e) {
