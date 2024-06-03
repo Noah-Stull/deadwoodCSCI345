@@ -154,11 +154,7 @@ public class BoardLayersListener extends JFrame {
    for (int i = 0; i < playerlabel.length;i++) {
       playerlabel[i] = new JLabel();
    }
-<<<<<<< Updated upstream
-   String[] playerDice = {"dice/r1.png","dice/r2.png","dice/r3.png","dice/r4.png","dice/r5.png","dice/r6.png","dice/b1.png","dice/b2.png","dice/b3.png"};
-=======
    String[] playerDice = {"dice/r1.png","dice/b1.png","dice/c1.png","dice/g1.png","dice/o1.png","dice/p1.png","dice/w1.png","dice/v1.png","dice/y1.png"};
->>>>>>> Stashed changes
    for (int i = 0; i < playerlabel.length;i++) {
       JLabel j = playerlabel[i];
       ImageIcon pIcon = new ImageIcon(playerDice[i]);
@@ -187,11 +183,11 @@ public class BoardLayersListener extends JFrame {
             System.out.println("Rehearse is Selected\n");
          }
          else if (e.getSource()== bMove){
-            controller.move();
+            controller.move("Trailer");
             System.out.println("Move is Selected\n");
          }
          else if (e.getSource() == bTakeRole){
-            controller.takeRole();
+            controller.takeRole(0);
             System.out.println("Take Role is Selected\n");
          }
          else if (e.getSource() == bUpgrade){
