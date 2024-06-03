@@ -33,7 +33,8 @@ public class BoardLayersListener extends JFrame {
   JLabel mLabel;
   JLabel diceRoll = null;
   JLabel shot[];
-  
+  JLabel practiceCounter[] = null;
+
   //JButtons
   JButton bAct;
   JButton bRehearse;
@@ -91,6 +92,7 @@ public class BoardLayersListener extends JFrame {
          bPane.add(j, new Integer(1));
        }
       
+
        //create shot counter array
        ImageIcon sIcon = new ImageIcon("shot.png");
        shot = new JLabel[22];
@@ -226,16 +228,25 @@ public class BoardLayersListener extends JFrame {
       j.setVisible(true);
       bPane.add(j,new Integer(3));      
    }
-   
-   
-   
-
+   //create accompanying practice counters
+   practiceCounter = new JLabel[numPlayers];
+   for (int i = 0; i < practiceCounter.length;i++) {
+      practiceCounter[i] = new JLabel("");
+      practiceCounter[i].setFont(new Font("Arial",Font.BOLD,12));
+      practiceCounter[i].setForeground(Color.RED);
+      practiceCounter[i].setHorizontalAlignment(SwingConstants.CENTER);
+      practiceCounter[i].setVerticalAlignment(SwingConstants.CENTER);
+      practiceCounter[i].setBounds(0,0,44,20); ////edit this
+      practiceCounter[i].setVisible(false);
+      bPane.add(practiceCounter[i],new Integer(4));
+   }
   }
 
   public void diceRoll(int faceNum) {
    if (rollFlag) {
       return;
    }
+   rollFlag = true;
    rollCounter = 0;
     ImageIcon im = new ImageIcon("dice/w" + faceNum +".png");
     Image img = im.getImage();
@@ -262,6 +273,7 @@ public class BoardLayersListener extends JFrame {
          if (rollCounter >= 21) {
             diceRoll.setVisible(false);
             roll.stop();
+            rollFlag = false;
          }
          else {
          ImageIcon i = new ImageIcon("dice/w" + fnum+ ".png");
@@ -303,10 +315,9 @@ public class BoardLayersListener extends JFrame {
             currentAction = "takeRole";
          }
          else if (e.getSource() == bUpgrade){
-            controller.upgrade(3,"Dollars");
             appendToOutput("Enter the rank you want to upgrade to and the currency (Dollars/Credits) in the input box below and press Enter. Please seperate them with a space.\n");
             inputArea.setVisible(true);
-            currentAction = "";
+            currentAction = "upgrade";
          }
          else if (e.getSource() == bEndTurn){
             controller.endTurn();
