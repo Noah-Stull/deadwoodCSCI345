@@ -30,6 +30,7 @@ public class Set{
     
     public boolean takeRole(Role r, Player p) {
         if (wrapped) return false;
+        //checked if already occupied
         if(r.getPlayer() != null){
             System.out.println("Already occupied");
             return false;
@@ -45,14 +46,10 @@ public class Set{
     }
 
     //called if player sucessfully acts
-    public void act() throws Exception{
-        if (wrapped) throw new Exception("cannot be on wrapper set");
+    public void act() {
+        if (wrapped) {System.out.println("ERROR: Scene already wrapped");}; //Assume that this cannot be called
         shotCounter--;
         if (shotCounter == 0) {
-            if (sceneCard.hasPlayers()) {
-                rewardOnCard();
-                rewardOffCard();
-            }
             wrapUp();
         }
     }
@@ -108,13 +105,16 @@ public class Set{
             r.getPlayer().endRole();
             r.giveRole(null);            
         }
+        controller.updateIcon(this,false);
         wrapped = true;
     }
     //resets and gets new card from Board pointer
     public void reset() {
         sceneCard = board.getCard();
         controller.updateIcon(this, "CardBack.jpg");
+        controller.updateIcon(this, true); // does nothing on first day. After that it makes card visible again
         shotCounter = shotCounterTotal;
+        //UPDATE SHOT COUNTER IMAGES IN CONTROLLER
         visited = false; // card should be down
         for (Role r : roles) {
             r.reset();
@@ -166,6 +166,9 @@ public class Set{
     }
     public int[] getCoords(int playerNumber) {
         return positions[playerNumber];
+    }
+    public boolean isWrapped () {
+        return wrapped;
     }
 }
 //gerru5
