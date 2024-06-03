@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Player {
@@ -158,7 +159,7 @@ public class Player {
         }
     }
 
-    public boolean move() {
+    public boolean move(Set target) {
         if(hasMoved) {
             System.out.println("You have already moved in this turn.");
             return false;
@@ -167,42 +168,37 @@ public class Player {
             System.out.println("You are acting on a role!!");
             return false;
         }
-        Set currentSet = playerData.getplayerSet();
-        System.out.println("Choose a destination area:(1, 2, 3, 4)");
-
-        Set[] adjacentSets = currentSet.getNeighborSets();
-        //Display available adjacent sets
-        for (int i = 0; i < adjacentSets.length; i++) {
-            System.out.println((i + 1) + ": " + adjacentSets[i].getName());
+        if (!Arrays.asList(getneighbors()).contains(target)) {
+            System.out.println("This is not a valid move");
+            return false;
         }
-
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            int choice = scanner.nextInt();
-
-            if(choice >= 1 && choice <= adjacentSets.length) {
-                Set destination = adjacentSets[choice - 1];
-                System.out.println("Moving to " + destination.getName());
-                playerData.setplayerSet(destination);
-                hasMoved = true;
-                //flip card if needed
-                break;
-            } else {
-                System.out.println("Invalid choice. Choose again.");   
-            }
-        }
+        //we know it is a neighbor and we can move at this point
+        playerData.setplayerSet(target);
+        hasMoved = true;
+        int x = playerData.getplayerSet().getCoords(Integer.parseInt(playerData.getplayerName()))[0];
+        int y = playerData.getplayerSet().getCoords(Integer.parseInt(playerData.getplayerName()))[1];
+        controller.updateIcon(this,x,y);
         return true;
-    }
 
-    private boolean takeRole(Role r) {
+    }
+    public Set[] getneighbors() {
+        return this.playerData.getplayerSet().getNeighborSets();
+    }
+    
+    public boolean takeRole(Role r) {
         if (playerData.getRank() < r.rank) {
             System.out.println("Level too low");
+            return false;
+        }
+        if (playerData.getRole() != null) {
+            System.out.println("Already on role");
             return false;
         }
         if (!playerData.getplayerSet().takeRole(r,this)) {
             return false;
         }//attempts and returns boolean
         playerData.setRole(r);
+        //NEED TO MOVE PLAYER TO THE COORDS OF THE ROLE
         return true;
     }
 
@@ -309,5 +305,7 @@ public class Player {
         score += (6 * playerData.getRank());
         return score;
     }
-    public String getName;
+    public Role[] getSetRoles() {
+        return playerData.getplayerSet().getRoles();
+    }
 }

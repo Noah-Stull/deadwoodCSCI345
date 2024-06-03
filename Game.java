@@ -46,14 +46,7 @@ public class Game {
         for (Player s : players) {
             controller.updateIcon(s, x, y);
         }
-        controller.updateIcon(players[0], 730,205);
-        controller.updateIcon(players[1], 730,249);
-        controller.updateIcon(players[2], 774,249);
-        controller.updateIcon(players[3], 818,249);
-        controller.updateIcon(players[4], 818,340);
-        controller.updateIcon(players[5], 818,384);
-        controller.updateIcon(players[6], 774,384);
-        controller.updateIcon(players[7], 640,384);
+        initializePLayerLocations();
 
     }
     public void initializePLayerLocations() {
@@ -68,7 +61,24 @@ public class Game {
         int[][] ranch = {{275,624},{319,624},{363,624},{540,520},{540,564},{540,608},{238,575},{238,531}};
         int[][] bank = {{605,590},{649,590},{770,590},{814,590},{858,590},{824,460},{868,481},{824,504}};
         int[][] saloon = {{730,205},{730,249},{774,249},{818,249},{818,340},{818,384},{774,384},{640,384}};
-        int[][] trailer = {{},{},{},{},{},{},{},{}};
+        int[][] office = {{8,515},{8,559},{8,603},{176,495},{176,539},{176,583},{176,627},{8,471}};
+        int[][] trailer = {{1100,240},{1050,240},{1144,240},{1144,284},{1150,328},{990,263},{987,340},{987,384}};
+        sets[0].positions = trainStation;
+        sets[1].positions = secretHideOut;
+        sets[2].positions = church;
+        sets[3].positions = hotel;
+        sets[4].positions = mainStreet;
+        sets[5].positions = jail;
+        sets[6].positions = generalStore;
+        sets[7].positions = ranch;
+        sets[8].positions = bank;
+        sets[9].positions = saloon;
+        sets[10].positions = office;
+        sets[11].positions = trailer;
+        for (int i = 0; i < players.length; i++) {
+            controller.updateIcon(players[i], sets[sets.length - 1].getCoords(i)[0],sets[sets.length - 1].getCoords(i)[1]);
+        }
+        
 
 
     }

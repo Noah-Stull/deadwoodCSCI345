@@ -64,20 +64,34 @@ public class Controller {
         j.setBounds(x,y,j.getWidth(),j.getHeight());
         view.update();
     }
-    public void move() {
-        if (!player.move()) {
-            
+
+    //visual must ask for a string input field representing target location which will be fed into this method
+    //  this method will find the cooresponding set via linear search
+    public void move(String s) {
+        for (Set neighbor : player.getneighbors()) {
+            if(neighbor.getName().equalsIgnoreCase(s)) {
+                if (player.move(neighbor)) {
+                    //successfully moved
+                }
+                //move unsuccessful
+            }
         }
+        System.out.println("Target location not found, try fixing spelling.");
     }
-    public void takeRole() {
-        if (!player.takeRole()) {
-            
+
+    //This needs an int referring to the intended roles position in role list
+    //  A window must pop up in the view to inform players of 
+    public void takeRole(int roleNum) {
+        Role[] allRoles = player.getSetRoles();
+        if (player.takeRole(allRoles[roleNum])) {
+            //role successfully taken. Turn ends
+            endTurn();
         }
+        //this did not work
+        System.out.println("This move did not work");
     }
     public void upgrade() {
-        if (!player.upgrade()) {
-            
-        }
+        
     }
     public void act() {
         if (!player.act()) {

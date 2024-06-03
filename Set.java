@@ -164,5 +164,8 @@ public class Set{
     public int getY() {
         return area[1];
     }
+    public int[] getCoords(int playerNumber) {
+        return positions[playerNumber];
+    }
 }
 //gerru5
