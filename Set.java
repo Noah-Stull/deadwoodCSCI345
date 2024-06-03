@@ -25,6 +25,9 @@ public class Set{
         this.area = area;
         controller = c;
         sceneCard = b.getCard();
+        for (Role rtemp : sceneCard.roles) {
+            rtemp.overridePosition(area[0], area[1]);
+        }
         //c.updateIcon(this, sceneCard.img,area[0],area[1]);
     }
     

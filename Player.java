@@ -203,6 +203,7 @@ public class Player {
             return false;
         }//attempts and returns boolean
         playerData.setRole(r);
+        controller.updateIcon(this, r.getX(), r.getY());
         //NEED TO MOVE PLAYER TO THE COORDS OF THE ROLE
         return true;
     }

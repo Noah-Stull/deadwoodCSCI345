@@ -4,8 +4,8 @@ public class Role implements Comparable<Role>{
     public final String catchPhrase;
     public final int roleType; //1 is on 2 is off
     private Player player; 
-    public final int x;
-    public final int y;
+    private int x;
+    private int y;
 
     public Role(String name, int rank, String catchPhrase, int roleType, int x, int y) {
         this.name = name;
@@ -35,7 +35,21 @@ public class Role implements Comparable<Role>{
     public void reset() {
         this.player = null;
     }
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
+    }
 
+    /*This method is called only for on card roles.
+     *      When the card is placed on a set, the position of the role
+     *      must set relative to the set coordinates. This method adds the origin.
+     */
+    public void overridePosition(int xbase, int ybase) {
+        this.x += xbase;
+        this.y += ybase;
+    }
 @Override public int compareTo(Role r) {
         return r.rank-this.rank;
     }

@@ -203,7 +203,7 @@ public class BoardLayersListener extends JFrame {
             currentAction = "takeRole";
          }
          else if (e.getSource() == bUpgrade){
-            controller.upgrade();
+            controller.upgrade(3,"Dollars");
             appendToOutput("Upgrade is Selected\n");
             inputArea.setVisible(false);
             outputArea.setVisible(false);
@@ -233,9 +233,10 @@ public class BoardLayersListener extends JFrame {
    public void processInput(String input) {
       appendToOutput("Input received: " + input);
       if (currentAction.equalsIgnoreCase("move")) {
+         appendToOutput("moving initiated");
             controller.move(input);
       } else if (currentAction.equalsIgnoreCase("takeRole")) {
-          controller.takeRole(input);
+          controller.takeRole(Integer.parseInt(input));
       }
       currentAction = "";
    }

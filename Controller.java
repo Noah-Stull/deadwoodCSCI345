@@ -75,6 +75,7 @@ public class Controller {
     public void move(String s) {
         for (Set neighbor : player.getneighbors()) {
             if (neighbor.getName().equalsIgnoreCase(s)) {
+                view.appendToOutput("target found");
                 if (player.move(neighbor)) {
                     view.appendToOutput("Move successful to " + s);
                     return;
@@ -82,6 +83,9 @@ public class Controller {
                     view.appendToOutput("Move unsuccessful");
                     return;
                 }
+            }
+            else {
+                view.appendToOutput("target not found.");
             }
         }
         view.appendToOutput("Target location not found, try fixing spelling.");
