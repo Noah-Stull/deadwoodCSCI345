@@ -146,17 +146,20 @@ public class Player {
             }
             playerData.getplayerSet().act();
             turnOver = true;
+            controller.updatePlayerData();
             return true;
         } 
         else  if (roleType == 2) {
             playerData.addDollars(1);
             controller.pushText("Failure! off-card reward given...");
             turnOver = true;
+            controller.updatePlayerData();
             return true;
         }
         else {
             controller.pushText("Failure!");
             turnOver = true;
+            controller.updatePlayerData();
             return true;
         }
     }
@@ -176,6 +179,7 @@ public class Player {
         } else {
             playerData.addRehearseChips(1);
             turnOver = true;
+            controller.updatePlayerData();
             return true;
         }
     }
@@ -204,6 +208,7 @@ public class Player {
         int y = playerData.getplayerSet().getCoords(Integer.parseInt(playerData.getplayerName()))[1];
         playerData.getplayerSet().visit();
         controller.updateIcon(this,x,y);
+        controller.updatePlayerData();
         return true;
 
     }
@@ -239,6 +244,7 @@ public class Player {
         controller.updateIcon(this, r.getX(), r.getY());
         //NEED TO MOVE PLAYER TO THE COORDS OF THE ROLE
         turnOver = true;
+        controller.updatePlayerData();
         return true;
     }
 
@@ -294,6 +300,7 @@ public class Player {
         }
         playerData.setRank(rank);
         controller.pushText("Player upgraded to rank " + rank);
+        controller.updatePlayerData();
         return true;        
     }
 
@@ -304,25 +311,31 @@ public class Player {
         int y = playerData.getplayerSet().getCoords(Integer.parseInt(playerData.getplayerName()))[1];
         //takes the player off the role
         controller.updateIcon(this, x, y);
+        controller.updatePlayerData();
     }
 
     public void endTurn() {
         hasMoved = false;
         turnOver = false;
+        controller.updatePlayerData();
     }
     public void addDollars(int a) {
         playerData.addDollars(a);
+        controller.updatePlayerData();
     }
     public void addCredits(int a) {
         playerData.addCredits(a);
+        controller.updatePlayerData();
     }
     public void newPlayerTurn() {
         hasMoved = false;
+        controller.updatePlayerData();
     }
     public void reset(Set start) {
         playerData.setplayerSet(start);
         playerData.setRole(null);
         playerData.setrehearseChips(0);
+        controller.updatePlayerData();
     }
     public int getScore() {
         int score = 0;

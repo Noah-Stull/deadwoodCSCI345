@@ -143,7 +143,13 @@ public class Controller {
     }
     public void updatePlayerData() {
         PlayerData playerData = player.getPlayerData();
-        String data = "\nRank: " + playerData.getRank();
+        String data = "Player: " + playerData.getplayerName() +
+                      "\nRank: " + playerData.getRank() +
+                      "\nDollars: " + playerData.getDollars() +
+                      "\nCredits: " + playerData.getCredits() +
+                      "\nRehearse Chips: " + playerData.getrehearseChips() +
+                      "\nRole: " + (playerData.getRole() != null ? playerData.getRole().name : "None") +
+                      "\nLocation: " + playerData.getplayerSet().getName();
         view.updatePlayerData(data);
     }
 
