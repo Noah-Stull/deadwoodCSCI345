@@ -243,7 +243,7 @@ public class BoardLayersListener extends JFrame {
     im = new ImageIcon(img);
     diceRoll = new JLabel();
     diceRoll.setIcon(im);
-    diceRoll.setBounds(boardlabel.getWidth() + 10, 400, 110, 110);
+    diceRoll.setBounds(boardlabel.getWidth() + 10, 650, 110, 110);
     diceRoll.setOpaque(true);
     bPane.add(diceRoll,new Integer(4));
     diceRoll.setVisible(true);
