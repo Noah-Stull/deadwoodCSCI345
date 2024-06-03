@@ -15,8 +15,11 @@ import java.awt.event.*;
 public class BoardLayersListener extends JFrame {
 
    Controller controller; //For action listener
-   Timer timer = null;
+   private Timer timer = null;
    private int posTemp = 0;
+   private int direction = 1;
+   private int offset;
+   private int Xtrack = 0;
 
   // JLabels
   JLabel boardlabel;
@@ -156,12 +159,26 @@ public class BoardLayersListener extends JFrame {
        }
    public void flash(JLabel curJ) {
       posTemp = curJ.getY();
-      timer = new Timer(50, new ActionListener() {
+      offset = 0;
+      direction = -1;
+      Xtrack = curJ.getX();
+      timer = new Timer(500, new ActionListener() {
          @Override
          public void actionPerformed(ActionEvent e) {
-            
+            if (Math.abs(curJ.getX() - Xtrack) > 1) {
+               posTemp = curJ.getY();
+            }
+            offset += (direction * 5);
+             curJ.setBounds(curJ.getX(),posTemp+offset,curJ.getWidth(),curJ.getWidth());
+             if (offset >= -5 || offset <= 0) {
+               direction *= -1;
+             }
          }
        });      
+       timer.start();
+   }
+   public void stopFlash() {
+      timer.stop();
    }
   public void makePlayers(int numPlayers) {
    // Add a dice to represent a player. 

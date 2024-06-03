@@ -33,10 +33,11 @@ public class Controller {
 
         //sets up game visuals
         g.initializeIcons();
-
+        view.flash(map.get(player));
     }
 
     public void endTurn() {
+        view.stopFlash();
         turn++;
         if (turn >= players.length) {
             turn = 0;
@@ -44,6 +45,7 @@ public class Controller {
         player.endTurn();
         player = players[turn];
         view.appendToOutput("Player: " + turn + "'s turn");
+        view.flash(map.get(player));
     }
     //position and image update
     public void updateIcon(Object o, String img, int x, int y) {
