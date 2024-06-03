@@ -132,6 +132,10 @@ public class Controller {
         }
     }
 
+    public void pushText(String s) {
+        view.appendToOutput(s);
+    }
+
     public void act() {
         if (player.act()) {
             //success

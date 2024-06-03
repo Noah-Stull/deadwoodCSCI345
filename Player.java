@@ -214,6 +214,7 @@ public class Player {
         //Check if player is in casting office
         Set currentSet = playerData.getplayerSet();
         if(!currentSet.getName().equalsIgnoreCase("Office")) {
+            controller.pushText("Need to be in office.");
             return false;
         }
 
