@@ -27,7 +27,7 @@ public class Controller {
         Set[] s = g.getBoard().getSceneSets();
         JLabel[] sl = b.cardlabels; //there should always be 10
         for (int i = 0; i < sl.length;i++) {
-            System.out.println(s[i].hashCode());
+            
             map.put(s[i],sl[i]);
         }
 
@@ -85,7 +85,6 @@ public class Controller {
                     return;
                 }
                  else {
-                    view.appendToOutput("Move unsuccessful");
                     view.closeText();
                     return;
                 }
@@ -97,23 +96,36 @@ public class Controller {
 
     //This needs an int referring to the intended roles position in role list
     //  A window must pop up in the view to inform players of 
-    public void takeRole(int roleNum) {
+    public void takeRole(String roleName) {
         Role[] allRoles = player.getSetRoles();
-        if (player.takeRole(allRoles[roleNum])) {
-            //role successfully taken. Turn ends
-            view.appendToOutput("ROle taken successfully.");
+        if (allRoles == null) {
+            view.appendToOutput("There are no roles on here!");
             view.closeText();
-            endTurn();
+            return;
         }
-        else {
-             //this did not work
-            view.appendToOutput("Role could not be taken.");
-            view.closeText();
+        for (Role r : allRoles) {
+            System.out.println(r.name);
+            if (roleName.equalsIgnoreCase(r.name)) {
+                if (player.takeRole(r)) {
+                    view.appendToOutput("Successfully taken role");
+                    view.closeText();
+                    return;
+                }
+                else {
+                    view.closeText();
+                    return;
+                }
+            }
         }
+        view.appendToOutput("There is no role with that name!");
+        view.closeText();
     }
 
     public void upgrade(int rank, String currency) {
-        player.upgrade(rank, currency);
+        if (player.upgrade(rank, currency)) {
+            view.appendToOutput("Successfullt upgraded to rank " + rank);
+        }
+        view.closeText();
     }
 
     public void pushText(String s) {
@@ -121,25 +133,20 @@ public class Controller {
     }
 
     public void act() {
-        if (player.act()) {
-            //success
-            endTurn();
-        }
-        else {
-            pushText("Acting attempt failed.");
-        }
+        player.act();
+        view.closeText();
     }
     public void rehearse() {
-        if (!player.rehearse()) {
-            pushText("Rehearsal failed. You cannot rehearse anymore.");
+        if (player.rehearse()) {
+            pushText("You have successfullt rehearsed!");
         }
     }
     public String getPlayerColor(int pnum) {
         return colors[pnum];
     }
 
-    public void roleDice(int val) {
-        //display role of dice from dice file
+    public void rollDice(int val) {
+        view.diceRoll(val);
     }
 }
 
