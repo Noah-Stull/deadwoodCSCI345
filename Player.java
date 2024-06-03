@@ -119,7 +119,7 @@ public class Player {
     // }
 
     //tells the set that is attached to playerData that we are acting
-    private boolean act() {
+    public boolean act() {
         if (playerData.getRole() == null) return false;
         Dice diceRoll = new Dice();
         int rollNum = diceRoll.rollDice();

@@ -106,7 +106,11 @@ public class Controller {
     }
     public void act() {
         if (player.act()) {
-
+            //success
+            endTurn();
+        }
+        else {
+            //Tell text field that this did not work
         }
     }
     public void rehearse() {
