@@ -69,14 +69,17 @@ public class Controller {
     //  this method will find the cooresponding set via linear search
     public void move(String s) {
         for (Set neighbor : player.getneighbors()) {
-            if(neighbor.getName().equalsIgnoreCase(s)) {
+            if (neighbor.getName().equalsIgnoreCase(s)) {
                 if (player.move(neighbor)) {
-                    //successfully moved
+                    view.appendToOutput("Move successful to " + s);
+                    return;
+                } else {
+                    view.appendToOutput("Move unsuccessful");
+                    return;
                 }
-                //move unsuccessful
             }
         }
-        System.out.println("Target location not found, try fixing spelling.");
+        view.appendToOutput("Target location not found, try fixing spelling.");
     }
 
     //This needs an int referring to the intended roles position in role list

@@ -36,6 +36,8 @@ public class BoardLayersListener extends JFrame {
   JTextArea inputArea;
   JTextArea outputArea;
 
+  String currentAction = "";
+
   
   // Constructor
   
@@ -125,7 +127,8 @@ public class BoardLayersListener extends JFrame {
        inputArea = new JTextArea();
        inputArea.setLineWrap(true);
        inputArea.setWrapStyleWord(true);
-       inputArea.setBounds(icon.getIconWidth() + 10, 220, 110, 50 );
+       inputArea.setBounds(icon.getIconWidth() + 10, 330, 150, 50 );
+       inputArea.setVisible(false);
        inputArea.addKeyListener(new KeyAdapter() {
        public void keyPressed(KeyEvent e) {
           if (e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -143,7 +146,8 @@ public class BoardLayersListener extends JFrame {
        outputArea.setEditable(false);
        outputArea.setLineWrap(true);
        outputArea.setWrapStyleWord(true);
-       outputArea.setBounds(icon.getIconWidth() + 10, 270, 110, 50);
+       outputArea.setBounds(icon.getIconWidth() + 10, 220, 150, 100);
+       outputArea.setVisible(false);
        bPane.add(outputArea, new Integer(2));
 
   }
@@ -176,27 +180,39 @@ public class BoardLayersListener extends JFrame {
          
          if (e.getSource()== bAct){
             controller.act();
-            System.out.println("Acting is Selected\n");
+            appendToOutput("Acting is Selected\n");
+            inputArea.setVisible(false);
+            outputArea.setVisible(false);
          }
          else if (e.getSource()== bRehearse){
             controller.rehearse();
-            System.out.println("Rehearse is Selected\n");
+            appendToOutput("Rehearse is Selected\n");
+            inputArea.setVisible(false);
+            outputArea.setVisible(false);
          }
          else if (e.getSource()== bMove){
-            controller.move();
-            System.out.println("Move is Selected\n");
+            appendToOutput("Enter your destination in the input box below and press Enter.");
+            inputArea.setVisible(true);
+            outputArea.setVisible(true);
+            currentAction = "move";
          }
          else if (e.getSource() == bTakeRole){
-            controller.takeRole();
-            System.out.println("Take Role is Selected\n");
+            appendToOutput("Enter the role you want to take in the input box below and press Enter.");
+            inputArea.setVisible(true);
+            outputArea.setVisible(true);
+            currentAction = "takeRole";
          }
          else if (e.getSource() == bUpgrade){
             controller.upgrade();
-            System.out.println("Upgrade is Selected\n");
+            appendToOutput("Upgrade is Selected\n");
+            inputArea.setVisible(false);
+            outputArea.setVisible(false);
          }
          else if (e.getSource() == bEndTurn){
             controller.endTurn();
-            System.out.println("End Turn is Selected\n");
+            appendToOutput("End Turn is Selected\n");
+            inputArea.setVisible(false);
+            outputArea.setVisible(false);
          }           
       }
       public void mousePressed(MouseEvent e) {
@@ -215,8 +231,13 @@ public class BoardLayersListener extends JFrame {
    }
  
    public void processInput(String input) {
-      appendToOutput("Scene Selected:" + input);
-      controller.move(input);
+      appendToOutput("Input received: " + input);
+      if (currentAction.equalsIgnoreCase("move")) {
+            controller.move(input);
+      } else if (currentAction.equalsIgnoreCase("takeRole")) {
+          controller.takeRole(input);
+      }
+      currentAction = "";
    }
    //not sure if this is needed
    public void update() {
