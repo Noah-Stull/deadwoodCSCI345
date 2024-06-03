@@ -238,7 +238,7 @@ public class Player {
             }
             else {
                 playerData.setDollars(playerData.getDollars() - cost);
-                String color = controller.getPlayerColor(Integer.parseInt(playerData.getplayerName()));
+                String color = controller.getPlayerColor(Integer.parseInt(playerData.getplayerName()) - 1);
                 controller.updateIcon(this, "dice/" + color + rank + ".png");
             }
         }
@@ -250,7 +250,7 @@ public class Player {
             }
             else {
                 playerData.setCredits(playerData.getCredits() - cost);
-                String color = controller.getPlayerColor(Integer.parseInt(playerData.getplayerName()));
+                String color = controller.getPlayerColor(Integer.parseInt(playerData.getplayerName()) - 1);
                 controller.updateIcon(this, "dice/" + color + rank + ".png");
             }
         }
