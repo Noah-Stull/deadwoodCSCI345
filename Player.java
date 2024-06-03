@@ -126,9 +126,9 @@ public class Player {
         controller.roleDice(rollNum); // this will display visual result
         int rehearseChips = playerData.getrehearseChips();
         int roleType = playerData.getRole().getroleType();
-        System.out.println("You rolled a: " + rollNum + "and have a " + rehearseChips + " bonus!"); // THis can be moved to controller to be in view text field
+        controller.pushText("You rolled a: " + rollNum + "and have a " + rehearseChips + " bonus!"); // THis can be moved to controller to be in view text field
         if(rollNum + rehearseChips >= playerData.getplayerSet().getCard().budget) {
-            System.out.println("Success!");
+            controller.pushText("Success!");
             if(roleType == 1) {
                 playerData.addCredits(2);
             } else if(roleType == 2) {
@@ -140,11 +140,11 @@ public class Player {
         } 
         else  if (roleType == 2) {
             playerData.addDollars(1);
-            System.out.println("Failure! off-card reward given...");
+            controller.pushText("Failure! off-card reward given...");
             return true;
         }
         else {
-            System.out.println("Failure!");
+            controller.pushText("Failure!");
             return true;
         }
     }
@@ -152,7 +152,7 @@ public class Player {
     public boolean rehearse() {
 
         if(playerData.getrehearseChips() == playerData.getplayerSet().getCard().budget - 1) {
-            System.out.println("You have guaranteed success! Try acting!");
+            controller.pushText("You have guaranteed success! Try acting!");
             return false;
         } else {
             playerData.addRehearseChips(1);
@@ -162,15 +162,15 @@ public class Player {
 
     public boolean move(Set target) {
         if(hasMoved) {
-            System.out.println("You have already moved in this turn.");
+            controller.pushText("You have already moved in this turn.");
             return false;
         }
         if (playerData.getRole() != null) {
-            System.out.println("You are acting on a role!!");
+            controller.pushText("You are acting on a role!!");
             return false;
         }
         if (!Arrays.asList(getneighbors()).contains(target)) {
-            System.out.println("This is not a valid move");
+            controller.pushText("This is not a valid move");
             return false;
         }
         //we know it is a neighbor and we can move at this point
@@ -189,15 +189,15 @@ public class Player {
     
     public boolean takeRole(Role r) {
         if (playerData.getplayerSet().isWrapped()) {
-            System.out.println("The set is already wrapped");
+            controller.pushText("The set is already wrapped");
             return false;
         }
         if (playerData.getRank() < r.rank) {
-            System.out.println("Level too low");
+            controller.pushText("Level too low");
             return false;
         }
         if (playerData.getRole() != null) {
-            System.out.println("Already on role");
+            controller.pushText("Already on role");
             return false;
         }
         if (!playerData.getplayerSet().takeRole(r,this)) {
@@ -214,16 +214,18 @@ public class Player {
         //Check if player is in casting office
         Set currentSet = playerData.getplayerSet();
         if(!currentSet.getName().equalsIgnoreCase("Office")) {
-            controller.pushText("Need to be in office.");
+            controller.pushText("You can only upgrade in the Casting Office.");
             return false;
         }
 
         if (rank <= playerData.getRank() || rank > 6) {
+            controller.pushText("Invalid Rank selected.");
             return false;
         }
 
         if (!(currency.equalsIgnoreCase("Dollars") || currency.equalsIgnoreCase("Dollar") ||
          currency.equalsIgnoreCase("credit") || currency.equalsIgnoreCase("credits"))) {
+            controller.pushText("Invalid Currency selected.");
             return false;
         }
 
@@ -233,7 +235,7 @@ public class Player {
         if(currency.equalsIgnoreCase("dollars") || currency.equalsIgnoreCase("Dollar")) {
             cost = costDollars[rank];
             if (playerData.getDollars() < cost) {
-                System.out.println("Insufficient currency to upgrade.");
+                controller.pushText("Insufficient currency to upgrade.");
                 return false;                
             }
             else {
@@ -245,7 +247,7 @@ public class Player {
         if(currency.equalsIgnoreCase("credit") || currency.equalsIgnoreCase("credits")) {
             cost = costCredits[rank];
             if (playerData.getCredits() < cost) {
-                System.out.println("Insufficient currency to upgrade.");
+                controller.pushText("Insufficient currency to upgrade.");
                 return false;                
             }
             else {
@@ -255,7 +257,7 @@ public class Player {
             }
         }
         playerData.setRank(rank);
-        System.out.println("Player upgraded to rank " + rank);
+        controller.pushText("Player upgraded to rank " + rank);
         return true;        
     }
 

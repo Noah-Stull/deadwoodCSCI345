@@ -114,22 +114,7 @@ public class Controller {
     }
 
     public void upgrade(int rank, String currency) {
-        if (player.upgrade(rank, currency)) {
-            view.appendToOutput("Player upgraded to rank " + rank);
-        } else {
-            PlayerData playerData = player.getPlayerData();
-            Set currentSet = playerData.getplayerSet();
-            if (!currentSet.getName().equalsIgnoreCase("Office")) {
-                view.appendToOutput("You can only upgrade at the Casting Office.");
-            } else if (rank <= playerData.getRank() || rank > 6) {
-                view.appendToOutput("Invalid rank selected.");
-            } else if (!(currency.equalsIgnoreCase("Dollars") || currency.equalsIgnoreCase("Dollar") ||
-                         currency.equalsIgnoreCase("credit") || currency.equalsIgnoreCase("credits"))) {
-                view.appendToOutput("Invalid currency.");
-            } else {
-                view.appendToOutput("Insufficient currency to upgrade.");
-            }
-        }
+        player.upgrade(rank, currency);
     }
 
     public void pushText(String s) {
@@ -142,12 +127,12 @@ public class Controller {
             endTurn();
         }
         else {
-            //Tell text field that this did not work
+            pushText("Acting attempt failed.");
         }
     }
     public void rehearse() {
         if (!player.rehearse()) {
-            
+            pushText("Rehearsal failed. You cannot rehearse anymore.");
         }
     }
     public String getPlayerColor(int pnum) {
