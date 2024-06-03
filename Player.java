@@ -150,7 +150,10 @@ public class Player {
     }
 
     public boolean rehearse() {
-
+        if (playerData.getRole() == null) {
+            controller.pushText("Not on a role");
+            return false;
+        }
         if(playerData.getrehearseChips() == playerData.getplayerSet().getCard().budget - 1) {
             controller.pushText("You have guaranteed success! Try acting!");
             return false;
@@ -188,6 +191,10 @@ public class Player {
     }
     
     public boolean takeRole(Role r) {
+        if (playerData.getplayerSet().getName().equalsIgnoreCase("office") || playerData.getplayerSet().getName().equalsIgnoreCase("trailer")) {
+            controller.pushText("Cannot take role on this set");
+            return false;
+        }
         if (playerData.getplayerSet().isWrapped()) {
             controller.pushText("The set is already wrapped");
             return false;

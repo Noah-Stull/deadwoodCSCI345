@@ -24,11 +24,15 @@ public class Set{
         this.name = name;
         this.area = area;
         controller = c;
-        sceneCard = b.getCard();
-        for (Role rtemp : sceneCard.roles) {
-            rtemp.overridePosition(area[0], area[1]);
+        if(name.equalsIgnoreCase("Office") || name.equalsIgnoreCase("trailer")) {
+            sceneCard = null;
         }
-        //c.updateIcon(this, sceneCard.img,area[0],area[1]);
+        else {      
+            sceneCard = b.getCard();
+            for (Role rtemp : sceneCard.roles) {
+                rtemp.overridePosition(area[0], area[1]);
+            }
+        }
     }
     
     public boolean takeRole(Role r, Player p) {
@@ -134,6 +138,8 @@ public class Set{
         return name;
     }
     public void visit() {
+        //this does nothing for non scene sets
+        if (sceneCard == null) return;
         //if it is false at this point then flip the card
         if (!visited) {
             controller.updateIcon(this, sceneCard.img);

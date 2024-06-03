@@ -83,15 +83,12 @@ public class Controller {
                     view.appendToOutput("Move successful to " + s);
                     view.closeText();
                     return;
-                } else {
+                }
+                 else {
                     view.appendToOutput("Move unsuccessful");
                     view.closeText();
                     return;
                 }
-            }
-            else {
-                view.appendToOutput("target not found.");
-                view.closeText();
             }
         }
         view.closeText();
