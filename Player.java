@@ -176,8 +176,8 @@ public class Player {
         //we know it is a neighbor and we can move at this point
         playerData.setplayerSet(target);
         hasMoved = true;
-        int x = playerData.getplayerSet().getCoords(Integer.parseInt(playerData.getplayerName()) - 1)[0];
-        int y = playerData.getplayerSet().getCoords(Integer.parseInt(playerData.getplayerName()) - 1)[1];
+        int x = playerData.getplayerSet().getCoords(Integer.parseInt(playerData.getplayerName()))[0];
+        int y = playerData.getplayerSet().getCoords(Integer.parseInt(playerData.getplayerName()))[1];
         controller.updateIcon(this,x,y);
         return true;
 
@@ -239,7 +239,7 @@ public class Player {
             }
             else {
                 playerData.setDollars(playerData.getDollars() - cost);
-                String color = controller.getPlayerColor(Integer.parseInt(playerData.getplayerName()) - 1);
+                String color = controller.getPlayerColor(Integer.parseInt(playerData.getplayerName()));
                 controller.updateIcon(this, "dice/" + color + rank + ".png");
             }
         }
@@ -251,7 +251,7 @@ public class Player {
             }
             else {
                 playerData.setCredits(playerData.getCredits() - cost);
-                String color = controller.getPlayerColor(Integer.parseInt(playerData.getplayerName()) - 1);
+                String color = controller.getPlayerColor(Integer.parseInt(playerData.getplayerName()));
                 controller.updateIcon(this, "dice/" + color + rank + ".png");
             }
         }
@@ -263,8 +263,8 @@ public class Player {
     public void endRole() {
         playerData.setRole(null);
         playerData.setrehearseChips(0);
-        int x = playerData.getplayerSet().getCoords(Integer.parseInt(playerData.getplayerName()) - 1)[0];
-        int y = playerData.getplayerSet().getCoords(Integer.parseInt(playerData.getplayerName()) - 1)[1];
+        int x = playerData.getplayerSet().getCoords(Integer.parseInt(playerData.getplayerName()))[0];
+        int y = playerData.getplayerSet().getCoords(Integer.parseInt(playerData.getplayerName()))[1];
         //takes the player off the role
         controller.updateIcon(this, x, y);
     }

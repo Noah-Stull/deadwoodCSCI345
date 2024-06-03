@@ -226,6 +226,7 @@ public class BoardLayersListener extends JFrame {
    }
 
    public void appendToOutput(String text) {
+      outputArea.setText(null);
       outputArea.append(text + "\n");
       outputArea.setCaretPosition(outputArea.getDocument().getLength()); // Auto-scroll to the bottom
    }
