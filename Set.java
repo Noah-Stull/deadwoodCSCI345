@@ -13,8 +13,9 @@ public class Set{
     private Controller controller;
     private int[] area; //x,y,w,h
     public int[][] positions = new int[8][2];
+    private ShotCounter[] shots;
 
-    public Set(Board b, Role[] r, int shots, Set[] sets, String name, Controller c, int[] area) {
+    public Set(Board b, Role[] r, int shots, Set[] sets, String name, Controller c, int[] area, ShotCounter[] sh ) {
         board = b;
         roles = r;
         visited = false;
@@ -26,12 +27,14 @@ public class Set{
         controller = c;
         if(name.equalsIgnoreCase("Office") || name.equalsIgnoreCase("trailer")) {
             sceneCard = null;
+            sh = null;
         }
         else {      
             sceneCard = b.getCard();
             for (Role rtemp : sceneCard.roles) {
                 rtemp.overridePosition(area[0], area[1]);
             }
+            this.shots = sh;
         }
     }
     
@@ -55,6 +58,7 @@ public class Set{
     //called if player sucessfully acts
     public void act() {
         if (wrapped) {System.out.println("ERROR: Scene already wrapped");}; //Assume that this cannot be called
+        controller.updateIcon(shots[shotCounter-1], false);
         shotCounter--;
         if (shotCounter == 0) {
             wrapUp();
@@ -117,10 +121,17 @@ public class Set{
     }
     //resets and gets new card from Board pointer
     public void reset() {
+        //special sets
+        if (sceneCard == null) {
+            return;
+        }
         sceneCard = board.getCard();
         controller.updateIcon(this, "CardBack.jpg");
         controller.updateIcon(this, true); // does nothing on first day. After that it makes card visible again
         shotCounter = shotCounterTotal;
+        for (ShotCounter c : shots) {
+            controller.updateIcon(c, true);
+        }
         //UPDATE SHOT COUNTER IMAGES IN CONTROLLER
         visited = false; // card should be down
         for (Role r : roles) {
@@ -178,6 +189,9 @@ public class Set{
     }
     public boolean isWrapped () {
         return wrapped;
+    }
+    public ShotCounter[] getShots() {
+        return this.shots;
     }
 }
 //gerru5

@@ -131,6 +131,7 @@ public class Player {
         }
         Dice diceRoll = new Dice();
         int rollNum = diceRoll.rollDice();
+        System.out.println(rollNum);
         controller.rollDice(rollNum); // this will display visual result
         int rehearseChips = playerData.getrehearseChips();
         int roleType = playerData.getRole().getroleType();

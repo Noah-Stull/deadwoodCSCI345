@@ -24,12 +24,22 @@ public class Controller {
         }
 
         //maps all sets[cards] to their JLabels
+        // also maps shotCounters
         Set[] s = g.getBoard().getSceneSets();
         JLabel[] sl = b.cardlabels; //there should always be 10
+        JLabel[] shl = b.shot;
+        int shotIndex = 0;
         for (int i = 0; i < sl.length;i++) {
-            
             map.put(s[i],sl[i]);
+            for (int j = 0; j < s[i].getShots().length;j++) {
+                ShotCounter curShot = s[i].getShots()[j];
+                map.put(curShot, shl[shotIndex]);
+                updateIcon(curShot,curShot.x,curShot.y);
+                shotIndex++;
+            }
         }
+
+        
 
         //sets up game visuals
         g.initializeIcons();

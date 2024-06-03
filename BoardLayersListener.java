@@ -16,12 +16,15 @@ import java.util.Random;
 public class BoardLayersListener extends JFrame {
 
    Controller controller; //For action listener
+   //These are to move the player's dice
    private Timer timer = null;
    private int posTemp = 0;
    private int direction = 1;
    private int offset;
    private int Xtrack = 0;
+   //these are for the diceRoll effect
    private int rollCounter = 0;
+   private boolean rollFlag = false;
 
   // JLabels
   JLabel boardlabel;
@@ -29,6 +32,7 @@ public class BoardLayersListener extends JFrame {
   JLabel playerlabel[] = null;
   JLabel mLabel;
   JLabel diceRoll = null;
+  JLabel shot[];
   
   //JButtons
   JButton bAct;
@@ -87,6 +91,18 @@ public class BoardLayersListener extends JFrame {
          bPane.add(j, new Integer(1));
        }
       
+       //create shot counter array
+       ImageIcon sIcon = new ImageIcon("shot.png");
+       shot = new JLabel[22];
+       for (int i = 0 ; i < shot.length; i++) {
+         shot[i] = new JLabel();
+         shot[i].setIcon(sIcon);
+         shot[i].setBounds(0,0,sIcon.getIconWidth(),sIcon.getIconHeight());
+         shot[i].setOpaque(true);
+         shot[i].setVisible(true);
+         bPane.add(shot[i],new Integer(2));
+       }
+
        // Create the Menu for action buttons
        mLabel = new JLabel("MENU");
        mLabel.setBounds(icon.getIconWidth()+40,0,110,20);
@@ -217,13 +233,17 @@ public class BoardLayersListener extends JFrame {
   }
 
   public void diceRoll(int faceNum) {
+   if (rollFlag) {
+      return;
+   }
+   rollCounter = 0;
     ImageIcon im = new ImageIcon("dice/w" + faceNum +".png");
     Image img = im.getImage();
     img = img.getScaledInstance(110, 110, Image.SCALE_SMOOTH);
     im = new ImageIcon(img);
     diceRoll = new JLabel();
     diceRoll.setIcon(im);
-    diceRoll.setBounds(500, 500, 110, 110);
+    diceRoll.setBounds(boardlabel.getWidth() + 10, 400, 110, 110);
     diceRoll.setOpaque(true);
     bPane.add(diceRoll,new Integer(4));
     diceRoll.setVisible(true);
@@ -239,7 +259,7 @@ public class BoardLayersListener extends JFrame {
             fnum = faceNum;
             roll.setDelay(2600);
          }
-         if (rollCounter > 21) {
+         if (rollCounter >= 21) {
             diceRoll.setVisible(false);
             roll.stop();
          }
