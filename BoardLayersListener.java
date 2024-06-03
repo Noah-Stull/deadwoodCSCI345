@@ -147,7 +147,7 @@ public class BoardLayersListener extends JFrame {
        outputArea.setLineWrap(true);
        outputArea.setWrapStyleWord(true);
        outputArea.setBounds(icon.getIconWidth() + 10, 220, 150, 100);
-       outputArea.setVisible(false);
+       outputArea.setVisible(true);
        bPane.add(outputArea, new Integer(2));
 
   }
@@ -181,38 +181,30 @@ public class BoardLayersListener extends JFrame {
          if (e.getSource()== bAct){
             controller.act();
             appendToOutput("Acting is Selected\n");
-            inputArea.setVisible(false);
-            outputArea.setVisible(false);
+
          }
          else if (e.getSource()== bRehearse){
             controller.rehearse();
             appendToOutput("Rehearse is Selected\n");
-            inputArea.setVisible(false);
-            outputArea.setVisible(false);
          }
          else if (e.getSource()== bMove){
             appendToOutput("Enter your destination in the input box below and press Enter.");
             inputArea.setVisible(true);
-            outputArea.setVisible(true);
             currentAction = "move";
          }
          else if (e.getSource() == bTakeRole){
             appendToOutput("Enter the role you want to take in the input box below and press Enter.");
             inputArea.setVisible(true);
-            outputArea.setVisible(true);
             currentAction = "takeRole";
          }
          else if (e.getSource() == bUpgrade){
             controller.upgrade(3,"Dollars");
             appendToOutput("Upgrade is Selected\n");
             inputArea.setVisible(false);
-            outputArea.setVisible(false);
          }
          else if (e.getSource() == bEndTurn){
             controller.endTurn();
-            appendToOutput("End Turn is Selected\n");
-            inputArea.setVisible(false);
-            outputArea.setVisible(false);
+            appendToOutput("Turn ended");
          }           
       }
       public void mousePressed(MouseEvent e) {
@@ -240,6 +232,9 @@ public class BoardLayersListener extends JFrame {
           controller.takeRole(Integer.parseInt(input));
       }
       currentAction = "";
+   }
+   public void closeText() {
+      inputArea.setVisible(false);
    }
    //not sure if this is needed
    public void update() {

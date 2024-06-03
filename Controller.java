@@ -41,7 +41,6 @@ public class Controller {
         if (turn >= players.length) {
             turn = 0;
         }
-        g.endDay();
         player = players[turn];
     }
     //position and image update
@@ -78,16 +77,20 @@ public class Controller {
                 view.appendToOutput("target found");
                 if (player.move(neighbor)) {
                     view.appendToOutput("Move successful to " + s);
+                    view.closeText();
                     return;
                 } else {
                     view.appendToOutput("Move unsuccessful");
+                    view.closeText();
                     return;
                 }
             }
             else {
                 view.appendToOutput("target not found.");
+                view.closeText();
             }
         }
+        view.closeText();
         view.appendToOutput("Target location not found, try fixing spelling.");
     }
 
@@ -97,10 +100,13 @@ public class Controller {
         Role[] allRoles = player.getSetRoles();
         if (player.takeRole(allRoles[roleNum])) {
             //role successfully taken. Turn ends
+            view.appendToOutput("ROle taken successfully.");
+            view.closeText();
             endTurn();
         }
         //this did not work
-        System.out.println("This move did not work");
+        view.appendToOutput("Role could not be taken.");
+        view.closeText();
     }
     public void upgrade(int rank, String currency) {
         if (player.upgrade(rank,currency)) {
@@ -108,7 +114,7 @@ public class Controller {
             //player turn is not over
         }
         else {
-            System.out.println("this move did not work"); // send this to text window somehow
+            view.appendToOutput("You cannot upgrade to this rank!");
         }
     }
     public void act() {
