@@ -108,15 +108,26 @@ public class Controller {
         view.appendToOutput("Role could not be taken.");
         view.closeText();
     }
+
     public void upgrade(int rank, String currency) {
-        if (player.upgrade(rank,currency)) {
-            //move worked
-            //player turn is not over
-        }
-        else {
-            view.appendToOutput("You cannot upgrade to this rank!");
+        if (player.upgrade(rank, currency)) {
+            view.appendToOutput("Player upgraded to rank " + rank);
+        } else {
+            PlayerData playerData = player.getPlayerData();
+            Set currentSet = playerData.getplayerSet();
+            if (!currentSet.getName().equalsIgnoreCase("Office")) {
+                view.appendToOutput("You can only upgrade at the Casting Office.");
+            } else if (rank <= playerData.getRank() || rank > 6) {
+                view.appendToOutput("Invalid rank selected.");
+            } else if (!(currency.equalsIgnoreCase("Dollars") || currency.equalsIgnoreCase("Dollar") ||
+                         currency.equalsIgnoreCase("credit") || currency.equalsIgnoreCase("credits"))) {
+                view.appendToOutput("Invalid currency.");
+            } else {
+                view.appendToOutput("Insufficient currency to upgrade.");
+            }
         }
     }
+
     public void act() {
         if (player.act()) {
             //success

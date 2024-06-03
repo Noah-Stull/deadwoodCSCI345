@@ -213,18 +213,15 @@ public class Player {
         //Check if player is in casting office
         Set currentSet = playerData.getplayerSet();
         if(!currentSet.getName().equalsIgnoreCase("Office")) {
-            System.out.println("You can only upgrade at the Casting Office.");
             return false;
         }
 
         if (rank <= playerData.getRank() || rank > 6) {
-            System.out.println("Invalid rank selected.");
             return false;
         }
 
         if (!(currency.equalsIgnoreCase("Dollars") || currency.equalsIgnoreCase("Dollar") ||
          currency.equalsIgnoreCase("credit") || currency.equalsIgnoreCase("credits"))) {
-            System.out.println("invalid currency");
             return false;
         }
 
@@ -295,5 +292,8 @@ public class Player {
     }
     public Role[] getSetRoles() {
         return playerData.getplayerSet().getRoles();
+    }
+    public PlayerData getPlayerData() {
+        return playerData;
     }
 }

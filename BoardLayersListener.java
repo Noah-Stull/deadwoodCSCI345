@@ -199,8 +199,8 @@ public class BoardLayersListener extends JFrame {
          }
          else if (e.getSource() == bUpgrade){
             controller.upgrade(3,"Dollars");
-            appendToOutput("Upgrade is Selected\n");
-            inputArea.setVisible(false);
+            appendToOutput("Enter the rank you want to upgrade to and the currency (Dollars/Credits) in the input box below and press Enter. Please seperate them with a space.\n");
+            inputArea.setVisible(true);
          }
          else if (e.getSource() == bEndTurn){
             controller.endTurn();
@@ -230,7 +230,20 @@ public class BoardLayersListener extends JFrame {
             controller.move(input);
       } else if (currentAction.equalsIgnoreCase("takeRole")) {
           controller.takeRole(Integer.parseInt(input));
-      }
+      } else if (currentAction.equalsIgnoreCase("upgrade")) {
+         String[] parts = input.split(" ");
+         if (parts.length == 2) {
+             try {
+                 int rank = Integer.parseInt(parts[0]);
+                 String currency = parts[1];
+                 controller.upgrade(rank, currency);
+             } catch (NumberFormatException e) {
+                 appendToOutput("Invalid input format. Please enter rank and currency.");
+             }
+         } else {
+             appendToOutput("Invalid input format. Please enter rank and currency.");
+         }
+     }
       currentAction = "";
    }
    public void closeText() {
