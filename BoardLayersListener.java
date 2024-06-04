@@ -73,6 +73,8 @@ public class BoardLayersListener extends JFrame {
        controller = c; 
        // Set the exit option for the JFrame
        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+       setExtendedState(JFrame.MAXIMIZED_BOTH); 
        // Create the JLayeredPane to hold the display, cards, dice and buttons
        bPane = getLayeredPane();    
        getContentPane().setBackground(new Color(74, 52, 17)); // This changes the background color
