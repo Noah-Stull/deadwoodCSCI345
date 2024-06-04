@@ -59,7 +59,7 @@ public class Controller {
         }
         player.endTurn();
         player = players[turn];
-        view.appendToOutput("Player: " + turn + "'s turn");
+        view.appendToOutput("Player: " + (turn+1) + "'s turn");
         view.tborder.setTitle("Player " + (turn+1));
         view.playerDataArea.repaint();
         view.flash(map.get(player));
