@@ -44,10 +44,12 @@ public class BoardLayersListener extends JFrame {
   JButton bUpgrade;
   JButton bEndTurn;
 
-  //for ending te day
+  //for ending the day and game
   JButton bEndDay;
   JTextArea endDay;
   JButton next;
+  TitledBorder tb;
+  JLabel backCover;
 
   // JLayered Pane
   JLayeredPane bPane;
@@ -161,6 +163,21 @@ public class BoardLayersListener extends JFrame {
        next.setVisible(false);
        bPane.add(next,new Integer(7));
 
+       backCover = new JLabel("backGround") {
+         @Override
+         protected void paintComponent(Graphics g) {
+            Graphics2D g2d = (Graphics2D) g.create();
+            g2d.setColor(new Color(0, 0, 0, 200)); // Black with 100 alpha for translucency
+            g2d.fillRect(0, 0, getWidth(), getHeight());
+            super.paintComponent(g2d);
+            g2d.dispose();
+         }
+       };
+       backCover.setBounds(0,0,getWidth(),getHeight());
+       backCover.setOpaque(false);
+       backCover.setVisible(true);
+       bPane.add(backCover,new Integer(5));
+
        // Place the action buttons in the top layer
        bPane.add(bAct, new Integer(2));
        bPane.add(bRehearse, new Integer(2));
@@ -204,7 +221,7 @@ public class BoardLayersListener extends JFrame {
        playerDataArea.setEditable(false);
        playerDataArea.setLineWrap(true);
        playerDataArea.setWrapStyleWord(true);
-       tborder = BorderFactory.createTitledBorder("Player 1");
+       tborder = BorderFactory.createTitledBorder("Player 1 | Day 1");
        Border lineb = BorderFactory.createLineBorder(Color.BLACK,5);
        tborder.setTitleFont(new Font("Serif",Font.BOLD,16));
        playerDataArea.setBorder(BorderFactory.createCompoundBorder(lineb, tborder));
@@ -215,14 +232,15 @@ public class BoardLayersListener extends JFrame {
        //End Day Screen
        endDay = new JTextArea();
        endDay.setEditable(false);
-       endDay.setLineWrap(true);
+       endDay.setLineWrap(false);
        endDay.setWrapStyleWord(true);
-       TitledBorder tb = BorderFactory.createTitledBorder("End Of Day!");
+       tb = BorderFactory.createTitledBorder("End Of Day!");
        Border lb = BorderFactory.createLineBorder(Color.BLACK,8);
-       tb.setTitleFont(new Font("Serif",Font.BOLD,16));
+       tb.setTitleFont(new Font("Serif",Font.BOLD,30));
        endDay.setBorder(BorderFactory.createCompoundBorder(lb,tb));
        endDay.setBounds(250, 250, 500, 350);
        endDay.setBackground(new Color(135, 173, 94));
+       endDay.setFont(new Font("Monospaced",Font.BOLD,16));
        endDay.setVisible(false);
        bPane.add(endDay,new Integer(6)); // very top layer
       }
@@ -337,9 +355,10 @@ public class BoardLayersListener extends JFrame {
       public void mouseClicked(MouseEvent e) {
          if (endDay.isVisible()){
             if (e.getSource()==next) {
-            endDay.setVisible(false);
-            endDay.setText(null);
-            next.setVisible(false);
+               endDay.setVisible(false);
+               endDay.setText(null);
+               next.setVisible(false);
+               backCover.setVisible(false);
             }
             return;
          }
@@ -433,7 +452,11 @@ public class BoardLayersListener extends JFrame {
     board.setVisible(true);
     
     // Take input from the user about number of players
-    int players = Integer.parseInt(JOptionPane.showInputDialog(board, "How many players?")); 
+    int players;
+    while(true) {
+      players = Integer.parseInt(JOptionPane.showInputDialog(board, "How many players?")); 
+      if (players > 1 && players < 9) break;
+    }
     board.makePlayers(players);
     board.controller = new Controller(players,board);
   }

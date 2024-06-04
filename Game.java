@@ -1,4 +1,7 @@
 import java.io.File;
+import java.util.ArrayList;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Game {
     private Player[] players;
@@ -83,33 +86,13 @@ public class Game {
 
     }
 
-    //Goes through each player until some exit condition is reached
-    private void play() {
-        System.out.println("playing");
-        int turn = 0;
-        while(true) {
-            if (turn > players.length - 1) {
-                turn = 0;
-                continue;
-            }
-            System.out.println("Player " + (turn + 1) + "  take your turn");
-            players[turn].newPlayerTurn();
-            if (!board.moreScenes() && day >= totalDays - 1) {
-                break;
-            }
-            else if (!board.moreScenes()) {
-                endDay();
-            }
-            turn++;
-        }
-        endDay();
-    }
+    
     public boolean endDay() {
         day++;
-        if (players.length < 4 && day == 3) {
+        if (players.length < 4 && day > 3) {
             return false;
         }
-        else if (players.length > 3 && day == 4) {
+        else if (players.length > 3 && day > 4) {
             return false;
         }
         else {
@@ -121,16 +104,18 @@ public class Game {
             return true;
         }
     }
-
-    private void endGame() {
-        Player pmax = players[0];
+    public Player[] getWinners() {
+        List<Player> winners = new ArrayList<>();
+        int highScore = 0;
         for (Player p : players) {
-            if (p.getScore() > pmax.getScore()) {
-                pmax = p;
+            if(p.getScore() > highScore) highScore = p.getScore();
+        }
+        for (Player p : players) {
+            if (p.getScore() == highScore) {
+                winners.add(p);
             }
         }
-        System.out.println("The game has ended");
-        System.out.println("The winner is... player " + pmax.getName);
+        return winners.toArray(new Player[0]);
     }
 
     public Player[] getPlayers() {
@@ -138,5 +123,8 @@ public class Game {
     }
     public Board getBoard() {
         return board;
+    }
+    public int getDay() {
+        return day;
     }
  }

@@ -341,6 +341,9 @@ public class Player {
         int coords[] =  playerData.getplayerSet().getCoords(Integer.parseInt(playerData.getplayerName()));
         controller.updateIcon(this, coords[0],coords[1]);
     }
+    public String getName() {
+        return (Integer.parseInt(playerData.getplayerName()) + 1) + "";
+    }
     public int getScore() {
         int score = 0;
         score += playerData.getCredits();

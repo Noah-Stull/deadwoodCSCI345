@@ -1,5 +1,7 @@
+import java.awt.*;
 import java.util.HashMap;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 
 public class Controller {
     Game g;
@@ -49,6 +51,7 @@ public class Controller {
         g.initializeIcons();
         view.flash(map.get(player));
         updatePlayerData();
+        view.backCover.setVisible(false);
     }
 
     public void endTurn() {
@@ -60,7 +63,7 @@ public class Controller {
         player.endTurn();
         player = players[turn];
         view.appendToOutput("Player: " + turn + "'s turn");
-        view.tborder.setTitle("Player " + (turn+1));
+        view.tborder.setTitle("Player " + (turn+1)+ " | Day " + g.getDay());
         view.playerDataArea.repaint();
         view.flash(map.get(player));
         updatePlayerData();;
@@ -195,20 +198,40 @@ public class Controller {
     }
     public void endDay() {
         if(g.endDay()) {
-            view.endDay.append("Color                   Rank               Dollars          Credits\n");
+            view.endDay.append("Player  Color    Rank    Dollars   Credits\n");
             view.endDay.append(getAllPlayerInfoString());
+            view.backCover.setVisible(true);
             view.next.setVisible(true);
             view.endDay.setVisible(true);
+            view.tborder.setTitle(("Player " + (turn+1) + " | Day" + g.getDay()));
         }
-        else {
-            view.appendToOutput("Game Over");
+        else { //This is the end of the game area
+            view.endDay.setText(null);
+            view.tb.setTitleFont(new Font("Serif",Font.BOLD,35));
+            view.tb.setTitleJustification(TitledBorder.CENTER);
+            Player[] winners = g.getWinners();
+            if (winners.length == 1) {
+                view.tb.setTitle("THE WINNER IS...");
+            }
+            else {
+                view.tb.setTitle("THE WINNERS ARE...");
+            }
+            view.endDay.setFont(new Font("Monospaced",Font.BOLD,26));
+            view.endDay.setBackground(new Color(234, 235, 195));
+            view.endDay.append("Player    Color     Score\n");
+            for (Player pp : winners) {
+                view.endDay.append(String.format("%-"+12+"s",pp.getName()) + String.format("%-"+12+"s",(colorNames[Integer.parseInt(pp.getName())-1])) + String.format("%-"+5+"s",pp.getScore()) + "\n");
+            }
+            view.backCover.setVisible(true);
+            view.endDay.setVisible(true);
+            
         }
     }
     private String getAllPlayerInfoString() {
         String temp = "";
         for (int i = 0; i < players.length;i++) {
             int[] data = players[i].getVisibleData();
-            temp = temp + colorNames[i] + "              " + data[0] + "              " + data[1] + "              " + data[2] +"\n";
+            temp = temp +String.format("%-"+6+"s",(1+i)+"") + String.format("%-"+11+"s",colorNames[i])  + String.format("%-" + 9+"s", ""+data[0]) +String.format("%-" + 9+"s", ""+data[1]) + String.format("%-" + 10+"s", ""+data[2]) + "\n";
         }
         return temp;
     }
