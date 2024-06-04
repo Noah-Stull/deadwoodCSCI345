@@ -43,15 +43,19 @@ public class BoardLayersListener extends JFrame {
   JButton bTakeRole;
   JButton bUpgrade;
   JButton bEndTurn;
+
+  //for ending te day
   JButton bEndDay;
-  
+  JTextArea endDay;
+  JButton next;
+
   // JLayered Pane
   JLayeredPane bPane;
 
   JTextArea inputArea;
   JTextArea outputArea;
   JTextArea playerDataArea;
-  JTextArea endDay;
+ 
   //For the player data 
   TitledBorder tborder;
 
@@ -150,6 +154,13 @@ public class BoardLayersListener extends JFrame {
        bEndDay.addMouseListener(new boardMouseListener());
        bPane.add(bEndDay,new Integer(2));
 
+       next = new JButton("Continue");
+       next.setBackground(Color.darkGray);
+       next.setBounds(600,527,100,40);
+       next.addMouseListener(new boardMouseListener());
+       next.setVisible(false);
+       bPane.add(next,new Integer(7));
+
        // Place the action buttons in the top layer
        bPane.add(bAct, new Integer(2));
        bPane.add(bRehearse, new Integer(2));
@@ -210,9 +221,10 @@ public class BoardLayersListener extends JFrame {
        Border lb = BorderFactory.createLineBorder(Color.BLACK,8);
        tb.setTitleFont(new Font("Serif",Font.BOLD,16));
        endDay.setBorder(BorderFactory.createCompoundBorder(lb,tb));
-       endDay.setBounds(250, 250, 500, 500);
+       endDay.setBounds(250, 250, 500, 350);
+       endDay.setBackground(new Color(135, 173, 94));
        endDay.setVisible(false);
-       bPane.add(endDay);
+       bPane.add(endDay,new Integer(6)); // very top layer
       }
 
    public void flash(JLabel curJ) {
@@ -323,7 +335,13 @@ public class BoardLayersListener extends JFrame {
       
       // Code for the different button clicks
       public void mouseClicked(MouseEvent e) {
-         
+         if (endDay.isVisible()){
+            if (e.getSource()==next) {
+            endDay.setVisible(false);
+            next.setVisible(false);
+            }
+            return;
+         }
          if (e.getSource()== bAct){
             controller.act();
             currentAction = "";

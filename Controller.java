@@ -197,6 +197,7 @@ public class Controller {
     public void endDay() {
         if(g.endDay()) {
             view.appendToOutput("New Day");
+            view.endDay.setVisible(true);
         }
         else {
             view.appendToOutput("Game Over");
