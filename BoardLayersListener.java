@@ -338,6 +338,7 @@ public class BoardLayersListener extends JFrame {
          if (endDay.isVisible()){
             if (e.getSource()==next) {
             endDay.setVisible(false);
+            endDay.setText(null);
             next.setVisible(false);
             }
             return;
