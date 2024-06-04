@@ -332,11 +332,14 @@ public class Player {
         hasMoved = false;
         controller.updatePlayerData();
     }
+    //reverts Set, RehearseChips,Role
     public void reset(Set start) {
         playerData.setplayerSet(start);
         playerData.setRole(null);
         playerData.setrehearseChips(0);
-        controller.updatePlayerData();
+        controller.addCounter(this, 0);
+        int coords[] =  playerData.getplayerSet().getCoords(Integer.parseInt(playerData.getplayerName()));
+        controller.updateIcon(this, coords[0],coords[1]);
     }
     public int getScore() {
         int score = 0;
@@ -348,7 +351,11 @@ public class Player {
     public Role[] getSetRoles() {
         return playerData.getplayerSet().getRoles();
     }
-    public PlayerData getPlayerData() {
-        return playerData;
+    // public PlayerData getPlayerData() {
+    //     return playerData;
+    // }
+    public int[] getVisibleData() {
+        int[] m = {playerData.getRank(),playerData.getDollars(),playerData.getCredits()};
+        return m;
     }
 }

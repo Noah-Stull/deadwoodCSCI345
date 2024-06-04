@@ -16,14 +16,14 @@ public class Board {
         deck = parser.parse(f);
         ParseSet parser1 = new ParseSet();
         sets = parser1.parse(f2,this,controller);
-        wrapCounter = 0;
+        wrapCounter = 10;
         shuffleDeck();
     }
     public void resetBoard() {
         for (Set s : sets) {
             s.reset();
         }
-        wrapCounter = 0;
+        wrapCounter = 10;
     }
 
     //shuffles array of cads
@@ -49,6 +49,9 @@ public class Board {
     }
     public void wrapScene() {
         wrapCounter--;
+        if(wrapCounter == 0) {
+            controller.endDay();
+        }
     }
     public Set[] getSets() {
         return sets;

@@ -43,6 +43,7 @@ public class BoardLayersListener extends JFrame {
   JButton bTakeRole;
   JButton bUpgrade;
   JButton bEndTurn;
+  JButton bEndDay;
   
   // JLayered Pane
   JLayeredPane bPane;
@@ -50,6 +51,7 @@ public class BoardLayersListener extends JFrame {
   JTextArea inputArea;
   JTextArea outputArea;
   JTextArea playerDataArea;
+  JTextArea endDay;
   //For the player data 
   TitledBorder tborder;
 
@@ -141,6 +143,12 @@ public class BoardLayersListener extends JFrame {
        bEndTurn.setBackground(Color.white);
        bEndTurn.setBounds(icon.getIconWidth()+10,180,110, 20);
        bEndTurn.addMouseListener(new boardMouseListener());
+//==================================================================================================
+       bEndDay = new JButton("END DAY");
+       bEndDay.setBackground(Color.white);
+       bEndDay.setBounds(icon.getIconWidth()+10,210,110, 20);
+       bEndDay.addMouseListener(new boardMouseListener());
+       bPane.add(bEndDay,new Integer(2));
 
        // Place the action buttons in the top layer
        bPane.add(bAct, new Integer(2));
@@ -156,7 +164,7 @@ public class BoardLayersListener extends JFrame {
        inputArea.setLineWrap(true);
        inputArea.setWrapStyleWord(true);
        inputArea.setBorder(BorderFactory.createLineBorder(new Color(33,22,5),4));
-       inputArea.setBounds(icon.getIconWidth() + 10, 330, 150, 50 );
+       inputArea.setBounds(icon.getIconWidth() + 10, 350, 150, 50 );
        inputArea.setVisible(false);
        inputArea.addKeyListener(new KeyAdapter() {
        public void keyPressed(KeyEvent e) {
@@ -170,13 +178,13 @@ public class BoardLayersListener extends JFrame {
       });
        bPane.add(inputArea, new Integer(2));
 
-       //Output Arwea
+       //Output Area
        outputArea = new JTextArea();
        outputArea.setEditable(false);
        outputArea.setLineWrap(true);
        outputArea.setWrapStyleWord(true);
        outputArea.setBorder(BorderFactory.createLineBorder(new Color(33,22,5),4));
-       outputArea.setBounds(icon.getIconWidth() + 10, 220, 150, 100);
+       outputArea.setBounds(icon.getIconWidth() + 10, 240, 150, 100);
        outputArea.setVisible(true);
        bPane.add(outputArea, new Integer(2));
 
@@ -192,6 +200,19 @@ public class BoardLayersListener extends JFrame {
        playerDataArea.setBounds(icon.getIconWidth() + 10, 410, 150, 100);
        playerDataArea.setVisible(true);
        bPane.add(playerDataArea, new Integer(2));
+
+       //End Day Screen
+       endDay = new JTextArea();
+       endDay.setEditable(false);
+       endDay.setLineWrap(true);
+       endDay.setWrapStyleWord(true);
+       TitledBorder tb = BorderFactory.createTitledBorder("End Of Day!");
+       Border lb = BorderFactory.createLineBorder(Color.BLACK,8);
+       tb.setTitleFont(new Font("Serif",Font.BOLD,16));
+       endDay.setBorder(BorderFactory.createCompoundBorder(lb,tb));
+       endDay.setBounds(250, 250, 500, 500);
+       endDay.setVisible(false);
+       bPane.add(endDay);
       }
 
    public void flash(JLabel curJ) {
@@ -202,7 +223,7 @@ public class BoardLayersListener extends JFrame {
       timer = new Timer(500, new ActionListener() {
          @Override
          public void actionPerformed(ActionEvent e) {
-            if (Math.abs(curJ.getX() - Xtrack) > 1) {
+            if ((Math.abs(curJ.getX() - Xtrack) > 1) || (Math.abs(curJ.getY() - posTemp) > 5)) {
                Xtrack = curJ.getX();
                posTemp = curJ.getY();
             }
@@ -261,11 +282,11 @@ public class BoardLayersListener extends JFrame {
     im = new ImageIcon(img);
     diceRoll = new JLabel();
     diceRoll.setIcon(im);
-    diceRoll.setBounds(boardlabel.getWidth() + 10, 650, 110, 110);
+    diceRoll.setBounds(boardlabel.getWidth() + 10, 650, 90, 90);
     diceRoll.setOpaque(false);
     bPane.add(diceRoll,new Integer(4));
     diceRoll.setVisible(true);
-    int delay = 20;
+    int delay = 22;
     Random rand = new Random();
     final Timer roll = new Timer(delay,null);
     roll.addActionListener(new ActionListener() {
@@ -273,11 +294,11 @@ public class BoardLayersListener extends JFrame {
       public void actionPerformed(ActionEvent e) {
          int fnum = rand.nextInt(6) + 1;
 
-         if (rollCounter == 20) {
+         if (rollCounter == 19) {
             fnum = faceNum;
-            roll.setDelay(2600);
+            roll.setDelay(4000);
          }
-         if (rollCounter >= 21) {
+         if (rollCounter >= 20) {
             diceRoll.setVisible(false);
             roll.stop();
             rollFlag = false;
@@ -285,7 +306,7 @@ public class BoardLayersListener extends JFrame {
          else {
          ImageIcon i = new ImageIcon("dice/w" + fnum+ ".png");
          Image ig = i.getImage();
-         ig = ig.getScaledInstance(110, 110, Image.SCALE_SMOOTH);
+         ig = ig.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
          i = new ImageIcon(ig);
          diceRoll.setIcon(i);
          rollCounter++;
@@ -305,6 +326,10 @@ public class BoardLayersListener extends JFrame {
          
          if (e.getSource()== bAct){
             controller.act();
+            currentAction = "";
+         }
+         else if(e.getSource() == bEndDay) {
+            controller.endDay();
             currentAction = "";
          }
          else if (e.getSource()== bRehearse){

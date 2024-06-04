@@ -9,6 +9,7 @@ public class Controller {
     HashMap<Object, JLabel> map = new HashMap<Object, JLabel>();
     BoardLayersListener view = new BoardLayersListener(this);
     private String[] colors = {"r","b","c","g","o","p","w","v","y"};
+    private String[] colorNames = {"red", "blue", "cyan", "green", "orange", "pink", "white", "violet", "yellow"};
 
     public Controller(int numPlayers, BoardLayersListener b) {
         g = new Game(numPlayers,this);
@@ -62,6 +63,7 @@ public class Controller {
         view.tborder.setTitle("Player " + (turn+1));
         view.playerDataArea.repaint();
         view.flash(map.get(player));
+        updatePlayerData();;
     }
 
     //position and image update
@@ -140,7 +142,7 @@ public class Controller {
 
     public void upgrade(int rank, String currency) {
         if (player.upgrade(rank, currency)) {
-            view.appendToOutput("Successfullt upgraded to rank " + rank);
+            view.appendToOutput("Successfully upgraded to rank " + rank);
         }
         view.closeText();
     }
@@ -149,12 +151,15 @@ public class Controller {
         view.appendToOutput(s);
     }
     public void updatePlayerData() {
-        PlayerData playerData = player.getPlayerData();
+        int[] pnums = player.getVisibleData();
+        int rank = pnums[0]; int dollars = pnums[1];int credits =pnums[2];
         String data = 
-                      "nRank: " + playerData.getRank() +
-                      "\nDollars: " + playerData.getDollars() 
-                    //   +
-                    //   "\nCredits: " + playerData.getCredits() +
+                      "Rank: " + rank +
+                      "\nDollars: " + dollars +
+                      "\nCredits: " + credits +
+                       "\nColor: " +  colorNames[turn]
+                      
+                    // +
                     //   "\nRehearse Chips: " + playerData.getrehearseChips() +
                     //   "\nRole: " + (playerData.getRole() != null ? playerData.getRole().name : "None") +
                     //   "\nLocation: " + playerData.getplayerSet().getName()
@@ -188,6 +193,14 @@ public class Controller {
         pcer.setVisible(true);
         pcer.setText("+" + c);
         pcer.setBounds(pyer.getX() + 20, pyer.getY() - 5, pcer.getWidth(),pcer.getHeight());
+    }
+    public void endDay() {
+        if(g.endDay()) {
+            view.appendToOutput("New Day");
+        }
+        else {
+            view.appendToOutput("Game Over");
+        }
     }
 }
 

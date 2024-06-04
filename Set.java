@@ -39,10 +39,13 @@ public class Set{
     }
     
     public boolean takeRole(Role r, Player p) {
-        if (wrapped) return false;
+        if (wrapped) {
+            controller.pushText("This scene is wrapped!");
+            return false;
+        }
         //checked if already occupied
         if(r.getPlayer() != null){
-            System.out.println("Already occupied");
+            controller.pushText("This role is occupied");
             return false;
         }
         for (Role rs : this.getRoles()) {
@@ -126,13 +129,12 @@ public class Set{
             return;
         }
         sceneCard = board.getCard();
-        controller.updateIcon(this, "CardBack.jpg");
+        controller.updateIcon(this, "CardBack-small.jpg");
         controller.updateIcon(this, true); // does nothing on first day. After that it makes card visible again
         shotCounter = shotCounterTotal;
         for (ShotCounter c : shots) {
             controller.updateIcon(c, true);
         }
-        //UPDATE SHOT COUNTER IMAGES IN CONTROLLER
         visited = false; // card should be down
         for (Role r : roles) {
             r.reset();
