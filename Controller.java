@@ -62,8 +62,13 @@ public class Controller {
         }
         player.endTurn();
         player = players[turn];
+<<<<<<< HEAD
         view.appendToOutput("Player: " + turn + "'s turn");
         view.tborder.setTitle("Player " + (turn+1)+ " | Day " + g.getDay());
+=======
+        view.appendToOutput("Player: " + (turn+1) + "'s turn");
+        view.tborder.setTitle("Player " + (turn+1));
+>>>>>>> 7120155f0d3f39ae1caef4b7657932978a8cd663
         view.playerDataArea.repaint();
         view.flash(map.get(player));
         updatePlayerData();;
