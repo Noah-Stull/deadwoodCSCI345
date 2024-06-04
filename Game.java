@@ -81,11 +81,7 @@ public class Game {
         for (int i = 0; i < players.length; i++) {
             controller.updateIcon(players[i], sets[sets.length - 1].getCoords(i)[0],sets[sets.length - 1].getCoords(i)[1]);
         }
-        
-
-
     }
-
     
     public boolean endDay() {
         day++;
