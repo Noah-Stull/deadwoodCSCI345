@@ -166,7 +166,6 @@ public class Controller {
                       ;
         view.updatePlayerData(data);
     }
-
     public void act() {
         player.act();
         view.closeText();
@@ -196,12 +195,22 @@ public class Controller {
     }
     public void endDay() {
         if(g.endDay()) {
-            view.appendToOutput("New Day");
+            view.endDay.append("Color                   Rank               Dollars          Credits\n");
+            view.endDay.append(getAllPlayerInfoString());
+            view.next.setVisible(true);
             view.endDay.setVisible(true);
         }
         else {
             view.appendToOutput("Game Over");
         }
+    }
+    private String getAllPlayerInfoString() {
+        String temp = "";
+        for (int i = 0; i < players.length;i++) {
+            int[] data = players[i].getVisibleData();
+            temp = temp + colorNames[i] + "              " + data[0] + "              " + data[1] + "              " + data[2] +"\n";
+        }
+        return temp;
     }
 }
 
