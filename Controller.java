@@ -161,11 +161,6 @@ public class Controller {
                       "\nDollars: " + dollars +
                       "\nCredits: " + credits +
                        "\nColor: " +  colorNames[turn]
-                      
-                    // +
-                    //   "\nRehearse Chips: " + playerData.getrehearseChips() +
-                    //   "\nRole: " + (playerData.getRole() != null ? playerData.getRole().name : "None") +
-                    //   "\nLocation: " + playerData.getplayerSet().getName()
                       ;
         view.updatePlayerData(data);
     }
@@ -175,7 +170,7 @@ public class Controller {
     }
     public void rehearse() {
         if (player.rehearse()) {
-            pushText("You have successfullt rehearsed!");
+            pushText("You have successfully rehearsed!");
         }
     }
     public String getPlayerColor(int pnum) {

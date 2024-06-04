@@ -105,7 +105,6 @@ public class Set{
     }
     //this finishes set
     private void wrapUp() {
-        board.wrapScene();
         rewardAllPlayers();
 
         //removes current roles associated with this set
@@ -121,6 +120,7 @@ public class Set{
         }
         controller.updateIcon(this,false);
         wrapped = true;
+        board.wrapScene();
     }
     //resets and gets new card from Board pointer
     public void reset() {

@@ -49,7 +49,7 @@ public class Board {
     }
     public void wrapScene() {
         wrapCounter--;
-        if(wrapCounter == 0) {
+        if(wrapCounter == 1) {
             controller.endDay();
         }
     }
