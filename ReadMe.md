@@ -1,13 +1,13 @@
 Welcome to Deadwood!
 
 Introduction:
-Deadwood is a text-based role-playing game 
+Deadwood is an online monopoly/life esque role-playing game 
 where players take on the roles of actors working on a movie set. 
 Players can move between different sets, take roles, rehearse, and act to earn money and beat other players.
 
 
 Running and Compiling:
-- Compile StartGame class: javac StartGame.java then type "java StartGame (number of players)" = java StartGame 3
+- Compile through running any class in the 
 
 - You are able to select different options through inputting the shown number next to said option.
 
