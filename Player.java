@@ -13,112 +13,6 @@ public class Player {
         this.hasMoved = false;
     }
 
-    // public void play() {
-    //     Scanner scan = new Scanner(System.in);
-    // boolean keepGoing = true;
-    // while (keepGoing) {
-    //     //Print player info each turn
-    //     System.out.println("\nPlayer Info:");
-    //     System.out.println("Rank: " + playerData.getRank());
-    //     System.out.println("Credits: " + playerData.getCredits());
-    //     System.out.println("Dollars: " + playerData.getDollars());
-    //     System.out.println();
-
-
-    //     String currentSet = playerData.getplayerSet().getName();
-    //     System.out.println("You are currently at: " + currentSet);
-    //     System.out.println("Choose your move...");
-    //     System.out.println("3. Move");
-
-    //     if (currentSet.equalsIgnoreCase("Office")) {
-    //         System.out.println("5. Upgrade");
-    //     } else if (!currentSet.equalsIgnoreCase("Trailer")) {
-    //         System.out.println("1. Act");
-    //         System.out.println("2. Rehearse");
-    //         System.out.println("4. Take Role");
-    //     }
-
-    //     System.out.println("6. End Turn");
-    //     int choice = scan.nextInt();
-
-    //     switch (choice) {
-    //         case 1:
-    //             if (currentSet.equalsIgnoreCase("Office") || currentSet.equalsIgnoreCase("Trailer")) {
-    //                 System.out.println("Invalid Choice. Choose again.");
-    //                 continue;
-    //             }
-    //             if (!act()) {
-    //                 System.out.println("This move did not work");
-    //                 continue;
-    //             } else {
-    //                 endTurn();
-    //                 keepGoing = false;
-    //             }
-    //             break;
-    //         case 2:
-    //             if (currentSet.equalsIgnoreCase("Office") || currentSet.equalsIgnoreCase("Trailer")) {
-    //                 System.out.println("Invalid Choice. Choose again.");
-    //             }
-    //             else if(playerData.getRole() == null) {
-    //                 System.out.println("\nYou must be on a role\n");
-    //             }
-    //             else if (!rehearse()) {
-    //                 System.out.println("This move did not work");
-    //             } else {
-    //                 endTurn();
-    //                 keepGoing = false;
-    //             }
-    //             break;
-    //         case 3:
-    //             if (!move()) {
-    //                 System.out.println("This move did not work");
-    //             } else {
-    //                 System.out.println("You have moved");
-    //             }
-    //             break;
-    //         case 4:
-    //             if (currentSet.equalsIgnoreCase("Office") || currentSet.equalsIgnoreCase("Trailer")) {
-    //                 System.out.println("Invalid Choice. Choose again.");
-    //                 continue;
-    //             }
-    //             System.out.println("Choose a role...");
-    //             Role[] roles = playerData.getplayerSet().getRoles();
-    //             for (int i = 0; i < roles.length; i++) {
-    //                 System.out.println(i + ":  " + roles[i].name + "  " + roles[i].rank + "  " + roles[i].catchPhrase);
-    //             }
-    //             int roleChoice = scan.nextInt();
-    //             if (roleChoice < 0 || roleChoice >= roles.length) {
-    //                 System.out.println("This move did not work");
-    //             } else { //If role was already chosen
-    //                 Role chosenRole = roles[roleChoice];
-    //                 if (!takeRole(chosenRole)) {
-    //                     System.out.println("This move did not work");
-    //                 } else {
-    //                     endTurn();
-    //                     return;
-    //                 }
-    //             }
-    //             break;
-    //         case 5:
-    //             System.out.println("Choose a rank to upgrade to...");
-    //             int rank = scan.nextInt();
-    //             if (!upgrade(rank)) {
-    //                 System.out.println("This move did not work");
-    //             } else {
-    //                 System.out.println("You have upgraded...");
-    //             }
-    //             break;
-    //         case 6:
-    //             endTurn();
-    //             return;
-    //         default:
-    //             System.out.println("Invalid choice. Please choose again.");
-    //     }
-    // }
-        
-
-    // }
-
     //tells the set that is attached to playerData that we are acting
     public boolean act() {
         if (turnOver) {
@@ -354,9 +248,6 @@ public class Player {
     public Role[] getSetRoles() {
         return playerData.getplayerSet().getRoles();
     }
-    // public PlayerData getPlayerData() {
-    //     return playerData;
-    // }
     public int[] getVisibleData() {
         int[] m = {playerData.getRank(),playerData.getDollars(),playerData.getCredits()};
         return m;

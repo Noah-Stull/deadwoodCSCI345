@@ -1,8 +1,5 @@
-
-
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.ParserConfigurationException;
 
 
 import org.w3c.dom.Document;
@@ -42,9 +39,6 @@ public class ParseCard {
         Element a = (Element) e.getElementsByTagName("area").item(0);
         int x = Integer.parseInt(a.getAttribute("x"));
         int y = Integer.parseInt(a.getAttribute("y"));
-        int w = Integer.parseInt(a.getAttribute("w"));
-        int h = Integer.parseInt(a.getAttribute("h"));
-        int [] area = {x,y,w,h};
         return new Role(name, level, line, 1, x,y);
     }
 

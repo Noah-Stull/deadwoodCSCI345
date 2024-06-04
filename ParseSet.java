@@ -1,6 +1,5 @@
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.ParserConfigurationException;
 
 
 import org.w3c.dom.Document;
@@ -55,8 +54,6 @@ public class ParseSet{
      Element a = (Element) e.getElementsByTagName("area").item(0);
      int x = Integer.parseInt(a.getAttribute("x"));
      int y = Integer.parseInt(a.getAttribute("y"));
-     int w = Integer.parseInt(a.getAttribute("w"));
-     int h = Integer.parseInt(a.getAttribute("h"));
      return new Role(name, rank, line, 2, x, y);
    }
 
@@ -79,7 +76,6 @@ public class ParseSet{
    }
 
    public void getNeighbors(Set s, Element e) {
-    List<Element> neighborElements = new ArrayList<>();
      for (int i = 0; i < e.getElementsByTagName("neighbor").getLength();i++) {
         Node n = e.getElementsByTagName("neighbor").item(i);
         if (n.getNodeType() == Node.ELEMENT_NODE) {
@@ -99,7 +95,6 @@ public class ParseSet{
 
           NodeList setList = doc.getElementsByTagName("set");
 
-          HashMap<String,Set> nameMap = new HashMap<String,Set>();
           List<Set> allsets = new ArrayList<>();
           //This for loop will get al data besides neighbors and create the sets(2 special sets not included)===========================//
           for (int i = 0; i < setList.getLength(); i++) {
