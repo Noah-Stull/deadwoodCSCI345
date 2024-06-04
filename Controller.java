@@ -216,7 +216,7 @@ public class Controller {
             view.endDay.setBackground(new Color(234, 235, 195));
             view.endDay.append("Player    Color     Score\n");
             for (Player pp : winners) {
-                view.endDay.append(String.format("%-"+12+"s",pp.getName()) + String.format("%-"+12+"s",(colorNames[Integer.parseInt(pp.getName())-1])) + String.format("%-"+5+"s",pp.getScore()) + "\n");
+                view.endDay.append(String.format("%-"+10+"s",pp.getName()) + String.format("%-"+12+"s",(colorNames[Integer.parseInt(pp.getName())-1])) + String.format("%-"+5+"s",pp.getScore()) + "\n");
             }
             view.backCover.setVisible(true);
             view.endDay.setVisible(true);

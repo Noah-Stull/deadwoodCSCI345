@@ -6,7 +6,7 @@ public class Game {
     private Board board;
     private int day;
     private int totalDays;
-    Controller controller;
+    private Controller controller;
 
     public Game(int numPlayers,Controller c) {
         controller = c;

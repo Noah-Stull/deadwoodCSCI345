@@ -150,7 +150,7 @@ public class BoardLayersListener extends JFrame {
        bEndTurn.setBounds(icon.getIconWidth()+10,180,110, 20);
        bEndTurn.addMouseListener(new boardMouseListener());
 //==================================================================================================
-       bEndDay = new JButton("END DAY");
+       bEndDay = new JButton("END DAY EARLY");
        bEndDay.setBackground(Color.white);
        bEndDay.setBounds(icon.getIconWidth()+10,210,110, 20);
        bEndDay.addMouseListener(new boardMouseListener());
@@ -163,7 +163,7 @@ public class BoardLayersListener extends JFrame {
        next.setVisible(false);
        bPane.add(next,new Integer(7));
 
-       backCover = new JLabel("backGround") {
+       backCover = new JLabel("") {
          @Override
          protected void paintComponent(Graphics g) {
             Graphics2D g2d = (Graphics2D) g.create();
@@ -324,22 +324,24 @@ public class BoardLayersListener extends JFrame {
       public void actionPerformed(ActionEvent e) {
          int fnum = rand.nextInt(6) + 1;
 
-         if (rollCounter == 19) {
+         if (rollCounter == 19 || rollCounter == 20) {
             fnum = faceNum;
-            roll.setDelay(4000);
+            roll.setDelay(2000);
          }
-         if (rollCounter >= 20) {
+
+         if (rollCounter >= 21) {
             diceRoll.setVisible(false);
             roll.stop();
             rollFlag = false;
-         }
-         else {
+         } else {
          ImageIcon i = new ImageIcon("dice/w" + fnum+ ".png");
          Image ig = i.getImage();
          ig = ig.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
          i = new ImageIcon(ig);
          diceRoll.setIcon(i);
          rollCounter++;
+         System.out.println(roll.getDelay());
+         System.out.println(rollCounter);
          roll.setDelay((int)(roll.getDelay()*1.2));
          }
       }
