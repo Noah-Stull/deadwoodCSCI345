@@ -13,10 +13,10 @@ public class Board {
         controller = c;
         ParseCard parser = new ParseCard();
         deck = parser.parse(f);
+        shuffleDeck();
         ParseSet parser1 = new ParseSet();
         sets = parser1.parse(f2,this,controller);
         wrapCounter = 10;
-        shuffleDeck();
     }
     public void resetBoard() {
         for (Set s : sets) {
@@ -31,6 +31,7 @@ public class Board {
         for (int i = 0; i < deck.length; i++) {
             Card temp = deck[i];
             int swapIndex = rand.nextInt(deck.length);
+        System.out.println("Switching card indexes  " + i + " and " + swapIndex);;
             deck[i] = deck[swapIndex];
             deck[swapIndex] = temp;
         }
