@@ -1,3 +1,9 @@
+/*CSCI 345
+ * Deadwood project program.
+ * Written by Noah Stull and Daniel Colthurst
+ * Information found in the readme.md file
+ */
+
 import javax.swing.JOptionPane;
 
 public class Deadwood {
