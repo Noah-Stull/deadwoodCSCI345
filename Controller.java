@@ -99,6 +99,7 @@ public class Controller {
         JLabel j = map.get(o);
         j.setBounds(x,y,j.getWidth(),j.getHeight());
         view.update();
+        
     }
     //update visible or non visible
     public void updateIcon(Object o,boolean vis) {
@@ -215,6 +216,7 @@ public class Controller {
     }
     //Method tied to update of model data. Ends turn of current player inherintly.
     public void endDay() {
+        endTurn();
         if(g.endDay()) {
             view.endDay.append("Player  Color    Rank    Dollars   Credits\n");
             view.endDay.append(getAllPlayerInfoString());
@@ -222,8 +224,6 @@ public class Controller {
             view.next.setVisible(true);
             view.endDay.setVisible(true);
             view.tborder.setTitle(("Player " + (turn+1) + " | Day" + g.getDay()));
-            endTurn();
-            g.endDay();
         }
         else { //This is the end of the game area
             view.endDay.setText(null);
