@@ -44,6 +44,8 @@ public class BoardLayersListener extends JFrame {
   JButton bUpgrade;
   JButton bEndTurn;
 
+  JButton[] destinations;
+
   //for ending the day and game
   JButton bEndDay;
   JTextArea endDay;
@@ -143,20 +145,29 @@ public class BoardLayersListener extends JFrame {
        bTakeRole.addMouseListener(new boardMouseListener());
 
        bUpgrade = new JButton("UPGRADE");
-       bUpgrade.setBackground(Color.white);
+       bUpgrade.setForeground(Color.gray);
        bUpgrade.setBounds(icon.getIconWidth()+10,150,110, 20);
-       bUpgrade.addMouseListener(new boardMouseListener());
 
        bEndTurn = new JButton("END TURN");
        bEndTurn.setBackground(Color.white);
        bEndTurn.setBounds(icon.getIconWidth()+10,180,110, 20);
        bEndTurn.addMouseListener(new boardMouseListener());
-//==================================================================================================
+
        bEndDay = new JButton("END DAY EARLY");
        bEndDay.setBackground(Color.white);
        bEndDay.setBounds(icon.getIconWidth()+10,210,110, 20);
        bEndDay.addMouseListener(new boardMouseListener());
        bPane.add(bEndDay,new Integer(2));
+
+       destinations = new JButton[4];
+       for(int i = 0; i < 4; i++) {
+         destinations[i] = new JButton("");
+         destinations[i].setBackground(Color.white);
+         destinations[i].setBounds(icon.getIconWidth()+10, 30 + (i * 30),110, 20);
+         destinations[i].addMouseListener(new boardMouseListener());
+         destinations[i].setVisible(false);
+         bPane.add(destinations[i], new Integer(2));
+       }
 
        next = new JButton("Continue");
        next.setBackground(Color.darkGray);
@@ -351,6 +362,11 @@ public class BoardLayersListener extends JFrame {
     roll.start();
   }
   
+  public void giveMouseListener(JButton bb) {
+   bb.addMouseListener(new boardMouseListener());
+  }
+
+
   // This class implements Mouse Events
   
   class boardMouseListener implements MouseListener{
@@ -365,6 +381,18 @@ public class BoardLayersListener extends JFrame {
             }
             return;
          }
+         if (e.getSource() == destinations[0]) {
+            controller.moveToNeighborIndex(0);
+         }
+         if (e.getSource() == destinations[1]) {
+            controller.moveToNeighborIndex(1);
+         }
+         if (e.getSource() == destinations[2]) {
+            controller.moveToNeighborIndex(2);
+         }
+         if (e.getSource() == destinations[3]) {
+            controller.moveToNeighborIndex(3);
+         }
          if (e.getSource()== bAct){
             controller.act();
             currentAction = "";
@@ -378,8 +406,15 @@ public class BoardLayersListener extends JFrame {
             currentAction = "";
          }
          else if (e.getSource()== bMove){
-            appendToOutput("Enter your destination in the input box below and press Enter.");
-            inputArea.setVisible(true);
+            appendToOutput("Select your destination");
+            bAct.setVisible(false);
+            bRehearse.setVisible(false);
+            bMove.setVisible(false);
+            bTakeRole.setVisible(false);
+            bUpgrade.setVisible(false);
+            bEndTurn.setVisible(false);
+            bEndDay.setVisible(false);
+            controller.neighborButtons();
             currentAction = "move";
          }
          else if (e.getSource() == bTakeRole){
@@ -407,6 +442,18 @@ public class BoardLayersListener extends JFrame {
       }
    }
 
+   public void resetButtons() {
+      bAct.setVisible(true);
+      bRehearse.setVisible(true);
+      bMove.setVisible(true);
+      bTakeRole.setVisible(true);
+      bUpgrade.setVisible(true);
+      bEndTurn.setVisible(true);
+      bEndDay.setVisible(true);
+      for (JButton jbm : destinations) {
+         jbm.setVisible(false);
+      }
+   }
 
    public void appendToOutput(String text) {
       outputArea.setText(null);

@@ -55,6 +55,10 @@ public class Controller {
     }
 
     public void endTurn() {
+        if (view.bUpgrade.getMouseListeners().length != 0) {
+            view.bUpgrade.removeMouseListener(view.bUpgrade.getMouseListeners()[0]);
+        }
+        view.bUpgrade.setForeground(Color.gray);
         view.stopFlash(map.get(player));
         turn++;
         if (turn >= players.length) {
@@ -67,6 +71,12 @@ public class Controller {
         view.playerDataArea.repaint();
         view.flash(map.get(player));
         updatePlayerData();;
+        
+        if(player.getPlayerSet().getName().equals("office")) {
+            view.giveMouseListener(view.bUpgrade);
+            view.bUpgrade.setForeground(Color.BLACK);
+        }
+        
     }
 
     //position and image update
@@ -104,6 +114,16 @@ public class Controller {
                 if (player.move(neighbor)) {
                     view.appendToOutput("Move successful to " + s);
                     view.closeText();
+                    if (player.getPlayerSet().getName().equals("office")) {
+                        view.giveMouseListener(view.bUpgrade);
+                        view.bUpgrade.setForeground(Color.black);
+                    }
+                    else{
+                        if (view.bUpgrade.getMouseListeners().length != 0) {
+                            view.bUpgrade.removeMouseListener(view.bUpgrade.getMouseListeners()[0]);
+                            view.bUpgrade.setForeground(Color.gray);
+                        }
+                    }
                     return;
                 }
                  else {
@@ -230,6 +250,24 @@ public class Controller {
             temp = temp +String.format("%-"+6+"s",(1+i)+"") + String.format("%-"+11+"s",colorNames[i])  + String.format("%-" + 9+"s", ""+data[0]) +String.format("%-" + 9+"s", ""+data[1]) + String.format("%-" + 10+"s", ""+data[2]) + "\n";
         }
         return temp;
+    }
+
+    public void neighborButtons() {
+        int count = player.getneighbors().length;
+        String[] names = new String[count];
+        for (int i = 0; i < count; i++) {
+            names[i] = player.getneighbors()[i].getName();
+        }
+        JButton[] buttons = view.destinations;
+        for (int i = 0; i < count; i++) {
+            buttons[i].setText(names[i]);
+            buttons[i].setVisible(true);
+        }
+    }
+    public void moveToNeighborIndex(int index) {
+        String s = player.getneighbors()[index].getName();
+        move(s);
+        view.resetButtons();
     }
 }
 

@@ -251,4 +251,7 @@ public class Player {
         int[] m = {playerData.getRank(),playerData.getDollars(),playerData.getCredits()};
         return m;
     }
+    public Set getPlayerSet() {
+        return playerData.getplayerSet();
+    }
 }
