@@ -74,7 +74,7 @@ public class BoardLayersListener extends JFrame {
        // Set the exit option for the JFrame
        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-       setExtendedState(JFrame.MAXIMIZED_BOTH); 
+       setExtendedState(JFrame.MAXIMIZED_BOTH);
        // Create the JLayeredPane to hold the display, cards, dice and buttons
        bPane = getLayeredPane();    
        getContentPane().setBackground(new Color(74, 52, 17)); // This changes the background color
@@ -354,7 +354,6 @@ public class BoardLayersListener extends JFrame {
   // This class implements Mouse Events
   
   class boardMouseListener implements MouseListener{
-      
       // Code for the different button clicks
       public void mouseClicked(MouseEvent e) {
          if (endDay.isVisible()){
@@ -408,6 +407,7 @@ public class BoardLayersListener extends JFrame {
       }
    }
 
+
    public void appendToOutput(String text) {
       outputArea.setText(null);
       outputArea.append(text + "\n");
@@ -440,7 +440,6 @@ public class BoardLayersListener extends JFrame {
    public void closeText() {
       inputArea.setVisible(false);
    }
-
 
    public void updatePlayerData(String data) {
       playerDataArea.setText(data);

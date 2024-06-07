@@ -2,5 +2,7 @@
     "java.project.sourcePaths": [
         "."
     ],
-    "java.project.referencedLibraries": []
+    "java.project.referencedLibraries": [
+        "/Users/noahstull/Downloads/CSCI330A3/mysql-connector-j-8.0.31.jar"
+    ]
 }
