@@ -38,6 +38,7 @@ public class Game {
         } 
         day = 1;
     }
+    //Puts all set components into proper locations by communicating changes to the controller
     public void initializeIcons() {
         for (Set s : board.getSceneSets()) {
             controller.updateIcon(s,"CardBack-small.jpg", s.getX(), s.getY());
@@ -50,7 +51,9 @@ public class Game {
         initializePLayerLocations();
 
     }
+    //starts players at trailer
     public void initializePLayerLocations() {
+        //Set to contain all possible coordinated for up to 8 players so none ever touch. This data is communicated to each set
         Set[] sets = board.getSets();
         int[][] trainStation = {{15,200},{15,247},{15,295},{15,341},{15,390},{160,280},{160,327},{160,380}};
         int[][] secretHideOut = {{255,820},{299,830},{343,820},{387,830},{15,683},{59,683},{103,683},{147,683}};
@@ -64,6 +67,7 @@ public class Game {
         int[][] saloon = {{730,205},{730,249},{774,249},{818,249},{818,340},{818,384},{774,384},{640,384}};
         int[][] office = {{8,515},{8,559},{8,603},{176,495},{176,539},{176,583},{176,627},{8,471}};
         int[][] trailer = {{1100,240},{1050,240},{1144,240},{1144,284},{1150,328},{990,263},{987,340},{987,384}};
+        //Relies on XML file order of sets
         sets[0].positions = trainStation;
         sets[1].positions = secretHideOut;
         sets[2].positions = church;
@@ -80,7 +84,7 @@ public class Game {
             controller.updateIcon(players[i], sets[sets.length - 1].getCoords(i)[0],sets[sets.length - 1].getCoords(i)[1]);
         }
     }
-    
+    //Model end day method used to reset components locations and images
     public boolean endDay() {
         day++;
         if (players.length < 4 && day > 3) {
@@ -98,6 +102,7 @@ public class Game {
             return true;
         }
     }
+    //Method used to calculate the winners at teh end of the game
     public Player[] getWinners() {
         List<Player> winners = new ArrayList<>();
         int highScore = 0;
@@ -111,7 +116,7 @@ public class Game {
         }
         return winners.toArray(new Player[0]);
     }
-
+    
     public Player[] getPlayers() {
         return players;
     }

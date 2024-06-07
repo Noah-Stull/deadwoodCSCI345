@@ -17,7 +17,7 @@ public class Role implements Comparable<Role>{
         player = null;
 
     }
-
+    //public getters and setters
     public boolean isOccupied() {
         if (player == null) return false;
         return true;
@@ -32,26 +32,29 @@ public class Role implements Comparable<Role>{
     public Player getPlayer() {
         return this.player;
     }
-    public void reset() {
-        this.player = null;
-    }
     public int getX() {
         return x;
     }
     public int getY() {
         return y;
+    }    
+    //resets so that no player is on role
+    public void reset() {
+        this.player = null;
     }
+
 
     /*This method is called only for on card roles.
      *      When the card is placed on a set, the position of the role
-     *      must set relative to the set coordinates. This method adds the origin.
+     *      must set relative to the set coordinates. This method adds the origin to the pre existing coordinates.
      */
     public void overridePosition(int xbase, int ybase) {
         this.x += xbase;
         this.y += ybase;
     }
-@Override public int compareTo(Role r) {
-        return r.rank-this.rank;
+    //Allows implementation of comparable and Collections utility usage
+    @Override public int compareTo(Role r) {
+           return r.rank-this.rank;
     }
 }
 

@@ -37,7 +37,7 @@ public class Set{
             this.shots = sh;
         }
     }
-    
+    //Attempts to add a player to a role on this set. Returns false or true for success
     public boolean takeRole(Role r, Player p) {
         if (wrapped) {
             controller.pushText("This scene is wrapped!");
@@ -67,6 +67,7 @@ public class Set{
             wrapUp();
         }
     }
+    //Rewards all the players on the card. These values are obtained from dice class.
     private void rewardOnCard() {
         int[] rolls = new int[sceneCard.budget];
         Role[] cardRoles = sceneCard.roles;
@@ -83,6 +84,7 @@ public class Set{
         }
 
     }
+    //Rewards all players on off card roles
     private void rewardOffCard() {
         for (Role r : roles) {
             if (r.getPlayer() == null) continue;
@@ -102,7 +104,7 @@ public class Set{
         rewardOnCard();
         rewardOffCard();
     }
-    //this finishes set
+    //this finishes set. This is communicated to Board.
     private void wrapUp() {
         rewardAllPlayers();
 
@@ -139,6 +141,7 @@ public class Set{
             r.reset();
         }
     }
+    //getters/setters
     public Card getCard() {
         return sceneCard;
     }

@@ -14,20 +14,24 @@ public class Player {
 
     //tells the set that is attached to playerData that we are acting
     public boolean act() {
+        //dont act if turn has already been taked
         if (turnOver) {
             controller.pushText("You have no more moves this turn");
             return false;
         }
+        //does not act if not on a role
         if (playerData.getRole() == null) {
             controller.pushText("You must be on a role to act");
             return false;
         }
+        //rolls a dice and makes tells controller to make the visual
         Dice diceRoll = new Dice();
         int rollNum = diceRoll.rollDice();
         controller.rollDice(rollNum); // this will display visual result
         int rehearseChips = playerData.getrehearseChips();
         int roleType = playerData.getRole().getroleType();
-        controller.pushText("You rolled a: " + rollNum + "and have a " + rehearseChips + " bonus!"); // THis can be moved to controller to be in view text field
+        controller.pushText("You rolled a: " + rollNum + "and have a " + rehearseChips + " bonus!");
+        //check if successful
         if(rollNum + rehearseChips >= playerData.getplayerSet().getCard().budget) {
             controller.pushText("Success!");
             if(roleType == 1) {
@@ -41,6 +45,7 @@ public class Player {
             controller.updatePlayerData();
             return true;
         } 
+        //reward off card
         else  if (roleType == 2) {
             playerData.addDollars(1);
             controller.pushText("Failure! off-card reward given...");
@@ -55,20 +60,23 @@ public class Player {
             return true;
         }
     }
-
+    //Rehearse method. No gamestates assumed prior to call.
     public boolean rehearse() {
+        //No moves left
         if (turnOver) {
             controller.pushText("You have no more moves this turn");
             return false;
         }
+        //checks if not on a role
         if (playerData.getRole() == null) {
             controller.pushText("Not on a role");
             return false;
         }
+        //cannot make useless rehearsals
         if(playerData.getrehearseChips() == playerData.getplayerSet().getCard().budget - 1) {
             controller.pushText("You have guaranteed success! Try acting!");
             return false;
-        } else {
+        } else { //Successful case
             playerData.addRehearseChips(1);
             turnOver = true;
             controller.updatePlayerData();
@@ -76,20 +84,23 @@ public class Player {
             return true;
         }
     }
-
+    //Player move method
     public boolean move(Set target) {
         if (turnOver) {
             controller.pushText("You have no more moves this turn");
             return false;
         }
+        //can only move once
         if(hasMoved) {
             controller.pushText("You have already moved in this turn.");
             return false;
         }
+        //must not be on a role
         if (playerData.getRole() != null) {
             controller.pushText("You are acting on a role!!");
             return false;
         }
+        //must be next to target set
         if (!Arrays.asList(getneighbors()).contains(target)) {
             controller.pushText("This is not a valid move");
             return false;
@@ -105,31 +116,37 @@ public class Player {
         return true;
 
     }
+    //returns neighbors. Implemented for purpose of allowing Buttons to be used for moving
     public Set[] getneighbors() {
         return this.playerData.getplayerSet().getNeighborSets();
     }
-    
+    //Role methjod for player. No preconditions assumed.
     public boolean takeRole(Role r) {
         if (turnOver) {
             controller.pushText("You have no more moves this turn");
             return false;
         }
+        //Cannot take roles on special sets
         if (playerData.getplayerSet().getName().equalsIgnoreCase("office") || playerData.getplayerSet().getName().equalsIgnoreCase("trailer")) {
             controller.pushText("Cannot take role on this set");
             return false;
         }
+        //Cannot take roles on sets that have wrapped up
         if (playerData.getplayerSet().isWrapped()) {
             controller.pushText("The set is already wrapped");
             return false;
         }
+        //checks if players rank is high enough
         if (playerData.getRank() < r.rank) {
             controller.pushText("Level too low");
             return false;
         }
+        //Checks if player is not already on a role
         if (playerData.getRole() != null) {
             controller.pushText("Already on role");
             return false;
         }
+        //Asks set to give role to player
         if (!playerData.getplayerSet().takeRole(r,this)) {
             return false;
         }//attempts and returns boolean
@@ -141,18 +158,19 @@ public class Player {
         return true;
     }
 
+    //Player upgrade method.
     public boolean upgrade(int rank, String currency) {
         if (turnOver) {
             controller.pushText("You have no more moves this turn");
             return false;
         }
-        //Check if player is in casting office
+        //Check if player is in casting office : redundant, left in for safety
         Set currentSet = playerData.getplayerSet();
         if(!currentSet.getName().equalsIgnoreCase("Office")) {
             controller.pushText("You can only upgrade in the Casting Office.");
             return false;
         }
-
+        //Checks for allowed rank range
         if (rank <= playerData.getRank() || rank > 6) {
             controller.pushText("Invalid Rank selected.");
             return false;
@@ -207,12 +225,13 @@ public class Player {
         controller.updatePlayerData();
         controller.addCounter(this, 0);
     }
-
+    //called to reset midturn players states
     public void endTurn() {
         hasMoved = false;
         turnOver = false;
         controller.updatePlayerData();
     }
+    //data updaters
     public void addDollars(int a) {
         playerData.addDollars(a);
         controller.updatePlayerData();

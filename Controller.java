@@ -7,11 +7,11 @@ public class Controller {
     Game g;
     Player[] players;
     Player player; //current players turn
-    private int turn = 0;
-    HashMap<Object, JLabel> map = new HashMap<Object, JLabel>();
-    BoardLayersListener view = new BoardLayersListener(this);
-    private String[] colors = {"r","b","c","g","o","p","w","v","y"};
-    private String[] colorNames = {"red", "blue", "cyan", "green", "orange", "pink", "white", "violet", "yellow"};
+    private int turn = 0; // keeps track of turn index of player list
+    HashMap<Object, JLabel> map = new HashMap<Object, JLabel>(); // maps all objects to their intended view componened
+    BoardLayersListener view; // view component
+    private String[] colors = {"r","b","c","g","o","p","w","v","y"}; //Used for file color handling
+    private String[] colorNames = {"red", "blue", "cyan", "green", "orange", "pink", "white", "violet", "yellow"}; //Color in order as they appear
 
     public Controller(int numPlayers, BoardLayersListener b) {
         g = new Game(numPlayers,this);
@@ -53,7 +53,7 @@ public class Controller {
         updatePlayerData();
         view.backCover.setVisible(false);
     }
-
+    //This method used and tasked with all end of turn and start of turn functionality after the first turn
     public void endTurn() {
         if (view.bUpgrade.getMouseListeners().length != 0) {
             view.bUpgrade.removeMouseListener(view.bUpgrade.getMouseListeners()[0]);
@@ -105,8 +105,7 @@ public class Controller {
         map.get(o).setVisible(vis);
     }
 
-    //visual must ask for a string input field representing target location which will be fed into this method
-    //  this method will find the cooresponding set via linear search
+    //  this method will find the cooresponding set via linear search(of neighbors)
     public void move(String s) {
         for (Set neighbor : player.getneighbors()) {
             if (neighbor.getName().equalsIgnoreCase(s)) {
@@ -136,8 +135,7 @@ public class Controller {
         view.appendToOutput("Target location not found, try fixing spelling.");
     }
 
-    //This needs an int referring to the intended roles position in role list
-    //  A window must pop up in the view to inform players of 
+    //This needs a string referring to the intended roles name
     public void takeRole(String roleName) {
         Role[] allRoles = player.getSetRoles();
         if (allRoles == null) {
@@ -162,17 +160,18 @@ public class Controller {
         view.appendToOutput("There is no role with that name!");
         view.closeText();
     }
-
+    //Upgrades player conditionally
     public void upgrade(int rank, String currency) {
         if (player.upgrade(rank, currency)) {
             view.appendToOutput("Successfully upgraded to rank " + rank);
         }
         view.closeText();
     }
-
+    //Appends text to output box in GUI
     public void pushText(String s) {
         view.appendToOutput(s);
     }
+    //Changes the player data text box from class owned player field
     public void updatePlayerData() {
         int[] pnums = player.getVisibleData();
         int rank = pnums[0]; int dollars = pnums[1];int credits =pnums[2];
@@ -184,10 +183,12 @@ public class Controller {
                       ;
         view.updatePlayerData(data);
     }
+    //method calls act from player
     public void act() {
         player.act();
         view.closeText();
     }
+    //Calls rehearse from player
     public void rehearse() {
         if (player.rehearse()) {
             pushText("You have successfully rehearsed!");
@@ -200,6 +201,7 @@ public class Controller {
     public void rollDice(int val) {
         view.diceRoll(val);
     }
+    //updates the practiceCounter of a given player
     public void addCounter(Player p, int c) {
         JLabel pyer = map.get(p);
         JLabel pcer = map.get(pyer);
@@ -211,6 +213,7 @@ public class Controller {
         pcer.setText("+" + c);
         pcer.setBounds(pyer.getX() + 20, pyer.getY() - 5, pcer.getWidth(),pcer.getHeight());
     }
+    //Method tied to update of model data. Ends turn of current player inherintly.
     public void endDay() {
         if(g.endDay()) {
             view.endDay.append("Player  Color    Rank    Dollars   Credits\n");
@@ -243,6 +246,7 @@ public class Controller {
             
         }
     }
+    //method used to get string of all players needed info
     private String getAllPlayerInfoString() {
         String temp = "";
         for (int i = 0; i < players.length;i++) {
@@ -251,7 +255,7 @@ public class Controller {
         }
         return temp;
     }
-
+    //Called when gamestate changes to moving
     public void neighborButtons() {
         int count = player.getneighbors().length;
         String[] names = new String[count];
@@ -264,6 +268,7 @@ public class Controller {
             buttons[i].setVisible(true);
         }
     }
+    //Method used to associate Button index pressed with desired neighbor set.
     public void moveToNeighborIndex(int index) {
         String s = player.getneighbors()[index].getName();
         move(s);

@@ -16,12 +16,14 @@ public class Card {
         this.budget = budget;
         this.img = "cards/" + img;
     }
+    //checks if players on owned roles
     public boolean hasPlayers() {
         for (Role r : roles) {
             if(!(r.getPlayer() == null)) return true;
         }
         return false;
     }
+    //returns players on owned roles
     public Player[] getPlayers() {
         ArrayList<Player> arr = new ArrayList<Player>();
         for (Role r : roles) {

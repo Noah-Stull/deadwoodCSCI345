@@ -16,8 +16,10 @@ public class Board {
         shuffleDeck();
         ParseSet parser1 = new ParseSet();
         sets = parser1.parse(f2,this,controller);
+        //start wrapCounter at max scene sets
         wrapCounter = 10;
     }
+    //Resest all owned sets and wrap counter
     public void resetBoard() {
         for (Set s : sets) {
             s.reset();
@@ -25,17 +27,17 @@ public class Board {
         wrapCounter = 10;
     }
 
-    //shuffles array of cads
+    //shuffles array of cards
     private void shuffleDeck() {
         Random rand = new Random();
         for (int i = 0; i < deck.length; i++) {
             Card temp = deck[i];
             int swapIndex = rand.nextInt(deck.length);
-        System.out.println("Switching card indexes  " + i + " and " + swapIndex);;
             deck[i] = deck[swapIndex];
             deck[swapIndex] = temp;
         }
     }
+    //returns a card and iterates through deck
     public Card getCard() {
         deckIndex++;
         if (deckIndex >= deck.length) {
@@ -47,12 +49,14 @@ public class Board {
     public boolean moreScenes() {
         return !(sets.length - 1 <= wrapCounter);
     }
+    //Called each time a scene wraps by the scene
     public void wrapScene() {
         wrapCounter--;
         if(wrapCounter == 1) {
             controller.endDay();
         }
     }
+    //gets all sets
     public Set[] getSets() {
         return sets;
     }

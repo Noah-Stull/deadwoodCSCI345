@@ -5,6 +5,8 @@
    This file shows how to create a simple GUI using Java Swing and Awt Library
    Classes Used: JFrame, JLabel, JButton, JLayeredPane
 
+   We use this as the "View" componenet.
+
 */
 
 import java.awt.*;
@@ -43,7 +45,6 @@ public class BoardLayersListener extends JFrame {
   JButton bTakeRole;
   JButton bUpgrade;
   JButton bEndTurn;
-
   JButton[] destinations;
 
   //for ending the day and game
@@ -62,7 +63,7 @@ public class BoardLayersListener extends JFrame {
  
   //For the player data 
   TitledBorder tborder;
-
+  //Flag for extracting text inputs
   String currentAction = "";
 
   
@@ -159,6 +160,7 @@ public class BoardLayersListener extends JFrame {
        bEndDay.addMouseListener(new boardMouseListener());
        bPane.add(bEndDay,new Integer(2));
 
+       //Move option buttons(initialized unnamed)
        destinations = new JButton[4];
        for(int i = 0; i < 4; i++) {
          destinations[i] = new JButton("");
@@ -353,8 +355,6 @@ public class BoardLayersListener extends JFrame {
          i = new ImageIcon(ig);
          diceRoll.setIcon(i);
          rollCounter++;
-         System.out.println(roll.getDelay());
-         System.out.println(rollCounter);
          roll.setDelay((int)(roll.getDelay()*1.2));
          }
       }
@@ -372,6 +372,7 @@ public class BoardLayersListener extends JFrame {
   class boardMouseListener implements MouseListener{
       // Code for the different button clicks
       public void mouseClicked(MouseEvent e) {
+         //Sections to render buttons disabled when end day menu is visible.
          if (endDay.isVisible()){
             if (e.getSource()==next) {
                endDay.setVisible(false);
@@ -384,10 +385,10 @@ public class BoardLayersListener extends JFrame {
          if (e.getSource() == destinations[0]) {
             controller.moveToNeighborIndex(0);
          }
-         if (e.getSource() == destinations[1]) {
+         else if (e.getSource() == destinations[1]) {
             controller.moveToNeighborIndex(1);
          }
-         if (e.getSource() == destinations[2]) {
+         else if (e.getSource() == destinations[2]) {
             controller.moveToNeighborIndex(2);
          }
          if (e.getSource() == destinations[3]) {
@@ -407,6 +408,7 @@ public class BoardLayersListener extends JFrame {
          }
          else if (e.getSource()== bMove){
             appendToOutput("Select your destination");
+            //removes old buttons to allow move buttons to popup
             bAct.setVisible(false);
             bRehearse.setVisible(false);
             bMove.setVisible(false);
@@ -442,6 +444,7 @@ public class BoardLayersListener extends JFrame {
       }
    }
 
+   //called to exit from moving state
    public void resetButtons() {
       bAct.setVisible(true);
       bRehearse.setVisible(true);
@@ -454,19 +457,17 @@ public class BoardLayersListener extends JFrame {
          jbm.setVisible(false);
       }
    }
-
+   //puts text in text output area
    public void appendToOutput(String text) {
       outputArea.setText(null);
       outputArea.append(text + "\n");
       outputArea.setCaretPosition(outputArea.getDocument().getLength()); // Auto-scroll to the bottom
    }
  
+   //Used to handle the text input listened inputs
    public void processInput(String input) {
       appendToOutput("Input received: " + input);
-      if (currentAction.equalsIgnoreCase("move")) {
-         appendToOutput("moving initiated");
-            controller.move(input);
-      } else if (currentAction.equalsIgnoreCase("takeRole")) {
+      if (currentAction.equalsIgnoreCase("takeRole")) {
           controller.takeRole(input);
       } else if (currentAction.equalsIgnoreCase("upgrade")) {
          String[] parts = input.split(" ");
@@ -484,10 +485,11 @@ public class BoardLayersListener extends JFrame {
      }
       currentAction = "";
    }
+   //closes input area
    public void closeText() {
       inputArea.setVisible(false);
    }
-
+   //used to change playerData field
    public void updatePlayerData(String data) {
       playerDataArea.setText(data);
    }
@@ -496,18 +498,4 @@ public class BoardLayersListener extends JFrame {
       bPane.repaint();
       super.repaint();
    }
-  public static void main(String[] args) {
-  
-    BoardLayersListener board = new BoardLayersListener(null);
-    board.setVisible(true);
-    
-    // Take input from the user about number of players
-    int players;
-    while(true) {
-      players = Integer.parseInt(JOptionPane.showInputDialog(board, "How many players?")); 
-      if (players > 1 && players < 9) break;
-    }
-    board.makePlayers(players);
-    board.controller = new Controller(players,board);
-  }
 }
