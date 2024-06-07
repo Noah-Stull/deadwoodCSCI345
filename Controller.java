@@ -223,6 +223,7 @@ public class Controller {
             view.endDay.setVisible(true);
             view.tborder.setTitle(("Player " + (turn+1) + " | Day" + g.getDay()));
             endTurn();
+            g.endDay();
         }
         else { //This is the end of the game area
             view.endDay.setText(null);
